@@ -1,4 +1,4 @@
-class treasure():
+class treasure():                                                   #Just a shell not tested
     def __innit__(self,ID,found= True):
         self.ID=ID
         self.found= found
