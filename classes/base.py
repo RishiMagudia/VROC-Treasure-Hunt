@@ -1,4 +1,4 @@
-class Item:
+class Base:
 
     sef.items = []
     
