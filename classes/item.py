@@ -27,7 +27,7 @@ class Item:
     #size of object
     def getSize(self):
         return self.size
-    def setSoze(self, size):
+    def setSize(self, size):
         self.size = size
 
     #image of object
@@ -62,5 +62,3 @@ class Item:
     def delItem(self, ID):
         if ID in self.items:
             self.items.remove(ID)
-        
-        
