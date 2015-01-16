@@ -25,10 +25,7 @@ class Map():
         # using bubble sorting to priotitize image printing order
         self.img_name = img_name
         for i in range(len(img_name)/2,0,-1):
-            print "i %i"% i
             for m in range(0,i+2,2):
-                print "m %i"% + m
-                print img_name
                 if img_name[m] > img_name[m+2]:
                     temp_name = img_name[m+1]
                     temp_value = img_name[m]
