@@ -1,8 +1,10 @@
-class Base:
+class Base(object):
 
-    sef.items = []
+    #keep a list of objects
+    global items
+    items = []
     
-    def __init__(self, name, size, pos, col, img, stat):
+    def __init__(self, name, size, pos, stat, col = None, img = None):
         self.name = name
         self.size = size
         self.position = pos
@@ -13,7 +15,7 @@ class Base:
         #create id for object for retrieval
         self.id = 0
         #add it to a retrievable list
-        self.items.append(self.id)
+        items.append(self.id)
         
     #getters and setters / handlers
     #setters might need changing for PyGame implementation
@@ -57,8 +59,8 @@ class Base:
         return self.items
     #clear the list of items
     def clearItems(self):
-         self.items = []
+         items = []
     #delete a specific object
     def delItem(self, ID):
         if ID in self.items:
-            self.items.remove(ID)
+            items.remove(ID)
