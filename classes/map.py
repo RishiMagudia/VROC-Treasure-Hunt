@@ -2,6 +2,7 @@ import pygame
 from pygame import *
 class Base:
     def __init__(self):
+        # just for testing if the sort function works
         pirate = ("pirate", (100,200), 4)
         background = ("sea", (0,0), 1)
         treasure = ("treasure", (200,250), 3)
@@ -28,7 +29,6 @@ class Map:
         # unpackage all packages and store priority in a list
         for n in self.base.img_list:
             pList.append(n[2])
-        print self.base.img_list
         # sort out the packages by priority
         for i in range(len(pList)-1,0,-1):
             for m in range(0,i,1):
@@ -40,5 +40,21 @@ class Map:
                     pList[m+1] = pList[m]
                     pList[m] = pholder
         self.drawMap()
+    def priority2(self):
+        # using a different method for sorting
+        pList = []
+        # unpackage all packages and store priority in a list
+        for n in self.base.img_list:
+            pList.append(n[2])
+        pList = sorted(pList)
+        # sort out the packages by priority
+        sList = []
+        for i in range(len(pList)):
+            for m in self.base.img_list:
+                if m[2] == pList[m]:
+                    sList[m] = self.base.img_list[m]
+        print sList
+        self.drawMap()
+
 
 Map()
