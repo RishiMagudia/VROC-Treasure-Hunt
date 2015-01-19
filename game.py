@@ -1,4 +1,5 @@
 import pygame
+#possible use for getting images, and exiting the interface
 import os, sys
 
 class Game:
