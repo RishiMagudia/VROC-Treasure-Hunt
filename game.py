@@ -45,6 +45,33 @@ class Game:
             handle the gameplay
         """
 
+    def playIntro(self):
+        """
+            play intro animation at start
+        """
+        img = pygame.image.load("piraterishi.png")
+        x = 400
+        y = 200
+        s = 5
+
+        while 1:
+            x -= s
+            y -= s
+            #get pygame events
+            for event in pygame.event.get():
+                #stop running if the window is closed
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    break
+                #stop running if esc key pressed
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        break
+            #update the screen
+            self.screen.blit(img, (x,y))
+            pygame.display.flip()
+
     def loop(self):
         """
             infinite loop to keep the images updating and moving
@@ -67,4 +94,5 @@ class Game:
 
 if __name__ == "__main__":
     window = Game()
+    window.playIntro()
     window.loop()
