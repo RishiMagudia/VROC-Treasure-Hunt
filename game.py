@@ -29,11 +29,26 @@ class Game:
         #use and import other classes to create the game
         # e.g. use of map generation and items placement
 
+    def setup(self):
+        """
+            set up the game using team methods
+            generate map, place items, randomise variables
+        """
+
+    def drawUI(self):
+        """
+            set up the UI
+        """
+
+    def playHandle(self):
+        """
+            handle the gameplay
+        """
+
     def loop(self):
         """
             infinite loop to keep the images updating and moving
         """
-        
         while 1:
             #get pygame events
             for event in pygame.event.get():
