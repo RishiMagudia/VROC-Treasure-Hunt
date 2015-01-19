@@ -13,13 +13,12 @@ class Map:
     def __init__(self):
         # starting off the class
         self.base = Base()
-        self.priority()
+        self.priority2()
     def drawMap(self):
         #drawing the map
-        print self.base.img_list
         running = True
         while running == True:
-            for i in self.base.img_list:
+            for i in self.base.sList:
                 name, coordiantes, priority = i
                 for i in range(len(self.base.img_list),0,1):
                     screen.blit(name,(coordinates))
@@ -29,7 +28,7 @@ class Map:
         # unpackage all packages and store priority in a list
         for n in self.base.img_list:
             pList.append(n[2])
-        # sort out the packages by priority
+        # sort out the packages by priority using bubble sort
         for i in range(len(pList)-1,0,-1):
             for m in range(0,i,1):
                 if pList[m] > pList[m+1]:
@@ -39,22 +38,25 @@ class Map:
                     pholder = pList[m+1]
                     pList[m+1] = pList[m]
                     pList[m] = pholder
-        self.drawMap()
+        #self.drawMap()
     def priority2(self):
         # using a different method for sorting
         pList = []
         # unpackage all packages and store priority in a list
         for n in self.base.img_list:
             pList.append(n[2])
+        # sort the created list
         pList = sorted(pList)
-        # sort out the packages by priority
+        # create a new list to store the package into but in a sorted manner
         sList = []
+        # compare the priority to the unsorted list and if prioritys mach
+        # add the package into the new sorted list
         for i in range(len(pList)):
             for m in self.base.img_list:
-                if m[2] == pList[m]:
-                    sList[m] = self.base.img_list[m]
+                if m[2] == pList[i] and m not in sList:
+                    sList.append(m)
         print sList
-        self.drawMap()
+        #self.drawMap()
 
 
 Map()
