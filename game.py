@@ -6,12 +6,17 @@ class Game:
     """
         Main class to start the game.
     """
-    
-    def __init__(self, width=1280, height=720, colour = (255, 255, 255)):
+
+    #temp col, wall holder    
+    def __init__(self, width=1280, height=720, wallpaper = None, colour = (255, 255, 255)):
         """
             initialise the game
         """
         pygame.init()
+
+        #set the frame
+        global FPS
+        FPS = 60
         
         #set the resolution of the window
         self.width = width
@@ -49,15 +54,17 @@ class Game:
         """
             play intro animation at start
         """
-        img = pygame.image.load("piraterishi.png")
-        x = 400
-        y = 200
+        img = pygame.image.load("images/pirate.png")
+        text = pygame.image.load("images/text.png")
+        wall = pygame.image.load("images/wall.jpg")
+        x = 600
+        y = 600
         s = 5
 
-        while 1:
-            x -= s
+        while True:
             y -= s
             #get pygame events
+            self.screen.blit(wall, (0,0))
             for event in pygame.event.get():
                 #stop running if the window is closed
                 if event.type == pygame.QUIT:
@@ -68,9 +75,15 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
+
+            if y == 100:
+                pygame.time.delay(3000)
+                break
             #update the screen
+            self.screen.blit(text, (0,0))
             self.screen.blit(img, (x,y))
-            pygame.display.flip()
+            pygame.display.update()
+            pygame.time.Clock().tick(FPS)
 
     def loop(self):
         """
