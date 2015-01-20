@@ -4,7 +4,7 @@ class Base(object):
     global items
     items = []
     
-    def __init__(self, name, size, pos, stat, col = None, img = None):
+    def __init__(self, name = None, size = None, pos = None, stat = None, col = None, img = None):
         self.name = name
         self.size = size
         self.position = pos
