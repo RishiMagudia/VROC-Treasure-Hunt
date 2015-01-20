@@ -56,11 +56,11 @@ class Base(object):
 
     #display list of items
     def getItems(self):
-        return self.items
+        return items
     #clear the list of items
     def clearItems(self):
          items = []
     #delete a specific object
     def delItem(self, ID):
-        if ID in self.items:
+        if ID in items:
             items.remove(ID)
