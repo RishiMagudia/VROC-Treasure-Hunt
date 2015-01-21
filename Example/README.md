@@ -1,0 +1,1 @@
+This folder contains examples that the team could use to develop their classes.

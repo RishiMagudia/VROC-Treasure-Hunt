@@ -57,6 +57,7 @@ class Game:
         img = pygame.image.load("images/pirate.png")
         text = pygame.image.load("images/text.png")
         wall = pygame.image.load("images/wall.jpg")
+        wall = pygame.transform.scale(wall, (self.width, self.height))
         x = 600
         y = 600
         s = 5
@@ -75,16 +76,16 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
-
             if y == 100:
                 pygame.time.delay(3000)
                 break
-            #update the screen
+            #update the screen and images
             self.screen.blit(text, (0,0))
             self.screen.blit(img, (x,y))
             pygame.display.update()
+            
             pygame.time.Clock().tick(FPS)
-
+            
     def loop(self):
         """
             infinite loop to keep the images updating and moving
@@ -101,7 +102,7 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
-            #update the screen
+            #update the screen and images
             self.screen.blit(self.background, (0,0))
             pygame.display.flip()
 
