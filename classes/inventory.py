@@ -1,13 +1,17 @@
 class Inventory:
 
     def __init__(self):
-        print "test"
+        self.treasures = []
+        self.score = 0
 
-    def getScore(self):
-        print "test"
+    def addTreasure(self,treasure):
+        self.itemList.append(treasure)
+
+    def addScore(self,score):
+        self.score += score
         
-    def getTrsr(self):
-        print "test"
-
     def dispTrsr(self):
-        print "test"
+        return self.treasure
+
+    def dispScore(self):
+        return self.score
