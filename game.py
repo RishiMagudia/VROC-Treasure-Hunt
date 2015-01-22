@@ -2,6 +2,8 @@ import pygame
 #possible use for getting images, and exiting the interface
 import os, sys
 
+import classes
+
 class Game:
     """
         Main class to start the game.
@@ -14,7 +16,7 @@ class Game:
         """
         pygame.init()
 
-        #set the frame
+        #set the frames
         global FPS
         FPS = 60
         
@@ -31,18 +33,22 @@ class Game:
         self.background = self.background.convert()
         self.background.fill(colour)
 
-        #use and import other classes to create the game
-        # e.g. use of map generation and items placement
+        #assign the classes
+        self.map = classes.Map()
+        self.inventory = classes.Inventory()
+        self.pirate = classes.Robot()
+        self.treasure = classes.Treasure()
+        self.landmark = classes.Tandmark()
+
+        #set up each of the classes with default attributes
+        #?pass them on to the setup function
+        #proceed to the loop
 
     def setup(self):
         """
             set up the game using team methods
             generate map, place items, randomise variables
-        """
-
-    def drawUI(self):
-        """
-            set up the UI
+            draw ui
         """
 
     def playHandle(self):
@@ -53,6 +59,7 @@ class Game:
     def playIntro(self):
         """
             play intro animation at start
+            !needs enhancement
         """
         img = pygame.image.load("images/pirate.png")
         text = pygame.image.load("images/text.png")
@@ -83,7 +90,6 @@ class Game:
             self.screen.blit(text, (0,0))
             self.screen.blit(img, (x,y))
             pygame.display.update()
-            
             pygame.time.Clock().tick(FPS)
             
     def loop(self):
@@ -91,8 +97,9 @@ class Game:
             infinite loop to keep the images updating and moving
         """
         while 1:
-            #get pygame events
+            #get pygame events and do something
             for event in pygame.event.get():
+                
                 #stop running if the window is closed
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -102,9 +109,11 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
-            #update the screen and images
+                    
+            #update the screen and images /temp, to be used in playHandle
             self.screen.blit(self.background, (0,0))
             pygame.display.flip()
+            pygame.time.Clock().tick(FPS)
 
 if __name__ == "__main__":
     window = Game()

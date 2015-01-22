@@ -5,6 +5,10 @@ class Base(object):
     items = []
     
     def __init__(self, name = None, size = None, pos = None, stat = None, col = None, img = None):
+        """
+            initialise the class with optional values, can be added later
+            Core/Base class for the objects that are used in the projects
+        """
         self.name = name
         self.size = size
         self.position = pos
