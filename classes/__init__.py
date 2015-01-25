@@ -1,8 +1,8 @@
 __all__ = ["Map", "landmark", "inventory", "treasure", "robot", "base"]
 
-from Map import Map
+from map import Map
 from landmark import Landmark
 from inventory import Inventory
-from treasure import treasure
+from treasure import Treasure
 from robot import robot
 from base import Base
