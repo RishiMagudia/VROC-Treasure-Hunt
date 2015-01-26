@@ -1,13 +1,13 @@
-import base from Base
+from base import Base
 import pygame
 
 # Initialize attributes for Landmark.
 
 class Landmark(Base):
     
-    def __init__(self, name, size, pos, img, stat, desc):
+    def __init__(self, name = None, size = None, pos = None, img = None, stat = None, desc = None):
         Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base.
-        self.decs = description
+        self.desc = desc
         self.name = name
         self.size = size
         self.position = pos
