@@ -60,6 +60,11 @@ class Game:
         """
         self.pathfind = self.AStar
         self.testPirate = self.pirate
+        
+        self.testPirate.setImage("images/pirate.png")
+        self.testPirate.setSize(1)
+        self.testPirate.setPosition((0,0))
+        
 
         #generating obstacles
         while len(self.land) < 64:
@@ -181,7 +186,10 @@ class Game:
 
             for xL, yL in self.land:
                 pygame.draw.rect(self.screen,(0,0,0),(40*xL,40*yL,40,40),3)
-
+            
+            #blit the pirates to the screen using base functions
+            self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
+            
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
