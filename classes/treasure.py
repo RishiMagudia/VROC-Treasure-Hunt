@@ -60,7 +60,7 @@ class Treasure():
     def ShowingMessage(self):
         setDisplay.fill(white)
 
-        img = pygame.image.load('Rare_Treasure_Chest.png')
+        img = pygame.image.load('treasure chest.png')
         FPS = 30
         imgx = 400
         imgy = 200
