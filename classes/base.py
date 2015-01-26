@@ -37,7 +37,7 @@ class Base(object):
 
     #size of object
     def getSize(self):
-        self.size
+        return self.size
     def setSize(self, size):
         #auto converts to grid system
         self.size = size*40
