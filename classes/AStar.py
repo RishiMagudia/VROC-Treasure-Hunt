@@ -1,4 +1,5 @@
 import heapq
+import pygame
 
 class node(object):
     def __init__(self, x, y, traversable):
@@ -22,15 +23,14 @@ class AStar(object):
         heapq.heapify(self.opened)
         self.closed = set()
         self.nodes = []
-        self.grid_height = 8
-        self.grid_width = 15
-        self.end_point = []
+        self.grid_height = 18 
+        self.grid_width = 32 
+        self.end_point = [4,2] #placeholder
 
     def init_grid(self):
         walls = \
             (
-            (1,2),(1,3),(2,2),(2,3),(2,6),(2,7),(3,6),(3,7),(4,1),(4,2),(4,6),(4,7),(5,1),(5,2),(6,1),(6,2),(6,4),(6,5),(7,4),(7,5),
-            (9,2),(9,3),(9,6),(9,7),(10,2),(10,3),(10,6),(10,7),(12,1),(12,2),(12,3),(12,4),(12,5),(12,6),(13,1),(13,2),(13,3),(13,4),(13,5),(13,6)
+            (0,0)
             )
         for x in range(self.grid_width):
             for y in range(self.grid_height):
@@ -39,6 +39,9 @@ class AStar(object):
                 else:
                     traversable = True
                 self.nodes.append(node(x, y, traversable))
+                
+        self.start = self.get_node(10,10) #placeholder
+        self.end = self.get_node(1,1) # placeholder
 
 
     def get_heuristic(self, node):
@@ -85,7 +88,9 @@ class AStar(object):
 
 
     def traverse_path(self,x,y):
-        print 'temp'
+        #pygame.draw.rect(self.screen,(0,255,0),(40*x,40*y,40,40),3)
+        #move robot code here
+        print x,y
 
     def update_node(self, adj, node):
         """

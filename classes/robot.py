@@ -23,5 +23,8 @@ class robot(Base):
     def setEndPosition(self,endPos):
         self.endPosition = endPos
 
+    def move(self,cood):
+        print 'test'
+
 
 

@@ -2,7 +2,8 @@ import pygame
 #possible use for getting images, and exiting the interface
 import os, sys
 
-#import classes
+import classes
+
 
 ENABLE_GRID = True
 
@@ -41,6 +42,9 @@ class Game:
         #self.pirate = classes.robot()
         #self.treasure = classes.Treasure()
         #self.landmark = classes.Landmark()
+        self.AStar = classes.AStar()
+        
+        
 
         #set up each of the classes with default attributes
         #?pass them on to the setup function
@@ -115,6 +119,10 @@ class Game:
             #update the screen and images /temp, to be used in playHandle
             self.screen.blit(self.background, (0,0))
 
+            b = self.AStar
+            b.init_grid()
+            b.algorithm()
+
             if ENABLE_GRID == True:
                 for x in range(0,32):
                     for y in range(0,18):
@@ -122,7 +130,7 @@ class Game:
 
                         #highlighting a specific square
                         xcood = 0
-                        ycood = 3
+                        ycood = 0
                         pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
