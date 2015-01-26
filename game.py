@@ -166,10 +166,13 @@ class Game:
                 #traverse the path until destination is reached
                 try:
                     pygame.time.delay(50)
-                    pygame.draw.rect(self.screen,(90,90,90),(40*path[x],40*path[x+1],40,40),3)
+                    self.testPirate.setPosition((path[x],path[x+1]))
+                    self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
                     x+=2
                 except IndexError:
-                    pygame.draw.rect(self.screen,(90,90,90),(40*treasureX,40*treasureY,40,40),3)
+                    #pygame.draw.rect(self.screen,(90,90,90),(40*treasureX,40*treasureY,40,40),3)
+                    self.testPirate.setPosition((treasureX,treasureY))
+                    self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
                     self.testPirate.setHasReachedDestination(True)
 
 
@@ -188,6 +191,7 @@ class Game:
                 pygame.draw.rect(self.screen,(0,0,0),(40*xL,40*yL,40,40),3)
             
             #blit the pirates to the screen using base functions
+            self.testPirate.setPosition((1,5))
             self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
             
             pygame.display.flip()
