@@ -1,9 +1,7 @@
-import pygame
-#possible use for getting images, and exiting the interface
-import os, sys
+import pygame, random
 
+#import team's objects
 import classes
-import random
 
 
 ENABLE_GRID = False
@@ -45,10 +43,10 @@ class Game:
 
         #assign the classes
         self.map = classes.Map()
-        #self.inventory = classes.Inventory()
+        self.inventory = classes.Inventory()
         self.pirate = classes.robot()
         #self.treasure = classes.Treasure()
-        #self.landmark = classes.Landmark()
+        self.landmark = classes.Landmark()
         self.AStar = classes.AStar()
         
         
@@ -56,6 +54,11 @@ class Game:
         #set up each of the classes with default attributes
         #?pass them on to the setup function
         #proceed to the loop
+
+        #set up font for game
+        self.font = pygame.font.SysFont("monospace", 24)
+        #set up the score board
+        self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, colour)
 
     def setup(self):
         """
@@ -88,8 +91,8 @@ class Game:
             if (xRandom, yRandom) not in self.land:
                 self.land.append((xRandom, yRandom))
 
-            xRandom = random.randint(23,32)
-            yRandom = random.randint(13,18)
+            xRandom = random.randint(23,31)
+            yRandom = random.randint(13,17)
             if (xRandom, yRandom) not in self.land:
                 self.land.append((xRandom, yRandom))
 
@@ -182,8 +185,6 @@ class Game:
                     self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
                     self.testPirate.setHasReachedDestination(True)
 
-
-
             if ENABLE_GRID == True:
                 for x in range(0,32):
                     for y in range(0,18):
@@ -200,7 +201,10 @@ class Game:
             #blit the pirates to the screen using base functions
             #self.testPirate.setPosition((1,5))
             self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
-            
+
+            #add the score to the screen
+            self.screen.blit(self.score, (0, self.height-36))
+
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
