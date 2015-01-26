@@ -119,9 +119,10 @@ class Game:
             #update the screen and images /temp, to be used in playHandle
             self.screen.blit(self.background, (0,0))
 
-            b = self.AStar
-            b.init_grid()
-            b.algorithm()
+            pathfind = self.AStar
+            pathfind.init_grid(10,10,1,1) #start cood and end cood
+            pathfind.algorithm()
+
 
             if ENABLE_GRID == True:
                 for x in range(0,32):

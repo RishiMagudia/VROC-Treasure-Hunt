@@ -5,9 +5,6 @@ class node(object):
     def __init__(self, x, y, traversable):
         """
         Initialize new node
-        @param x node x coordinate
-        @param y node y coordinate
-        @param traversable is node traversable? not a wall?
         """
         self.traversable = traversable
         self.x = x
@@ -25,9 +22,8 @@ class AStar(object):
         self.nodes = []
         self.grid_height = 18 
         self.grid_width = 32 
-        self.end_point = [4,2] #placeholder
 
-    def init_grid(self):
+    def init_grid(self,startx,starty,endx,endy):
         walls = \
             (
             (0,0)
@@ -40,25 +36,20 @@ class AStar(object):
                     traversable = True
                 self.nodes.append(node(x, y, traversable))
                 
-        self.start = self.get_node(10,10) #placeholder
-        self.end = self.get_node(1,1) # placeholder
+        self.start = self.get_node(startx,starty)
+        self.end = self.get_node(endx,endy)
 
 
     def get_heuristic(self, node):
         """
-        Compute the heuristic value H for a node: distance between
+        distance between
         this node and the ending node multiply by 10.
-        @param node
-        @returns heuristic value H
         """
         return 10 * (abs(node.x - self.end.x) + abs(node.y - self.end.y))
 
     def get_node(self, x, y):
         """
         Returns a node from the nodes list
-        @param x node x coordinate
-        @param y node y coordinate
-        @returns node
         """
         return self.nodes[x * self.grid_height + y]
 
@@ -66,8 +57,6 @@ class AStar(object):
         """
         Returns adjacent nodes to a node. Clockwise starting
         from the one on the right.
-        @param node get adjacent nodes for this node
-        @returns adjacent nodes list
         """
         nodes = []
         if node.x < self.grid_width-1:
@@ -95,8 +84,6 @@ class AStar(object):
     def update_node(self, adj, node):
         """
         Update adjacent node
-        @param adj adjacent node to current node
-        @param node current node being algorithmed
         """
         adj.g = node.g + 10
         adj.h = self.get_heuristic(adj)
