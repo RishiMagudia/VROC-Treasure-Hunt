@@ -44,10 +44,7 @@ class Base(object):
     def getImage(self):
         return self.image
     def setImage(self, image):
-        if type(image) is str:
-            self.image = image
-        else:
-            raise ValueError
+        self.image = image
 
     #position of object
     def getPosition(self):

@@ -28,7 +28,7 @@ class AStar(object):
     def init_grid(self,startx,starty,endx,endy):
         walls = \
             (
-            (0,0)
+            (1,1)
             )
         for x in range(self.grid_width):
             for y in range(self.grid_height):
