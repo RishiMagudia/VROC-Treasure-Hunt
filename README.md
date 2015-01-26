@@ -7,3 +7,6 @@ All while avoiding empty landmarks, stopping and waiting at traffic lights.
 
 # REQUIREMENTS! #
 - PyGame library.
+- 
+# INSTRUCTIONS #
+Download the master branch of the project and just run the game.py file.
