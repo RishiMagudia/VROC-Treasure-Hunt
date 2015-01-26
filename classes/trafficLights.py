@@ -19,7 +19,7 @@ class trafficLights:
 
         color = "red"
         while True:
-            for light in [ red,amber, green]:
+            for light in [ red, amber, green]:
                 light.setFill( color )
 
                 time.sleep(5)
