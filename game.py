@@ -14,7 +14,7 @@ class Game:
     """
 
     #temp col, wall holder    
-    def __init__(self, width=1280, height=720, wallpaper = None, colour = (255, 255, 255)):
+    def __init__(self, width=1280, height=720, wallpaper = "images/background.jpg", colour = (255, 255, 255)):
         """
             initialise the game
         """
@@ -34,9 +34,14 @@ class Game:
         self.title = pygame.display.set_caption("Virtual Robot Obstacle Course")
         
         #set background colour/image
-        self.background = pygame.Surface(self.screen.get_size())
-        self.background = self.background.convert()
-        self.background.fill(colour)
+        #self.background = pygame.Surface(self.screen.get_size())
+        #self.background = self.background.convert()
+        #self.background.fill(colour)
+
+        #load up image, resize it and blit it to the background
+        self.wallpaper = pygame.image.load(wallpaper)
+        self.wallpaper = pygame.transform.scale(self.wallpaper, self.screen.get_size())
+
 
         #assign the classes
         self.map = classes.Map()
@@ -150,7 +155,9 @@ class Game:
                         break
                     
             #update the screen and images /temp, to be used in playHandle
-            self.screen.blit(self.background, (0,0))
+            #self.screen.blit(self.background, (0,0))
+            self.screen.blit(self.wallpaper, (0,0))
+
 
             if self.testPirate.getHasReachedDestination() == True:
                 self.testPirate.setHasReachedDestination(False)
@@ -191,7 +198,7 @@ class Game:
                 pygame.draw.rect(self.screen,(0,0,0),(40*xL,40*yL,40,40),3)
             
             #blit the pirates to the screen using base functions
-            self.testPirate.setPosition((1,5))
+            #self.testPirate.setPosition((1,5))
             self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
             
             pygame.display.flip()
