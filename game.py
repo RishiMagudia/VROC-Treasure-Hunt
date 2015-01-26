@@ -39,7 +39,7 @@ class Game:
         #assign the classes
         #self.map = classes.Map()
         #self.inventory = classes.Inventory()
-        #self.pirate = classes.robot()
+        self.pirate = classes.robot()
         #self.treasure = classes.Treasure()
         #self.landmark = classes.Landmark()
         self.AStar = classes.AStar()
@@ -56,6 +56,8 @@ class Game:
             generate map, place items, randomise variables
             draw ui
         """
+        testPirate = self.pirate
+        
 
     def playHandle(self):
         """
@@ -123,7 +125,6 @@ class Game:
             pathfind.init_grid(10,10,1,1) #start cood and end cood
             pathfind.algorithm()
 
-
             if ENABLE_GRID == True:
                 for x in range(0,32):
                     for y in range(0,18):
@@ -139,4 +140,5 @@ class Game:
 if __name__ == "__main__":
     window = Game()
     #window.playIntro()
+    window.setup()
     window.loop()

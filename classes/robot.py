@@ -1,12 +1,13 @@
 from base import Base
+import pygame
 
 class robot(Base):
 
-    def __init__(self,endPos):
+    def __init__(self):
         Base.__init__(self,name=None,size=None,pos=None,stat=None,col=None,img=None)
         self.velocity = 10
         self.hasReachedDestination = False
-        self.endPosition = endPos
+        self.endPosition = None
 
     def getVelocity(self):
         return self.velocity
@@ -23,8 +24,10 @@ class robot(Base):
     def setEndPosition(self,endPos):
         self.endPosition = endPos
 
-    def move(self,cood):
+    def move(self,screen,cood):
         print 'test'
+        pygame.draw.rect(screen,(0,255,0),(40*cood[0],40*cood[1],40,40),10) #replace with pirate image at later date
+
 
 
 
