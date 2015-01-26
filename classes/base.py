@@ -1,3 +1,5 @@
+import pygame
+
 class Base(object):
 
     def __init__(self, name = None, size = None, pos = None, stat = None, col = None, img = None):
@@ -35,16 +37,17 @@ class Base(object):
 
     #size of object
     def getSize(self):
-        return self.size
+        self.size
     def setSize(self, size):
-        #might be flaot/int
-        self.size = size
+        #auto converts to grid system
+        self.size = size*40
+        self.image = pygame.transform.scale(self.image, (size*40, size*40))
 
     #image of object
     def getImage(self):
         return self.image
     def setImage(self, image):
-        self.image = image
+        self.image = pygame.image.load(image)
 
     #position of object
     def getPosition(self):
@@ -52,7 +55,7 @@ class Base(object):
     def setPosition(self, position):
         try:
             if len(position) == 2 and type(position) is tuple:
-                self.position = position
+                self.position = (position[0]*40,position[1]*40)
         except:
             raise ValueError
 
