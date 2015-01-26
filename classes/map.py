@@ -12,7 +12,7 @@ class Map:
         while running == True:
             for i in self.sList:
                 name, coordiantes, priority = i
-                for i in range(len(self.sList),0,1):
+                for m in range(len(self.sList),0,1):
                     screen.blit(name,(coordinates))
 
     #prioritizing the list of unsorted images
