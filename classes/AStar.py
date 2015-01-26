@@ -25,11 +25,15 @@ class AStar(object):
         self.grid_width = 32
         self.path = []
 
-    def init_grid(self,startx,starty,endx,endy):
-        walls = \
-            (
-            (1,1)
-            )
+    def init_grid(self,startx,starty,endx,endy,land):
+
+        self.opened = []
+        heapq.heapify(self.opened)
+        self.closed = set()
+        self.nodes = []
+        self.path = []
+
+        walls = land
         for x in range(self.grid_width):
             for y in range(self.grid_height):
                 if (x, y) in walls:
@@ -40,6 +44,9 @@ class AStar(object):
                 
         self.start = self.get_node(startx,starty)
         self.end = self.get_node(endx,endy)
+
+    def getPath(self):
+        return self.path
 
 
     def get_heuristic(self, node):
@@ -103,7 +110,7 @@ class AStar(object):
             # if ending node, display found path
             if node is self.end:
                 self.display_path()
-                return self.path
+                break
             # get adjacent nodes for node
             adj_nodes = self.get_adjacent_nodes(node)
             for adj_node in adj_nodes:

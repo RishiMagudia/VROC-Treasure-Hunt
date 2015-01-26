@@ -6,7 +6,7 @@ class robot(Base):
     def __init__(self):
         Base.__init__(self,name=None,size=None,pos=None,stat=None,col=None,img=None)
         self.velocity = 10
-        self.hasReachedDestination = False
+        self.hasReachedDestination = True
         self.endPosition = None
 
     def getVelocity(self):

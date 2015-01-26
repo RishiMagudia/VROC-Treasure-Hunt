@@ -39,7 +39,7 @@ class Game:
         self.background.fill(colour)
 
         #assign the classes
-        #self.map = classes.Map()
+        self.map = classes.Map()
         #self.inventory = classes.Inventory()
         self.pirate = classes.robot()
         #self.treasure = classes.Treasure()
@@ -52,21 +52,16 @@ class Game:
         #?pass them on to the setup function
         #proceed to the loop
 
-    def convertToGrid(self,i):
-        return i*40
-
     def setup(self):
         """
             set up the game using team methods
             generate map, place items, randomise variables
             draw ui
         """
-        pirateAvatar = pygame.image.load("images/pirate.png")
-        self.pirate.setImage(pirateAvatar)
-        
+        self.pathfind = self.AStar
+        self.testPirate = self.pirate
 
         #generating obstacles
-        
         while len(self.land) < 64:
             xRandom = random.randint(0,7)
             yRandom = random.randint(0,5)
@@ -87,8 +82,8 @@ class Game:
             yRandom = random.randint(13,18)
             if (xRandom, yRandom) not in self.land:
                 self.land.append((xRandom, yRandom))
-           # pygame.draw.rect(self.screen,(200,200,200),(40*xRandom,40*yRandom,40,40),9)
-        
+
+
 
     def playHandle(self):
         """
@@ -152,31 +147,46 @@ class Game:
             #update the screen and images /temp, to be used in playHandle
             self.screen.blit(self.background, (0,0))
 
-            
-            pathfind = self.AStar
-            pathfind.init_grid(10,10,1,1) #start cood and end cood
-            path = pathfind.algorithm()
-            #print path
+            if self.testPirate.getHasReachedDestination() == True:
+                self.testPirate.setHasReachedDestination(False)
+                #apply next treasure to pathfind to
+                treasureX = 0
+                treasureY = 15
+                self.pathfind.init_grid(30,1,treasureX,treasureY,self.land) #start cood and end cood + walls
+                self.pathfind.algorithm()
+                path = self.pathfind.getPath()
+                x=0
+
+            else:
+                #traverse the path until destination is reached
+                try:
+                    pygame.time.delay(50)
+                    pygame.draw.rect(self.screen,(90,90,90),(40*path[x],40*path[x+1],40,40),3)
+                    x+=2
+                except IndexError:
+                    pygame.draw.rect(self.screen,(90,90,90),(40*treasureX,40*treasureY,40,40),3)
+                    self.testPirate.setHasReachedDestination(True)
+
+
 
             if ENABLE_GRID == True:
                 for x in range(0,32):
                     for y in range(0,18):
                         pygame.draw.rect(self.screen,(0,0,0),(40*x,40*y,40,40),3)
+
                 #highlighting a specific square
                 xcood = 0
                 ycood = 0
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
+
             for xL, yL in self.land:
                 pygame.draw.rect(self.screen,(0,0,0),(40*xL,40*yL,40,40),3)
 
-            self.screen.blit(pygame.image.load('images/pirate.png'),(120,120))
-
-            self.setup()
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
 if __name__ == "__main__":
     window = Game()
     #window.playIntro()
-    #window.setup()
+    window.setup()
     window.loop()
