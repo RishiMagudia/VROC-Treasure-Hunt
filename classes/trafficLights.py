@@ -1,9 +1,7 @@
 import pygame
-import sys
 import time 
 from pygame.locals import*
 
-pygame.init()
 class trafficLights:
     def trafficLights():
         win = GraphicWin()

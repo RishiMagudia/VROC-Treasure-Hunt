@@ -45,8 +45,9 @@ class Game:
         self.map = classes.Map()
         self.inventory = classes.Inventory()
         self.pirate = classes.robot()
-        #self.treasure = classes.Treasure()
+        self.treasure = classes.Treasure()
         self.landmark = classes.Landmark()
+        self.trafficLight = classes.trafficLights()
         self.AStar = classes.AStar()
         
         
@@ -72,6 +73,11 @@ class Game:
         self.testPirate.setImage("images/pirate.png")
         self.testPirate.setSize(1)
         self.testPirate.setPosition((0,0))
+
+        self.testLandmark = self.landmark
+        self.testLandmark.setImage("images/Hut.png")
+        self.testLandmark.setSize(2)
+        self.testLandmark.setPosition((15,0))
         
 
         #generating obstacles
@@ -161,6 +167,8 @@ class Game:
             #self.screen.blit(self.background, (0,0))
             self.screen.blit(self.wallpaper, (0,0))
 
+            #set up test landmark
+            self.screen.blit(self.testLandmark.getImage(), self.testLandmark.getPosition())
 
             if self.testPirate.getHasReachedDestination() == True:
                 self.testPirate.setHasReachedDestination(False)

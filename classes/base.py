@@ -10,6 +10,7 @@ class Base(object):
         self.name = name
         self.size = size
         self.position = pos
+        self.gridPos = (0,0)
         self.colour = col
         self.image = img
         self.state = stat
@@ -41,7 +42,10 @@ class Base(object):
     def setSize(self, size):
         #auto converts to grid system
         self.size = size*40
-        self.image = pygame.transform.scale(self.image, (size*40, size*40))
+        if self.image != None:
+            self.image = pygame.transform.scale(self.image, (size*40, size*40))
+        else:
+            raise AttributeError
 
     #image of object
     def getImage(self):
@@ -49,13 +53,16 @@ class Base(object):
     def setImage(self, image):
         self.image = pygame.image.load(image)
 
-    #position of object
+    #position of object and grid position
     def getPosition(self):
         return self.position
+    def getGridPos(self):
+        return self.gridPos
     def setPosition(self, position):
         try:
             if len(position) == 2 and type(position) is tuple:
                 self.position = (position[0]*40,position[1]*40)
+                self.gridPos = position
         except:
             raise ValueError
 
