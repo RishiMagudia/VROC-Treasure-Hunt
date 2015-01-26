@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time 
 from pygame.locals import*
 
 pygame.init()
@@ -15,7 +16,19 @@ class trafficLights:
         green = Circle(Point(100, 150),20)
         green.setFill("black")
         green.draw(win)
+
+        color = "red"
         while True:
-            import time
-            time.sleep(10)
-    
+            for light in [ red,amber, green]:
+                light.setFill( color )
+
+                time.sleep(5)
+
+                light.setFill( "black" )
+                if color == "red":
+                    color = "amber"
+                elif color == "amber":
+                    color = "green"
+                elif color == "green":
+                    color = "red"
+
