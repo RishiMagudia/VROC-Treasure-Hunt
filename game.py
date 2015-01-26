@@ -123,7 +123,8 @@ class Game:
 
             pathfind = self.AStar
             pathfind.init_grid(10,10,1,1) #start cood and end cood
-            pathfind.algorithm()
+            path = pathfind.algorithm()
+            print path
 
             if ENABLE_GRID == True:
                 for x in range(0,32):

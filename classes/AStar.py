@@ -1,6 +1,7 @@
 import heapq
 import pygame
 
+
 class node(object):
     def __init__(self, x, y, traversable):
         """
@@ -21,7 +22,8 @@ class AStar(object):
         self.closed = set()
         self.nodes = []
         self.grid_height = 18 
-        self.grid_width = 32 
+        self.grid_width = 32
+        self.path = []
 
     def init_grid(self,startx,starty,endx,endy):
         walls = \
@@ -77,9 +79,9 @@ class AStar(object):
 
 
     def traverse_path(self,x,y):
-        #pygame.draw.rect(self.screen,(0,255,0),(40*x,40*y,40,40),3)
-        #move robot code here
-        print x,y
+        self.path.append(x)
+        self.path.append(y)
+        #print x,y
 
     def update_node(self, adj, node):
         """
@@ -101,7 +103,7 @@ class AStar(object):
             # if ending node, display found path
             if node is self.end:
                 self.display_path()
-                break
+                return self.path
             # get adjacent nodes for node
             adj_nodes = self.get_adjacent_nodes(node)
             for adj_node in adj_nodes:
