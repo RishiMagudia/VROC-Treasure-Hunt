@@ -15,18 +15,18 @@ class trafficLights:
         green.setFill("black")
         green.draw(win)
 
-        color = "red"
+        colour = "red"
         while True:
             for light in [ red, amber, green]:
-                light.setFill( color )
+                light.setFill( colour )
 
                 time.sleep(5)
 
                 light.setFill( "black" )
-                if color == "red":
-                    color = "amber"
-                elif color == "amber":
-                    color = "green"
-                elif color == "green":
-                    color = "red"
+                if colour == "red":
+                    colour = "amber"
+                elif colour == "amber":
+                    colour = "green"
+                elif colour == "green":
+                    colour = "red"
 
