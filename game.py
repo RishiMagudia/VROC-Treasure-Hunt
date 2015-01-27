@@ -1,7 +1,7 @@
 import pygame, random
 
 #import team's objects
-import classes
+import classes as c
 
 
 ENABLE_GRID = False
@@ -21,11 +21,16 @@ class Game:
         #set the frames
         global FPS
         FPS = 60
+
+        #contain world items
         self.land = []
+        self.loadup = []
         
         #set the resolution of the window
         self.width = width
         self.height = height
+
+        self.colour = colour
 
         #set up the screen
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -42,13 +47,13 @@ class Game:
 
 
         #assign the classes
-        self.map = classes.Map()
-        self.inventory = classes.Inventory()
-        self.pirate = classes.robot()
-        self.treasure = classes.Treasure()
-        self.landmark = classes.Landmark()
-        self.trafficLight = classes.trafficLights()
-        self.AStar = classes.AStar()
+        self.map = c.Map()
+        self.inventory = c.Inventory()
+        self.pirate = c.robot()
+        self.treasure = c.Treasure()
+        self.landmark = c.Landmark()
+        self.trafficLight = c.trafficLights()
+        self.AStar = c.AStar()
         
         
 
@@ -59,7 +64,7 @@ class Game:
         #set up font for game
         self.font = pygame.font.SysFont("monospace", 24)
         #set up the score board
-        self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, colour)
+
 
     def setup(self):
         """
@@ -67,20 +72,34 @@ class Game:
             generate map, place items, randomise variables
             draw ui
         """
-        self.pathfind = self.AStar
-        self.testPirate = self.pirate
-        
+        self.pathfind = c.AStar()
+        self.testPirate = c.robot()
+
         self.testPirate.setImage("images/pirate.png")
         self.testPirate.setSize(1)
-        self.testPirate.setPosition((0,0))
+        self.testPirate.setPosition((0, 0))
+        self.loadup.append((self.testPirate, 2))
 
-        self.testLandmark = self.landmark
+        self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut.png")
-        self.testLandmark.setSize(2)
-        self.testLandmark.setPosition((15,0))
-        
+        self.testLandmark.setSize(3)
+        self.testLandmark.setPosition((15, 0))
+        self.loadup.append((self.testLandmark, 1))
 
-        #generating obstacles
+        #pirate's start point
+        self.pier = c.Landmark()
+        self.pier.setImage("images/Pier.png")
+        self.pier.setSize(7)
+        self.pier.setPosition((-1, 13))
+        self.loadup.append((self.pier, 2))
+
+        self.obs = c.Landmark()
+        self.obs.setImage("images/Sunken ship.png")
+        self.obs.setSize(1)
+
+        self.map.prioritize(self.loadup)
+
+        #generating obstacles, aka the map structure
         while len(self.land) < 64:
             xRandom = random.randint(0,7)
             yRandom = random.randint(0,5)
@@ -163,35 +182,9 @@ class Game:
                         pygame.quit()
                         break
                     
-            #update the screen and images /temp, to be used in playHandle
+            #update the screen and images
             #self.screen.blit(self.background, (0,0))
             self.screen.blit(self.wallpaper, (0,0))
-
-            #set up test landmark
-            self.screen.blit(self.testLandmark.getImage(), self.testLandmark.getPosition())
-
-            if self.testPirate.getHasReachedDestination() == True:
-                self.testPirate.setHasReachedDestination(False)
-                #apply next treasure to pathfind to
-                treasureX = 0
-                treasureY = 15
-                self.pathfind.init_grid(30,1,treasureX,treasureY,self.land) #start cood and end cood + walls
-                self.pathfind.algorithm()
-                path = self.pathfind.getPath()
-                x=0
-
-            else:
-                #traverse the path until destination is reached
-                try:
-                    pygame.time.delay(50)
-                    self.testPirate.setPosition((path[x],path[x+1]))
-                    self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
-                    x+=2
-                except IndexError:
-                    #pygame.draw.rect(self.screen,(90,90,90),(40*treasureX,40*treasureY,40,40),3)
-                    self.testPirate.setPosition((treasureX,treasureY))
-                    self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
-                    self.testPirate.setHasReachedDestination(True)
 
             if ENABLE_GRID == True:
                 for x in range(0,32):
@@ -203,21 +196,51 @@ class Game:
                 ycood = 0
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
+            #draw the inaccessible lands
             for xL, yL in self.land:
-                pygame.draw.rect(self.screen,(0,0,0),(40*xL,40*yL,40,40),3)
-            
-            #blit the pirates to the screen using base functions
-            #self.testPirate.setPosition((1,5))
-            self.screen.blit(self.testPirate.getImage(), self.testPirate.getPosition())
+                self.screen.blit(self.obs.getImage(), (40*xL,40*yL))
+
+            if self.testPirate.getHasReachedDestination() == True:
+                self.testPirate.setHasReachedDestination(False)
+                #apply next treasure to pathfind to
+                treasureX = 0
+                treasureY = 15
+                self.pathfind.init_grid(30,1,treasureX,treasureY,self.land) #start cood and end cood + walls
+                self.pathfind.algorithm()
+                path = self.pathfind.getPath()
+                x=0
+            else:
+                #traverse the path until destination is reached
+                try:
+                    pygame.time.delay(50)
+                    self.testPirate.setPosition((path[x],path[x+1]))
+                    x+=2
+                except IndexError:
+                    self.testPirate.setPosition((treasureX,treasureY))
+                    self.testPirate.setHasReachedDestination(True)
+
+            #re/draw the map
+            self.map.drawMap(self.screen)
+
+            #treasure spotter
+            boundary = 1
+            if self.testPirate.getGridPos()[0] <= self.testLandmark.getGridPos()[0]+boundary\
+                and self.testPirate.getGridPos()[0] >= self.testLandmark.getGridPos()[0]-boundary\
+                and self.testPirate.getGridPos()[1] <= self.testLandmark.getGridPos()[1]+boundary\
+                and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
+                    print "Treasure Acquired!"
+                    self.inventory.addScore(100)
+                    self.land.append(self.testPirate.getGridPos())
 
             #add the score to the screen
-            self.screen.blit(self.score, (0, self.height-36))
+            self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
+            self.screen.blit(self.score, (10, self.height-215))
 
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
 if __name__ == "__main__":
     window = Game()
-    #window.playIntro()
+    window.playIntro()
     window.setup()
     window.loop()

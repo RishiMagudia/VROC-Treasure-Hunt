@@ -21,6 +21,7 @@ class Base(object):
     #name of object
     def getName(self):
         return self.name
+
     def setName(self, name):
         if type(name) is str:
             self.name = name
@@ -30,6 +31,7 @@ class Base(object):
     #state of object
     def getState(self):
         return self.state
+
     def setState(self, string):
         if type(string) is str:
             self.state = string
@@ -39,8 +41,10 @@ class Base(object):
     #size of object
     def getSize(self):
         return self.size
+
     def setSize(self, size):
-        #auto converts to grid system
+        if size == 0:
+            size = 1
         self.size = size*40
         if self.image != None:
             self.image = pygame.transform.scale(self.image, (size*40, size*40))
@@ -50,28 +54,29 @@ class Base(object):
     #image of object
     def getImage(self):
         return self.image
+
     def setImage(self, image):
         self.image = pygame.image.load(image)
 
     #position of object and grid position
     def getPosition(self):
         return self.position
+
     def getGridPos(self):
         return self.gridPos
-    def setPosition(self, position):
-        try:
-            if len(position) == 2 and type(position) is tuple:
-                self.position = (position[0]*40,position[1]*40)
-                self.gridPos = position
-        except:
-            raise ValueError
+
+    def setPosition(self, (x, y)):
+        if x == 0:
+            x = 1
+        if y == 0:
+            y = 1
+        self.position = (x*40, y*40)
+        self.gridPos = (x, y)
 
     #colour of object
     def getColour(self):
         return self.colour
-    def setColour(self, colour):
-        try:
-            if len(colour) == 3 and type(colour) is tuple:
-                self.colour = colour
-        except:
-            raise ValueError
+
+    def setColour(self, (r, g, b)):
+        if (r and g and b) in range(0, 255):
+            self.colour = (r, g, b)
