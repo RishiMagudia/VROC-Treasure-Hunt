@@ -2,14 +2,11 @@ import pygame
 from pygame.locals import *
 
 class Treasure():
-    def __init__(self,name = None, pos = None, size = None,ImageHolder = None, pixMove = None, colour = None, movement = None, found= False):            #Properties of my class
-        Base.__init__(self, name, position, size)
-        self.name = name
-        self.pos= pos
-        self.size = size
+    def __init__(self,name = None, pos = None, size = None,ImageHolder = None, pixMove = None, colour = None, movement = None, found= False):  
+        Base.__init__(self, name, pos, size)
         self.ImageHolder = ImageHolder
         self.found= found
-        self.colour = colour
+        
 
     def isFound(self):                            #This returns values to the landmark class             
         if self.found== True:                     #to show the tresaure has been found and searched
