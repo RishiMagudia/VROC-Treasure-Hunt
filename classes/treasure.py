@@ -2,9 +2,10 @@ import pygame
 from pygame.locals import *
 
 class Treasure():
-    def __init__(self,name = None, position = None, size = None,ImageHolder = None, pixMove = None, colour = None, movement = None, found= False):            #Properties of my class
+    def __init__(self,name = None, pos = None, size = None,ImageHolder = None, pixMove = None, colour = None, movement = None, found= False):            #Properties of my class
+        Base.__init__(self, name, position, size)
         self.name = name
-        self.position= position
+        self.pos= pos
         self.size = size
         self.ImageHolder = ImageHolder
         self.found= found
