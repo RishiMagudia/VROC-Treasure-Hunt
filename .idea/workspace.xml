@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="game.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="242" column="39" selection-start="8269" selection-end="8269" vertical-scroll-proportion="0.42419356" vertical-offset="3851" max-vertical-offset="4675">
+            <state line="242" column="39" selection-start="8269" selection-end="8269" vertical-scroll-proportion="-10.52" vertical-offset="3851" max-vertical-offset="4675">
               <folding />
             </state>
           </provider>
@@ -43,10 +43,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AStar.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AStar.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/AStar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="0" selection-start="2253" selection-end="2253" vertical-scroll-proportion="-8.6" vertical-offset="1196" max-vertical-offset="2244">
+            <state line="87" column="21" selection-start="2376" selection-end="2376" vertical-scroll-proportion="0.41451612" vertical-offset="1205" max-vertical-offset="2295">
               <folding />
             </state>
           </provider>
@@ -106,6 +106,7 @@
         <option value="$PROJECT_DIR$/classes/robot.py" />
         <option value="$PROJECT_DIR$/classes/treasure.py" />
         <option value="$PROJECT_DIR$/game.py" />
+        <option value="$PROJECT_DIR$/classes/AStar.py" />
       </list>
     </option>
   </component>
@@ -626,16 +627,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/AStar.py">
+    <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="0" selection-start="2253" selection-end="2253" vertical-scroll-proportion="-8.6" vertical-offset="1196" max-vertical-offset="2244">
+        <state line="242" column="39" selection-start="8269" selection-end="8269" vertical-scroll-proportion="-10.52" vertical-offset="3851" max-vertical-offset="4675">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
+    <entry file="file://$PROJECT_DIR$/classes/AStar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="242" column="39" selection-start="8269" selection-end="8269" vertical-scroll-proportion="0.42419356" vertical-offset="3851" max-vertical-offset="4675">
+        <state line="87" column="21" selection-start="2376" selection-end="2376" vertical-scroll-proportion="0.41451612" vertical-offset="1205" max-vertical-offset="2295">
           <folding />
         </state>
       </provider>

@@ -82,7 +82,10 @@ class AStar(object):
         node = self.end
         while node.parent is not self.start:
             node = node.parent
-            self.traverse_path(node.x,node.y)
+            try:
+                self.traverse_path(node.x,node.y)
+            except AttributeError:
+                break
 
 
     def traverse_path(self,x,y):
