@@ -13,6 +13,13 @@ class Landmark(Base):
         self.position = pos
         self.image = img
         self.state = stat
+        self.searched = False
+
+    def getSearched(self):
+        return self.searched
+
+    def setSearched(self,i):
+        self.searched = i
             
     def __Searched(self): #Method checks if robot position matches any treasure position. Matches can be assumed to be searched landmarks and are made into a list, which is then returned. Variable is private, as it is only to be used in the Landmark class. This is an example of encapsulation.
 

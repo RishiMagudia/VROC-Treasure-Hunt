@@ -203,9 +203,9 @@ class Game:
             if self.testPirate.getHasReachedDestination() == True:
                 self.testPirate.setHasReachedDestination(False)
                 #apply next treasure to pathfind to
-                treasureX = 0
-                treasureY = 15
-                self.pathfind.init_grid(30,1,treasureX,treasureY,self.land) #start cood and end cood + walls
+                treasureX = 17
+                treasureY = 2
+                self.pathfind.init_grid(treasureX,treasureY,2,15,self.land) #start cood and end cood + walls
                 self.pathfind.algorithm()
                 path = self.pathfind.getPath()
                 x=0
@@ -217,7 +217,11 @@ class Game:
                     x+=2
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
-                    self.testPirate.setHasReachedDestination(True)
+                    if self.testLandmark.getSearched() == False:
+                        print "Treasure Acquired!"
+                        self.inventory.addScore(100)
+                    self.testLandmark.setSearched(True)
+                    #self.testPirate.setHasReachedDestination(True)
 
             #re/draw the map
             self.map.drawMap(self.screen)
@@ -228,8 +232,6 @@ class Game:
                 and self.testPirate.getGridPos()[0] >= self.testLandmark.getGridPos()[0]-boundary\
                 and self.testPirate.getGridPos()[1] <= self.testLandmark.getGridPos()[1]+boundary\
                 and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
-                    print "Treasure Acquired!"
-                    self.inventory.addScore(100)
                     self.land.append(self.testPirate.getGridPos())
 
             #add the score to the screen
@@ -241,6 +243,6 @@ class Game:
 
 if __name__ == "__main__":
     window = Game()
-    window.playIntro()
+   # window.playIntro()
     window.setup()
     window.loop()
