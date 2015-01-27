@@ -24,6 +24,8 @@ class Game:
 
         #contain world items
         self.land = []
+        self.listOfLandmarks = []
+        self.landmarkCounter = 0
         self.loadup = []
         
         #set the resolution of the window
@@ -50,7 +52,7 @@ class Game:
         self.map = c.Map()
         self.inventory = c.Inventory()
         self.pirate = c.robot()
-        self.treasure = c.Treasure()
+        #self.treasure = c.Treasure()
         self.landmark = c.Landmark()
         self.trafficLight = c.trafficLights()
         self.AStar = c.AStar()
@@ -77,14 +79,22 @@ class Game:
 
         self.testPirate.setImage("images/pirate.png")
         self.testPirate.setSize(1)
-        self.testPirate.setPosition((0, 0))
+        self.testPirate.setPosition((2, 15))
         self.loadup.append((self.testPirate, 2))
 
         self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut.png")
         self.testLandmark.setSize(3)
         self.testLandmark.setPosition((15, 0))
+        self.listOfLandmarks.append(self.testLandmark)
         self.loadup.append((self.testLandmark, 1))
+
+        self.testLandmark2 = c.Landmark()
+        self.testLandmark2.setImage("images/Small island.png")
+        self.testLandmark2.setSize(3)
+        self.testLandmark2.setPosition((8,12))
+        self.listOfLandmarks.append(self.testLandmark2)
+        self.loadup.append((self.testLandmark2,1))
 
         #pirate's start point
         self.pier = c.Landmark()
@@ -203,9 +213,18 @@ class Game:
             if self.testPirate.getHasReachedDestination() == True:
                 self.testPirate.setHasReachedDestination(False)
                 #apply next treasure to pathfind to
-                treasureX = 17
-                treasureY = 2
-                self.pathfind.init_grid(treasureX,treasureY,2,15,self.land) #start cood and end cood + walls
+                try:
+                    currentTreasure = self.listOfLandmarks[self.landmarkCounter]
+                    tempcood = currentTreasure.getGridPos()
+                    treasureX = tempcood[0]
+                    treasureY = tempcood[1]
+                    self.landmarkCounter+=1
+                except IndexError:
+                    print ''
+                tempcood = self.testPirate.getGridPos()
+                pirateX = tempcood[0]
+                pirateY = tempcood[1]
+                self.pathfind.init_grid(treasureX,treasureY,pirateX,pirateY,self.land) #start cood and end cood + walls
                 self.pathfind.algorithm()
                 path = self.pathfind.getPath()
                 x=0
@@ -217,11 +236,12 @@ class Game:
                     x+=2
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
-                    if self.testLandmark.getSearched() == False:
+                    if currentTreasure.getSearched() == False:
                         print "Treasure Acquired!"
                         self.inventory.addScore(100)
-                    self.testLandmark.setSearched(True)
-                    #self.testPirate.setHasReachedDestination(True)
+                    currentTreasure.setSearched(True)
+                    pygame.time.delay(500)
+                    self.testPirate.setHasReachedDestination(True)
 
             #re/draw the map
             self.map.drawMap(self.screen)
@@ -232,7 +252,8 @@ class Game:
                 and self.testPirate.getGridPos()[0] >= self.testLandmark.getGridPos()[0]-boundary\
                 and self.testPirate.getGridPos()[1] <= self.testLandmark.getGridPos()[1]+boundary\
                 and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
-                    self.land.append(self.testPirate.getGridPos())
+                    print 'test'
+                    #self.land.append(self.testPirate.getGridPos())
 
             #add the score to the screen
             self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
