@@ -90,21 +90,28 @@ class Game:
         self.loadup.append((self.testLandmark, 1))
 
         self.testLandmark2 = c.Landmark()
-        self.testLandmark2.setImage("images/Small island.png")
+        self.testLandmark2.setImage("images/Sunken ship.png")
         self.testLandmark2.setSize(3)
         self.testLandmark2.setPosition((8,12))
         self.listOfLandmarks.append(self.testLandmark2)
         self.loadup.append((self.testLandmark2,1))
 
+        self.testLandmark3 = c.Landmark()
+        self.testLandmark3.setImage("images/Lighthouse.png")
+        self.testLandmark3.setSize(3)
+        self.testLandmark3.setPosition((25,5))
+        self.loadup.append((self.testLandmark3,1))
+
         #pirate's start point
         self.pier = c.Landmark()
         self.pier.setImage("images/Pier.png")
         self.pier.setSize(7)
-        self.pier.setPosition((-1, 13))
+        self.pier.setPosition((0, 13))
+        self.listOfLandmarks.append(self.pier)
         self.loadup.append((self.pier, 2))
 
         self.obs = c.Landmark()
-        self.obs.setImage("images/Sunken ship.png")
+        self.obs.setImage("images/Small island.png")
         self.obs.setSize(1)
 
         self.map.prioritize(self.loadup)
@@ -231,7 +238,7 @@ class Game:
             else:
                 #traverse the path until destination is reached
                 try:
-                    pygame.time.delay(50)
+                    pygame.time.delay(150)
                     self.testPirate.setPosition((path[x],path[x+1]))
                     x+=2
                 except IndexError:
@@ -240,21 +247,19 @@ class Game:
                         print "Treasure Acquired!"
                         self.inventory.addScore(100)
                     currentTreasure.setSearched(True)
-                    pygame.time.delay(500)
                     self.testPirate.setHasReachedDestination(True)
 
             #re/draw the map
             self.map.drawMap(self.screen)
 
-            #treasure spotter
-            boundary = 1
-            if self.testPirate.getGridPos()[0] <= self.testLandmark.getGridPos()[0]+boundary\
-                and self.testPirate.getGridPos()[0] >= self.testLandmark.getGridPos()[0]-boundary\
-                and self.testPirate.getGridPos()[1] <= self.testLandmark.getGridPos()[1]+boundary\
-                and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
-                    print 'test'
-                    #self.land.append(self.testPirate.getGridPos())
-
+##            #treasure spotter
+##            boundary = 1
+##            if self.testPirate.getGridPos()[0] <= self.testLandmark.getGridPos()[0]+boundary\
+##                and self.testPirate.getGridPos()[0] >= self.testLandmark.getGridPos()[0]-boundary\
+##                and self.testPirate.getGridPos()[1] <= self.testLandmark.getGridPos()[1]+boundary\
+##                and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
+##                    print 'test'
+##                    #self.land.append(self.testPirate.getGridPos())
             #add the score to the screen
             self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
             self.screen.blit(self.score, (10, self.height-215))
