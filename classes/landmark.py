@@ -6,13 +6,7 @@ import pygame
 class Landmark(Base):
     
     def __init__(self, name = None, size = None, pos = None, img = None, stat = None, desc = None):
-        Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base.
-        self.desc = desc
-        self.name = name
-        self.size = size
-        self.position = pos
-        self.image = img
-        self.state = stat
+        Base.__init__(self) #Initialize inherited attributes, from Base.
         self.searched = False
 
     def getSearched(self):
