@@ -80,7 +80,8 @@ class Base(object):
         if y == 0:
             y = 1
         self.NPos = (x, y)
-        self.girdPos = (x/40, y/40)
+        self.position = (x,y)
+        self.gridPos = (x/40, y/40)
 
     def getNPos(self):
         return self.NPos

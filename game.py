@@ -51,7 +51,7 @@ class Game:
         self.map = c.Map()
         self.inventory = c.Inventory()
         self.pirate = c.robot()
-        self.treasure = c.Treasure()
+        #self.treasure = c.Treasure()
         self.landmark = c.Landmark()
         self.trafficLight = c.trafficLights()
         self.AStar = c.AStar()
@@ -88,7 +88,7 @@ class Game:
         self.testLandmark2 = c.Landmark()
         self.testLandmark2.setImage("images/Sunken ship.png")
         self.testLandmark2.setSize(3)
-        self.testLandmark2.setPosition((8,12))
+        self.testLandmark2.setPosition((10,12))
         self.listOfLandmarks.append(self.testLandmark2)
         self.loadup.append((self.testLandmark2,1))
 
@@ -219,8 +219,8 @@ class Game:
                 try:
                     currentTreasure = self.listOfLandmarks[self.landmarkCounter]
                     tempcood = currentTreasure.getGridPos()
-                    treasureX = tempcood[0]
-                    treasureY = tempcood[1]
+                    treasureX = tempcood[0] +1
+                    treasureY = tempcood[1] +1
                     self.landmarkCounter+=1
                 except IndexError:
                     print ''
@@ -234,12 +234,27 @@ class Game:
             else:
                 #traverse the path until destination is reached
                 try:
-                    pygame.time.delay(150)
-                    self.testPirate.setPosition((path[x],path[x+1]))
-                    x+=2
+                    pygame.time.delay(100)
+                    #print self.testPirate.getPosition()
+                    if self.testPirate.getPosition()[0] < path[x]*40:
+                        #increment x cor
+                        self.testPirate.setNPos((self.testPirate.getPosition()[0]+self.testPirate.getVelocity(),path[x+1]*40))
+                    if self.testPirate.getPosition()[0] > path[x]*40:
+                        #decrease x cor
+                        self.testPirate.setNPos((self.testPirate.getPosition()[0]-self.testPirate.getVelocity(),path[x+1]*40))
+                    if self.testPirate.getPosition()[1] < path[x+1]*40:
+                        #increment y cor
+                        self.testPirate.setNPos((path[x]*40,self.testPirate.getPosition()[1]+self.testPirate.getVelocity()))
+                    if self.testPirate.getPosition()[1] > path[x+1]*40:
+                        #decrease y cor
+                        self.testPirate.setNPos((path[x]*40,self.testPirate.getPosition()[1]-self.testPirate.getVelocity()))
+
+                    if self.testPirate.getPosition() == ((path[x]*40,path[x+1]*40)):
+                        x+=2
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
                     if currentTreasure.getSearched() == False:
+                        pygame.time.delay(100)
                         print "Treasure Acquired!"
                         self.inventory.addScore(100)
                     currentTreasure.setSearched(True)
