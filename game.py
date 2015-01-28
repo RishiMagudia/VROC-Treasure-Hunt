@@ -234,7 +234,7 @@ class Game:
             else:
                 #traverse the path until destination is reached
                 try:
-                    pygame.time.delay(100)
+                    
                     #print self.testPirate.getPosition()
                     if self.testPirate.getPosition()[0] < path[x]*40:
                         #increment x cor
