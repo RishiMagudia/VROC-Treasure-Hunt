@@ -20,20 +20,20 @@ class Landmark(Base):
 
         SearchedLandmarkList = [] #Makes sure that list is empty.
         
-        for Treasure in Treasure_list:
+        for Treasure in TreasureList:
             if Treasure == robot.get.position:
                  SearchedLandmarkList.append(Treasure)
 
-        return Searched_landmark_list
+        return SearchedLandmarkList
 
     def __Unsearched(self): #Method checking if each landmark has been searched. If they haven't, they are appended to a list. 
 
         UnsearchedLandmarksList = [] #Makes sure list is emptied. 
         
-        for Landmarks in Landmarks_list:
+        for Landmarks in LandmarksList:
             if Landmarks != SearchedLanmarksList:
                 UnsearchedLandmarksList.append(Landmarks)
-                return UnsearchedLandmark_list
+                return UnsearchedLandmarkList
             
 
     def TreasurePresent(self): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to.
