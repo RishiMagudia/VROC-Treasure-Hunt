@@ -2,7 +2,7 @@ import pygame
 
 class Base(object):
 
-    def __init__(self, name = None, size = None, pos = None, stat = None, col = None, img = None):
+    def __init__(self, name = None, size = None, pos = None, gridPos = None, stat = None, col = None, img = None):
         """
             initialise the class with optional values, can be added later
             Core/Base class for the objects that are used in the projects
@@ -10,7 +10,7 @@ class Base(object):
         self.name = name
         self.size = size
         self.position = pos
-        self.gridPos = (0,0)
+        self.gridPos = gridPos
         self.colour = col
         self.image = img
         self.state = stat
@@ -72,6 +72,18 @@ class Base(object):
             y = 1
         self.position = (x*40, y*40)
         self.gridPos = (x, y)
+
+    #robot normal position
+    def setNPos(self, (x, y)):
+        if x == 0:
+            x = 1
+        if y == 0:
+            y = 1
+        self.NPos = (x, y)
+        self.girdPos = (x/40, y/40)
+
+    def getNPos(self):
+        return self.NPos
 
     #colour of object
     def getColour(self):

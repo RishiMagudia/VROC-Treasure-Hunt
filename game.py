@@ -47,17 +47,14 @@ class Game:
         self.wallpaper = pygame.image.load(wallpaper)
         self.wallpaper = pygame.transform.scale(self.wallpaper, self.screen.get_size())
 
-
         #assign the classes
         self.map = c.Map()
         self.inventory = c.Inventory()
         self.pirate = c.robot()
-        #self.treasure = c.Treasure()
+        self.treasure = c.Treasure()
         self.landmark = c.Landmark()
         self.trafficLight = c.trafficLights()
         self.AStar = c.AStar()
-        
-        
 
         #set up each of the classes with default attributes
         #?pass them on to the setup function
@@ -66,7 +63,6 @@ class Game:
         #set up font for game
         self.font = pygame.font.SysFont("monospace", 24)
         #set up the score board
-
 
     def setup(self):
         """
