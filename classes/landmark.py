@@ -32,7 +32,7 @@ class Landmark(Base):
         
         for Landmarks in Landmarks_list:
             if Landmarks != SearchedLanmarksList:
-                Unsearched_landmarks_list.append(Landmarks)
+                UnsearchedLandmarksList.append(Landmarks)
                 return UnsearchedLandmark_list
             
 
