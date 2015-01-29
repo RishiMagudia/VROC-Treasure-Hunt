@@ -26,7 +26,7 @@
       <file leaf-file-name="game.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="236" column="20" selection-start="8060" selection-end="8060" vertical-scroll-proportion="0.42105263" vertical-offset="3740" max-vertical-offset="4947">
+            <state line="53" column="9" selection-start="1447" selection-end="1447" vertical-scroll-proportion="0.7631579" vertical-offset="408" max-vertical-offset="4964">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="robot.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="26" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+            <state line="7" column="26" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="663">
               <folding />
             </state>
           </provider>
@@ -44,7 +44,7 @@
       <file leaf-file-name="treasure.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/treasure.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+            <state line="5" column="0" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="544">
               <folding />
             </state>
           </provider>
@@ -120,7 +120,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -169,17 +168,18 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="restartRequiresConfirmation" value="true" />
+    <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -478,7 +478,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928178" sideWeight="0.49909583" order="7" side_tool="false" content_ui="tabs" />
@@ -600,7 +600,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/treasure.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+        <state line="5" column="0" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
           <folding />
         </state>
       </provider>
@@ -621,7 +621,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="236" column="20" selection-start="8060" selection-end="8060" vertical-scroll-proportion="0.42105263" vertical-offset="3740" max-vertical-offset="4947">
+        <state line="53" column="9" selection-start="1447" selection-end="1447" vertical-scroll-proportion="0.7631579" vertical-offset="408" max-vertical-offset="4964">
           <folding />
         </state>
       </provider>

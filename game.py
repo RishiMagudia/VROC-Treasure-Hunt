@@ -102,7 +102,7 @@ class Game:
         self.pier = c.Landmark()
         self.pier.setImage("images/Pier.png")
         self.pier.setSize(7)
-        self.pier.setPosition((0, 13))
+        self.pier.setPosition((-1, 13))
         self.listOfLandmarks.append(self.pier)
         self.loadup.append((self.pier, 2))
 
@@ -234,7 +234,6 @@ class Game:
             else:
                 #traverse the path until destination is reached
                 try:
-                    
                     #print self.testPirate.getPosition()
                     if self.testPirate.getPosition()[0] < path[x]*40:
                         #increment x cor
@@ -251,6 +250,7 @@ class Game:
 
                     if self.testPirate.getPosition() == ((path[x]*40,path[x+1]*40)):
                         x+=2
+
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
                     if currentTreasure.getSearched() == False:
@@ -271,6 +271,7 @@ class Game:
 ##                and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
 ##                    print 'test'
 ##                    #self.land.append(self.testPirate.getGridPos())
+
             #add the score to the screen
             self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
             self.screen.blit(self.score, (10, self.height-215))
