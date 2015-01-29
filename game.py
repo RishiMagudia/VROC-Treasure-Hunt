@@ -24,6 +24,7 @@ class Game:
 
         #contain world items
         self.land = []
+        self.walls = []
         self.listOfLandmarks = []
         self.landmarkCounter = 0
         self.loadup = []
@@ -80,15 +81,15 @@ class Game:
 
         self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut.png")
-        self.testLandmark.setSize(8)
-        self.testLandmark.setPosition((0,-1))
+        self.testLandmark.setSize(5)
+        self.testLandmark.setPosition((0,1))
         self.listOfLandmarks.append(self.testLandmark)
         self.loadup.append((self.testLandmark, 1))
 
         self.testLandmark2 = c.Landmark()
         self.testLandmark2.setImage("images/Sunken ship.png")
         self.testLandmark2.setSize(5)
-        self.testLandmark2.setPosition((10,12))
+        self.testLandmark2.setPosition((13,1))
         self.listOfLandmarks.append(self.testLandmark2)
         self.loadup.append((self.testLandmark2,1))
 
@@ -102,8 +103,8 @@ class Game:
         self.testLandmark4 = c.Landmark()
         self.testLandmark4.setImage("images/Small island.png")
         self.testLandmark4.setSize(3)
-        self.testLandmark4.setPosition((10,12))
-        self.listOfLandmarks.append(self.testLandmark4)
+        self.testLandmark4.setPosition((9,13))
+        #self.listOfLandmarks.append(self.testLandmark4)
         self.loadup.append((self.testLandmark4,1))
 
         self.testLandmark5 = c.Landmark()
@@ -122,28 +123,36 @@ class Game:
 
         self.obs = c.Landmark()
         self.obs.setImage("images/Small island.png")
-        self.obs.setSize(3)
+        self.obs.setSize(2)
 
         self.map.prioritize(self.loadup)
 
         #generating obstacles, aka the map structure
-        while len(self.land) < 10:
-            xRandom = random.randint(0,8)
-            yRandom = random.randint(6,10)
-            if (xRandom, yRandom) not in self.land:
+        while len(self.land) < 15:
+            xRandom = random.randint(4,10)
+            yRandom = random.randint(4,6)
+            if (xRandom, yRandom) not in self.walls:
                 self.land.append((xRandom, yRandom))
+                self.walls.append((xRandom, yRandom))
+                self.walls.append((xRandom+1, yRandom))
+                self.walls.append((xRandom, yRandom+1))
+                self.walls.append((xRandom+1, yRandom+1))
 
-            xRandom = random.randint(22,30)
-            yRandom = random.randint(9,15)
-            if (xRandom+3, yRandom+3) or (xRandom-3, yRandom-3) not in self.land:
+            xRandom = random.randint(10,20)
+            yRandom = random.randint(6,12)
+            if (xRandom, yRandom+3) or (xRandom, yRandom) not in self.walls:
                 self.land.append((xRandom, yRandom))
+                self.walls.append((xRandom, yRandom))
+                self.walls.append((xRandom, yRandom+1))
+                self.walls.append((xRandom+1, yRandom+1))
 
-        while len(self.land) < 20:
-            xRandom = random.randint(8,17)
-            yRandom = random.randint(0,13)
-            if (xRandom+3, yRandom+3) or (xRandom-3, yRandom-3) not in self.land:
+            xRandom = random.randint(20,28)
+            yRandom = random.randint(12,12)
+            if (xRandom, yRandom) or (xRandom, yRandom) not in self.walls:
                 self.land.append((xRandom, yRandom))
-                
+                self.walls.append((xRandom, yRandom))
+                self.walls.append((xRandom, yRandom+1))
+                self.walls.append((xRandom+1, yRandom+1))
 
 
 
@@ -239,7 +248,7 @@ class Game:
                 tempcood = self.testPirate.getGridPos()
                 pirateX = tempcood[0]
                 pirateY = tempcood[1]
-                self.pathfind.init_grid(treasureX,treasureY,pirateX,pirateY,self.land) #start cood and end cood + walls
+                self.pathfind.init_grid(treasureX,treasureY,pirateX,pirateY,self.walls) #start cood and end cood + walls
                 self.pathfind.algorithm()
                 path = self.pathfind.getPath()
                 x=0
