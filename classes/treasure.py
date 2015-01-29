@@ -1,3 +1,4 @@
+from base import Base
 class Treasure(Base):
     def __init__(self,name = None, pos = None, size = None,imageHolder = None, pixMove = None, colour = None, movement = None, found= False,):  
         Base.__init__(self, name, pos, size, colour)
