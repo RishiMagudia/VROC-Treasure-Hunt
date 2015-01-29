@@ -77,7 +77,7 @@ class Game:
         self.testPirate.setImage("images/pirate.png")
         self.testPirate.setSize(1)
         self.testPirate.setPosition((2, 15))
-        self.loadup.append((self.testPirate, 2))
+        self.loadup.append((self.testPirate, 1))
 
         self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut.png")
