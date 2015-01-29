@@ -14,9 +14,8 @@ class Treasure(Base):
         else:
             return not_searched 
     """
-    def ShowingMessage(self, displayText, (x, y)):
-      if dispayText == True:
-          screenText = font.render("Treasure Found",True,(255,0,0))
-          self.screen = gameDisp
-          gameDisp.blit(screenText, (x, y))
+    def showMessage(self, text, (x, y)):
+        screenText = font.render(text, True, (255,0,0))
+        self.screen = gameDisp
+        gameDisp.blit(screenText, (x, y))
       
