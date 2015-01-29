@@ -80,59 +80,71 @@ class Game:
 
         self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut.png")
-        self.testLandmark.setSize(3)
-        self.testLandmark.setPosition((15, 0))
+        self.testLandmark.setSize(8)
+        self.testLandmark.setPosition((0,-1))
         self.listOfLandmarks.append(self.testLandmark)
         self.loadup.append((self.testLandmark, 1))
 
         self.testLandmark2 = c.Landmark()
         self.testLandmark2.setImage("images/Sunken ship.png")
-        self.testLandmark2.setSize(3)
+        self.testLandmark2.setSize(5)
         self.testLandmark2.setPosition((10,12))
         self.listOfLandmarks.append(self.testLandmark2)
         self.loadup.append((self.testLandmark2,1))
 
         self.testLandmark3 = c.Landmark()
-        self.testLandmark3.setImage("images/Lighthouse.png")
-        self.testLandmark3.setSize(3)
-        self.testLandmark3.setPosition((25,5))
+        self.testLandmark3.setImage("images/Big island.png")
+        self.testLandmark3.setSize(13)
+        self.testLandmark3.setPosition((19,-2))
+        self.listOfLandmarks.append(self.testLandmark3)
         self.loadup.append((self.testLandmark3,1))
+
+        self.testLandmark4 = c.Landmark()
+        self.testLandmark4.setImage("images/Small island.png")
+        self.testLandmark4.setSize(3)
+        self.testLandmark4.setPosition((10,12))
+        self.listOfLandmarks.append(self.testLandmark4)
+        self.loadup.append((self.testLandmark4,1))
+
+        self.testLandmark5 = c.Landmark()
+        self.testLandmark5.setImage("images/Lighthouse.png")
+        self.testLandmark5.setSize(7)
+        self.testLandmark5.setPosition((16,11))
+        self.loadup.append((self.testLandmark5,1))
 
         #pirate's start point
         self.pier = c.Landmark()
         self.pier.setImage("images/Pier.png")
-        self.pier.setSize(7)
-        self.pier.setPosition((-1, 13))
+        self.pier.setSize(9)
+        self.pier.setPosition((-1, 11))
         self.listOfLandmarks.append(self.pier)
         self.loadup.append((self.pier, 2))
 
         self.obs = c.Landmark()
         self.obs.setImage("images/Small island.png")
-        self.obs.setSize(1)
+        self.obs.setSize(3)
 
         self.map.prioritize(self.loadup)
 
         #generating obstacles, aka the map structure
-        while len(self.land) < 64:
-            xRandom = random.randint(0,7)
-            yRandom = random.randint(0,5)
+        while len(self.land) < 10:
+            xRandom = random.randint(0,8)
+            yRandom = random.randint(6,10)
             if (xRandom, yRandom) not in self.land:
                 self.land.append((xRandom, yRandom))
 
-            xRandom = random.randint(7,15)
-            yRandom = random.randint(5,9)
-            if (xRandom, yRandom) not in self.land:
+            xRandom = random.randint(22,30)
+            yRandom = random.randint(9,15)
+            if (xRandom+3, yRandom+3) or (xRandom-3, yRandom-3) not in self.land:
+                self.land.append((xRandom, yRandom))
+
+        while len(self.land) < 20:
+            xRandom = random.randint(8,17)
+            yRandom = random.randint(0,13)
+            if (xRandom+3, yRandom+3) or (xRandom-3, yRandom-3) not in self.land:
                 self.land.append((xRandom, yRandom))
                 
-            xRandom = random.randint(15,23)
-            yRandom = random.randint(9,13)
-            if (xRandom, yRandom) not in self.land:
-                self.land.append((xRandom, yRandom))
 
-            xRandom = random.randint(23,31)
-            yRandom = random.randint(13,17)
-            if (xRandom, yRandom) not in self.land:
-                self.land.append((xRandom, yRandom))
 
 
 
