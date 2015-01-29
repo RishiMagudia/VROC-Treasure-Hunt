@@ -118,8 +118,13 @@ class Game:
         self.pier.setImage("images/Pier.png")
         self.pier.setSize(9)
         self.pier.setPosition((-1, 11))
-        self.listOfLandmarks.append(self.pier)
+        #self.listOfLandmarks.append(self.pier)
         self.loadup.append((self.pier, 2))
+
+        #pirate end point
+        self.endPoint = c.Landmark()
+        self.endPoint.setPosition((1,13))
+        self.listOfLandmarks.append(self.endPoint)
 
         self.obs = c.Landmark()
         self.obs.setImage("images/Small island.png")
@@ -240,7 +245,7 @@ class Game:
                 try:
                     currentTreasure = self.listOfLandmarks[self.landmarkCounter]
                     tempcood = currentTreasure.getGridPos()
-                    treasureX = tempcood[0] +1
+                    treasureX = tempcood[0] +2
                     treasureY = tempcood[1] +1
                     self.landmarkCounter+=1
                 except IndexError:
