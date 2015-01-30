@@ -125,6 +125,12 @@ class Game:
         self.listOfLandmarks.append(self.testLandmark6)
         self.loadup.append((self.testLandmark6, 2))
 
+        self.testLight = c.trafficLights()
+        self.testLight.setImage("images/Whale.png")
+        self.testLight.setSize(3)
+        self.testLight.setPosition((25, 8))
+        self.loadup.append((self.testLight, 2))
+
         for i in self.listOfLandmarks:
             print i.getGridPos(), " <-- landmark"
 
@@ -235,6 +241,7 @@ class Game:
         """
             infinite loop to keep the images updating and moving
         """
+        st = time.time()
         while 1:
             #get pygame events and do something
             for event in pygame.event.get():
@@ -266,6 +273,15 @@ class Game:
             #draw the inaccessible lands
             for xL, yL in self.land:
                 self.screen.blit(self.obs.getImage(), (40*xL,40*yL))
+
+            #working traffic light timer
+            if time.time() - st > 3.0:
+                st = time.time()
+                self.trafficLight.rotateColour()
+
+            #need to incorporate boundary search 
+            #while self.testLight.getColour() == self.testLight.red and self.testLight.getGridPos() == self.testPirate.getGridPos():
+                    #print "it's red"
 
             if self.testPirate.getHasReachedDestination() == True:
                 self.callMsgStatus = True
@@ -319,7 +335,6 @@ class Game:
                             #currentTreasure shows message of the tresure
                             #tre = self.font.render("TREASURE ACQUIRED", 1, self.colour)
                             #self.screen.blit(tre, (10, 10))
-                            
                     currentTreasure.setSearched(True)
                     self.testPirate.setHasReachedDestination(True)
 

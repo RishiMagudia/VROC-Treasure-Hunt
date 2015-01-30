@@ -48,8 +48,6 @@ class Base(object):
         self.size = size*40
         if self.image != None:
             self.image = pygame.transform.scale(self.image, (size*40, size*40))
-        else:
-            raise AttributeError
 
     #image of object
     def getImage(self):
