@@ -30,7 +30,7 @@ class Game:
         self.landmarkCounter = 0
         self.treasures = []
         self.loadup = []
-        
+        self.callMsgStatus = False
         #set the resolution of the window
         self.width = width
         self.height = height
@@ -54,7 +54,7 @@ class Game:
         self.map = c.Map()
         self.inventory = c.Inventory()
         self.pirate = c.robot()
-        #self.treasure = c.Treasure()
+        self.treasure = c.Treasure()
         self.landmark = c.Landmark()
         self.trafficLight = c.trafficLights()
         self.AStar = c.AStar()
@@ -76,6 +76,8 @@ class Game:
         self.pathfind = c.AStar()
         self.pathfind2 = c.AStar()
         self.testPirate = c.robot()
+
+        self.treasureText = c.Treasure()
 
         self.testPirate.setImage("images/pirate.png")
         self.testPirate.setSize(1)
@@ -223,6 +225,12 @@ class Game:
             pygame.display.update()
             pygame.time.Clock().tick(FPS)
 
+
+    def callMsg(self):
+        self.treasureText.showMessage(self.screen, 'Treasure Found',(10,10))
+        
+
+
     def loop(self):
         """
             infinite loop to keep the images updating and moving
@@ -260,6 +268,8 @@ class Game:
                 self.screen.blit(self.obs.getImage(), (40*xL,40*yL))
 
             if self.testPirate.getHasReachedDestination() == True:
+                self.callMsgStatus = True
+                pygame.time.delay(1000)
                 self.testPirate.setHasReachedDestination(False)
                 #apply next treasure to pathfind to
                 try:
@@ -302,14 +312,13 @@ class Game:
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
                     if currentTreasure.getSearched() == False:
-                        tick = pygame.time.get_ticks() + 100
                         if currentTreasure.getGridPos() in self.treasures:
                             self.inventory.addScore(random.randint(100, 1000))
                             self.trsr_amount -= 1
-
+                            self.callMsg()
                             #currentTreasure shows message of the tresure
-                            tre = self.font.render("TREASURE ACQUIRED", 1, self.colour)
-                            self.screen.blit(tre, (10, 10))
+                            #tre = self.font.render("TREASURE ACQUIRED", 1, self.colour)
+                            #self.screen.blit(tre, (10, 10))
                             
                     currentTreasure.setSearched(True)
                     self.testPirate.setHasReachedDestination(True)
@@ -322,7 +331,7 @@ class Game:
             self.txtTA = self.font.render("Treasures Left: "+str(self.trsr_amount), 1, self.colour)
             self.screen.blit(self.score, (10, self.height-220))
             self.screen.blit(self.txtTA, (10, self.height-240))
-
+            
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
