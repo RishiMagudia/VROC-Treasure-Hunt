@@ -92,27 +92,27 @@ class Game:
             self.loadup.append((self.testPirate2,1))
 
         self.testLandmark = c.Landmark()
-        self.testLandmark.setImage("images/Hut.png")
+        self.testLandmark.setImage("images/Hut_treasure.png")
         self.testLandmark.setSize(5)
         self.testLandmark.setPosition((0,1))
         self.listOfLandmarks.append(self.testLandmark)
         self.loadup.append((self.testLandmark, 2))
 
         self.testLandmark2 = c.Landmark()
-        self.testLandmark2.setImage("images/Sunken ship.png")
+        self.testLandmark2.setImage("images/Sunken ship_treasure.png")
         self.testLandmark2.setSize(5)
         self.testLandmark2.setPosition((13,1))
         self.listOfLandmarks.append(self.testLandmark2)
         self.loadup.append((self.testLandmark2,2))
 
         self.testLandmark3 = c.Landmark()
-        self.testLandmark3.setImage("images/Big island.png")
+        self.testLandmark3.setImage("images/Big island_treasure.png")
         self.testLandmark3.setSize(13)
         self.testLandmark3.setPosition((19,-2))
         self.loadup.append((self.testLandmark3,2))
 
         self.testLandmark5 = c.Landmark()
-        self.testLandmark5.setImage("images/Lighthouse.png")
+        self.testLandmark5.setImage("images/Lighthouse_treasure.png")
         self.testLandmark5.setSize(7)
         self.testLandmark5.setPosition((16,11))
         self.listOfLandmarks.append(self.testLandmark5)
@@ -334,7 +334,18 @@ class Game:
             
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
-
+            
+            for i in range(len(self.loadup)):
+                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+                    self.testLandmark.setImage("images/Hut.png")
+                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+                    self.testLandmark.setImage("images/Sunken ship.png")
+                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+                    self.testLandmark.setImage("images/Big island.png")
+                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+                    self.testLandmark.setImage("images/Lighthouse.png")
+                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+                    self.testLandmark.setImage(none)
 if __name__ == "__main__":
     window = Game()
    # window.playIntro()
