@@ -1,32 +1,30 @@
 import pygame
 import time 
 from pygame.locals import*
+from base import Base
 
-class trafficLights:
-    def trafficLights():
-        win = GraphicWin()
-        red = Circle(Point(100, 50), 20)
-        red.setFill("black")
-        red.draw(win)
-        amber = Circle(Point(100,100), 20)
-        amber.setFill("black")
-        amber.draw(win)
-        green = Circle(Point(100, 150),20)
-        green.setFill("black")
-        green.draw(win)
+class trafficLights(Base):
 
-        colour = "red"
-        while True:
-            for light in [ red, amber, green]:
-                light.setFill( colour )
+    def __init__(self):
+        Base.__init__(self)
+        self.timer = 3.0
 
-                time.sleep(5)
+        self.green = (0, 255, 0)
+        self.amber = (255, 191, 0)
+        self.red = (255, 0, 0)
 
-                light.setFill( "black" )
-                if colour == "red":
-                    colour = "amber"
-                elif colour == "amber":
-                    colour = "green"
-                elif colour == "green":
-                    colour = "red"
+        self.colour = self.red
 
+    def getColour(self):
+        return self.colour
+
+    def setColour(self, col):
+        self.colour = col
+
+    def rotateColour(self):
+        if self.getColour() == self.red:
+            self.setColour(self.amber)
+        elif self.getColour() == self.amber:
+            self.setColour(self.green)
+        else:
+            self.setColour(self.red)
