@@ -5,6 +5,7 @@ import classes as c
 
 
 ENABLE_GRID = False
+ENABLE_ROBOT2 = False
 
 class Game:
     """
@@ -73,12 +74,20 @@ class Game:
             draw ui
         """
         self.pathfind = c.AStar()
+        self.pathfind2 = c.AStar()
         self.testPirate = c.robot()
 
         self.testPirate.setImage("images/pirate.png")
         self.testPirate.setSize(1)
         self.testPirate.setPosition((2, 15))
         self.loadup.append((self.testPirate, 1))
+
+        if ENABLE_ROBOT2 == True:
+            self.testPirate2 = c.robot()
+            self.testPirate2.setImage("images/pirate.png")
+            self.testPirate2.setSize(1)
+            self.testPirate2.setPosition((4,15))
+            self.loadup.append((self.testPirate2,1))
 
         self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut.png")
@@ -175,6 +184,8 @@ class Game:
                 self.walls.append((xRandom, yRandom))
                 self.walls.append((xRandom, yRandom+1))
                 self.walls.append((xRandom+1, yRandom+1))
+
+        print 'obs generated'
 
     def playIntro(self):
         """
@@ -299,6 +310,7 @@ class Game:
                             #currentTreasure shows message of the tresure
                             tre = self.font.render("TREASURE ACQUIRED", 1, self.colour)
                             self.screen.blit(tre, (10, 10))
+                            
                     currentTreasure.setSearched(True)
                     self.testPirate.setHasReachedDestination(True)
 
