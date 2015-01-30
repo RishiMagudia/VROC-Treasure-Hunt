@@ -1,4 +1,4 @@
-import pygame, random
+import pygame, random, time
 
 #import team's objects
 import classes as c
@@ -27,6 +27,7 @@ class Game:
         self.walls = []
         self.listOfLandmarks = []
         self.landmarkCounter = 0
+        self.treasures = []
         self.loadup = []
         
         #set the resolution of the window
@@ -84,34 +85,38 @@ class Game:
         self.testLandmark.setSize(5)
         self.testLandmark.setPosition((0,1))
         self.listOfLandmarks.append(self.testLandmark)
-        self.loadup.append((self.testLandmark, 1))
+        self.loadup.append((self.testLandmark, 2))
 
         self.testLandmark2 = c.Landmark()
         self.testLandmark2.setImage("images/Sunken ship.png")
         self.testLandmark2.setSize(5)
         self.testLandmark2.setPosition((13,1))
         self.listOfLandmarks.append(self.testLandmark2)
-        self.loadup.append((self.testLandmark2,1))
+        self.loadup.append((self.testLandmark2,2))
 
         self.testLandmark3 = c.Landmark()
         self.testLandmark3.setImage("images/Big island.png")
         self.testLandmark3.setSize(13)
         self.testLandmark3.setPosition((19,-2))
-        self.listOfLandmarks.append(self.testLandmark3)
-        self.loadup.append((self.testLandmark3,1))
-
-        self.testLandmark4 = c.Landmark()
-        self.testLandmark4.setImage("images/Small island.png")
-        self.testLandmark4.setSize(3)
-        self.testLandmark4.setPosition((9,13))
-        #self.listOfLandmarks.append(self.testLandmark4)
-        self.loadup.append((self.testLandmark4,1))
+        self.loadup.append((self.testLandmark3,2))
 
         self.testLandmark5 = c.Landmark()
         self.testLandmark5.setImage("images/Lighthouse.png")
         self.testLandmark5.setSize(7)
         self.testLandmark5.setPosition((16,11))
-        self.loadup.append((self.testLandmark5,1))
+        self.listOfLandmarks.append(self.testLandmark5)
+        self.loadup.append((self.testLandmark5,2))
+
+        self.testLandmark6 = c.Landmark()
+        self.testLandmark6.setImage("images/Treasure chest.png")
+        self.testLandmark6.setSize(3)
+        self.testLandmark6.setPosition((28,8))
+        self.listOfLandmarks.append(self.testLandmark6)
+        self.loadup.append((self.testLandmark6, 2))
+
+        for i in self.listOfLandmarks:
+            print i.getGridPos(), " <-- landmark"
+
 
         #pirate's start point
         self.pier = c.Landmark()
@@ -131,6 +136,18 @@ class Game:
         self.obs.setSize(2)
 
         self.map.prioritize(self.loadup)
+
+        #set amount of treasures
+        self.trsr_amount = random.randint(1, len(self.listOfLandmarks))
+
+        #choose a landmark(s) for the treasure
+        lm = [i.getGridPos() for i in self.listOfLandmarks]
+        while len(self.treasures) < self.trsr_amount:
+            t = random.choice(lm)
+            if t not in self.treasures and t != (1, 13) and t != self.pier.getGridPos() and t not in self.land:
+                self.treasures.append(t)
+
+        print self.treasures, " <-- treasures"
 
         #generating obstacles, aka the map structure
         while len(self.land) < 15:
@@ -158,14 +175,6 @@ class Game:
                 self.walls.append((xRandom, yRandom))
                 self.walls.append((xRandom, yRandom+1))
                 self.walls.append((xRandom+1, yRandom+1))
-
-
-
-
-    def playHandle(self):
-        """
-            handle the gameplay
-        """
 
     def playIntro(self):
         """
@@ -202,7 +211,7 @@ class Game:
             self.screen.blit(img, (x,y))
             pygame.display.update()
             pygame.time.Clock().tick(FPS)
-            
+
     def loop(self):
         """
             infinite loop to keep the images updating and moving
@@ -250,6 +259,8 @@ class Game:
                     self.landmarkCounter+=1
                 except IndexError:
                     print ''
+                    if self.trsr_amount == 0:
+                        print "Game Over!"
                 tempcood = self.testPirate.getGridPos()
                 pirateX = tempcood[0]
                 pirateY = tempcood[1]
@@ -280,27 +291,25 @@ class Game:
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
                     if currentTreasure.getSearched() == False:
-                        pygame.time.delay(100)
-                        print "Treasure Acquired!"
-                        self.inventory.addScore(100)
+                        tick = pygame.time.get_ticks() + 100
+                        if currentTreasure.getGridPos() in self.treasures:
+                            self.inventory.addScore(random.randint(100, 1000))
+                            self.trsr_amount -= 1
+
+                            #currentTreasure shows message of the tresure
+                            tre = self.font.render("TREASURE ACQUIRED", 1, self.colour)
+                            self.screen.blit(tre, (10, 10))
                     currentTreasure.setSearched(True)
                     self.testPirate.setHasReachedDestination(True)
 
             #re/draw the map
             self.map.drawMap(self.screen)
 
-##            #treasure spotter
-##            boundary = 1
-##            if self.testPirate.getGridPos()[0] <= self.testLandmark.getGridPos()[0]+boundary\
-##                and self.testPirate.getGridPos()[0] >= self.testLandmark.getGridPos()[0]-boundary\
-##                and self.testPirate.getGridPos()[1] <= self.testLandmark.getGridPos()[1]+boundary\
-##                and self.testPirate.getGridPos()[1] >= self.testLandmark.getGridPos()[1]-boundary:
-##                    print 'test'
-##                    #self.land.append(self.testPirate.getGridPos())
-
-            #add the score to the screen
+            #add the "inventory" to the screen
             self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
-            self.screen.blit(self.score, (10, self.height-215))
+            self.txtTA = self.font.render("Treasures Left: "+str(self.trsr_amount), 1, self.colour)
+            self.screen.blit(self.score, (10, self.height-220))
+            self.screen.blit(self.txtTA, (10, self.height-240))
 
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
