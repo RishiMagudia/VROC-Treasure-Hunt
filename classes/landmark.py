@@ -3,10 +3,10 @@ import pygame #This is an example of using an API to import the external library
 
 # Initialize attributes for Landmark.
 
-class Landmark(Base):
+class Landmark(object):
     
     def __init__(self, name = None, size = None, pos = None, img = None, stat = None, desc = None):
-        Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base. This is an example of inheritance.
+       # Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base. This is an example of inheritance.
         self.searched = False
         self.decription = desc
         self.SearchedLandmarkList = []
@@ -21,8 +21,8 @@ class Landmark(Base):
             
     def searched(self, robot): #Method checks if robot position matches any treasure position. Matches can be assumed to be searched landmarks and are made into a list, which is then returned. This is kept public so it can be called elsewhere.
 
-        for treasure in landmarkList:  #Checks if each value in landmarkList is equal to the robot position, if yes they are appended to a list.
-            if treasure in robot:
+        for treasure in landmarkList:  #Checks if each value in landmarkList is equal to any past or present robot position, if yes they are appended to a list.
+            if treasure in robotVisited:
                  self.searchedLandmarkList.append(treasure) 
 
         return self.searchedLandmarkList #This list is returned to 
@@ -38,7 +38,7 @@ class Landmark(Base):
         return self.unsearchedLandmarkList
             
 
-    def treasurePresent(self, treasureList, landmarkList, robot): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to. As this method doesn't use any specific values this is an example of data abstraction.
+    def treasurePresent(self, treasureList, landmarkList, robot): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to.
 
         self.validLandmarksList = []
 
