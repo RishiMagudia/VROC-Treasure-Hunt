@@ -7,12 +7,9 @@ class trafficLights(Base):
 
     def __init__(self):
         Base.__init__(self)
-        self.timer = 3.0
-
-        self.green = (0, 255, 0)
-        self.amber = (255, 191, 0)
-        self.red = (255, 0, 0)
-
+        self.green = "images/green.png"
+        self.amber = "images/amber.png"
+        self.red = "images/red.png"
         self.colour = self.red
 
     def getColour(self):

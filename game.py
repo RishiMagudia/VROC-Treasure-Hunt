@@ -126,10 +126,18 @@ class Game:
         self.loadup.append((self.testLandmark6, 2))
 
         self.testLight = c.trafficLights()
-        self.testLight.setImage("images/Whale.png")
+        self.testLight.setImage("images/red.png")
+        self.testLight.setColour(self.testLight.red)
         self.testLight.setSize(3)
         self.testLight.setPosition((25, 8))
         self.loadup.append((self.testLight, 2))
+
+        self.lightArea = []
+        self.lax, self.lay = self.testLight.getGridPos()
+        self.lightArea.append((self.lax, self.lay))
+        self.lightArea.append((self.lax+1, self.lay))
+        self.lightArea.append((self.lax, self.lay+1))
+        self.lightArea.append((self.lax+1, self.lay+1))
 
         for i in self.listOfLandmarks:
             print i.getGridPos(), " <-- landmark"
@@ -161,7 +169,7 @@ class Game:
         lm = [i.getGridPos() for i in self.listOfLandmarks]
         while len(self.treasures) < self.trsr_amount:
             t = random.choice(lm)
-            if t not in self.treasures and t != (1, 13) and t != self.pier.getGridPos() and t not in self.land:
+            if t not in self.treasures and t != (1, 13) and t not in self.land:
                 self.treasures.append(t)
 
         print self.treasures, " <-- treasures"
@@ -275,13 +283,16 @@ class Game:
                 self.screen.blit(self.obs.getImage(), (40*xL,40*yL))
 
             #working traffic light timer
-            if time.time() - st > 3.0:
+            if time.time() - st > 5.0:
                 st = time.time()
-                self.trafficLight.rotateColour()
+                self.testLight.rotateColour()
+                self.testLight.setImage(self.testLight.getColour())
+                self.testLight.setSize(self.testLight.getSize()/40)
 
             #need to incorporate boundary search 
-            #while self.testLight.getColour() == self.testLight.red and self.testLight.getGridPos() == self.testPirate.getGridPos():
-                    #print "it's red"
+            if self.testPirate.getGridPos() in self.lightArea:
+                if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
+                    time.sleep(2)
 
             if self.testPirate.getHasReachedDestination() == True:
                 self.callMsgStatus = True
@@ -349,18 +360,19 @@ class Game:
             
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
-            
-            for i in range(len(self.loadup)):
-                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-                    self.testLandmark.setImage("images/Hut.png")
-                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-                    self.testLandmark.setImage("images/Sunken ship.png")
-                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-                    self.testLandmark.setImage("images/Big island.png")
-                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-                    self.testLandmark.setImage("images/Lighthouse.png")
-                if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-                    self.testLandmark.setImage(none)
+
+            # for i in range(len(self.loadup)):
+            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+            #         self.testLandmark.setImage("images/Hut.png")
+            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+            #         self.testLandmark.setImage("images/Sunken ship.png")
+            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+            #         self.testLandmark.setImage("images/Big island.png")
+            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+            #         self.testLandmark.setImage("images/Lighthouse.png")
+            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
+            #         self.testLandmark.setImage(none)
+
 if __name__ == "__main__":
     window = Game()
    # window.playIntro()
