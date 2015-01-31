@@ -3,7 +3,7 @@ import pygame #This is an example of using an API to import the external library
 
 # Initialize attributes for Landmark.
 
-class Landmark(object):
+class Landmark(Base):
     
     def __init__(self, name = None, size = None, pos = None, img = None, stat = None, desc = None):
        # Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base. This is an example of inheritance.
