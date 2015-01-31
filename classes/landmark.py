@@ -38,7 +38,7 @@ class Landmark(Base):
         return self.unsearchedLandmarkList
             
 
-    def treasurePresent(self, treasureList, landmarkList, robot): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to.
+    def treasurePresent(self, treasureList, landmarkList, robot): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to. As this method doesn't use any specific values this is an example of data abstraction.
 
         self.validLandmarksList = []
 
