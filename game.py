@@ -12,7 +12,7 @@ class Game:
         Main class to start the game.
     """
     #temp col, wall holder    
-    def __init__(self, width=1280, height=720, wallpaper = "images/background.jpg", colour = (255, 255, 255)):
+    def __init__(self, width=1280, height=720, wallpaper="images/background.jpg", colour = (255, 255, 255)):
         """
             initialise the game
         """
@@ -141,7 +141,6 @@ class Game:
 
         for i in self.listOfLandmarks:
             print i.getGridPos(), " <-- landmark"
-
 
         #pirate's start point
         self.pier = c.Landmark()
@@ -296,7 +295,7 @@ class Game:
             #need to incorporate boundary search 
             if self.testPirate.getGridPos() in self.lightArea:
                 if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
-                    time.sleep(2)
+                    self.testPirate.setPosition(self.testLight.getGridPos())
 
             if self.testPirate.getHasReachedDestination() == True:
                 self.callMsgStatus = True
