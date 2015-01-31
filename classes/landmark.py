@@ -1,14 +1,17 @@
 from base import Base
-import pygame
+import pygame #This is an example of using an API to import the external library pygame.
 
 # Initialize attributes for Landmark.
 
-class Landmark(Base):
+class Landmark(object):
     
     def __init__(self, name = None, size = None, pos = None, img = None, stat = None, desc = None):
-        Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base.
+       # Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base. This is an example of inheritance.
         self.searched = False
         self.decription = desc
+        self.SearchedLandmarkList = []
+        self.UnsearchedLandmarkList = []
+        self.validLandmarksList = []
 
     def getSearched(self):
         return self.searched
@@ -16,26 +19,31 @@ class Landmark(Base):
     def setSearched(self,i):
         self.searched = i
             
-    def __Searched(self): #Method checks if robot position matches any treasure position. Matches can be assumed to be searched landmarks and are made into a list, which is then returned. Variable is private, as it is only to be used in the Landmark class. This is an example of encapsulation.
+    def searched(self, robot): #Method checks if robot position matches any treasure position. Matches can be assumed to be searched landmarks and are made into a list, which is then returned. This is kept public so it can be called elsewhere.
 
-        SearchedLandmarkList = [] #Makes sure that list is empty.
+        for treasure in landmarkList:  #Checks if each value in landmarkList is equal to the robot position, if yes they are appended to a list.
+            if treasure in robot:
+                 self.searchedLandmarkList.append(treasure) 
+
+        return self.searchedLandmarkList #This list is returned to 
+
+    def __unsearched(self, landmarkList): #Method checking if each landmark has been searched. If they haven't, they are appended to a list. This calls on the Searched method. Also, this method is private, so that it is not called outside of the class. This is an example of encapsulation.
+
+        self.unsearchedLandmarkList = [] #This list is emptied each time the method is called, to insure that no Landmarks which were unsearched previously which are now searched, are returned in the UnsearchedLandmarkList.
         
-        for Treasure in TreasureList:
-            if Treasure == robot.get.position:
-                 SearchedLandmarkList.append(Treasure)
+        for landmarks in landmarkList:
+            if landmarks not in self.searched(robot):
+                self.unsearchedLandmarkList.append(landmarks)
 
-        return SearchedLandmarkList
-
-    def __Unsearched(self): #Method checking if each landmark has been searched. If they haven't, they are appended to a list. 
-
-        UnsearchedLandmarksList = [] #Makes sure list is emptied. 
-        
-        for Landmarks in LandmarksList:
-            if Landmarks != SearchedLanmarksList:
-                UnsearchedLandmarksList.append(Landmarks)
-                return UnsearchedLandmarkList
+        return self.unsearchedLandmarkList
             
 
-    def TreasurePresent(self): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to.
+    def treasurePresent(self, treasureList, landmarkList, robot): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to.
 
-        return set(self.__Unsearched) & set(treasureList) 
+        self.validLandmarksList = []
+
+        for validLandmarks in self.__unsearched(landmarkList):
+            if validLandmarks in treasureList:
+                self.validLandmarksList.append(validLandmarks)
+
+        return self.validLandmarksList 
