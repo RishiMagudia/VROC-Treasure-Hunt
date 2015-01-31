@@ -11,7 +11,6 @@ class Game:
     """
         Main class to start the game.
     """
-
     #temp col, wall holder    
     def __init__(self, width=1280, height=720, wallpaper = "images/background.jpg", colour = (255, 255, 255)):
         """
@@ -29,6 +28,7 @@ class Game:
         self.listOfLandmarks = []
         self.landmarkCounter = 0
         self.treasures = []
+        self.visited = []
         self.loadup = []
         self.callMsgStatus = False
         #set the resolution of the window
@@ -160,19 +160,26 @@ class Game:
         self.obs.setImage("images/Small island.png")
         self.obs.setSize(2)
 
+        self.x = c.Base()
+        self.x.setImage("images/X.png")
+        self.x.setSize(3)
+
         self.map.prioritize(self.loadup)
 
         #set amount of treasures
-        self.trsr_amount = random.randint(1, len(self.listOfLandmarks))
+        self.trsr_amount = random.randint(1, len(self.listOfLandmarks)-1)
 
         #choose a landmark(s) for the treasure
-        lm = [i.getGridPos() for i in self.listOfLandmarks]
-        while len(self.treasures) < self.trsr_amount:
-            t = random.choice(lm)
-            if t not in self.treasures and t != (1, 13) and t not in self.land:
+        while len(self.treasures) != self.trsr_amount:
+            print "treasures", len(self.treasures)+1, self.trsr_amount
+            t = random.choice([i.getGridPos() for i in self.listOfLandmarks])
+            print "t", t
+            if t not in self.treasures and t != (1, 13):
+                print "accepted", t
                 self.treasures.append(t)
-
-        print self.treasures, " <-- treasures"
+            else:
+                print "rejected", t
+            print self.treasures, " <-- treasures"
 
         #generating obstacles, aka the map structure
         while len(self.land) < 15:
@@ -239,11 +246,8 @@ class Game:
             pygame.display.update()
             pygame.time.Clock().tick(FPS)
 
-
     def callMsg(self):
         self.treasureText.showMessage(self.screen, 'Treasure Found',(10,10))
-        
-
 
     def loop(self):
         """
@@ -338,6 +342,8 @@ class Game:
 
                 except IndexError:
                     self.testPirate.setPosition((treasureX,treasureY))
+                    if currentTreasure.getGridPos() != (1, 13):
+                        self.visited.append(currentTreasure)
                     if currentTreasure.getSearched() == False:
                         if currentTreasure.getGridPos() in self.treasures:
                             self.inventory.addScore(random.randint(100, 1000))
@@ -351,6 +357,9 @@ class Game:
 
             #re/draw the map
             self.map.drawMap(self.screen)
+            #generate an image if the robot has visited the location
+            for i in self.visited:
+                self.screen.blit(self.x.getImage(), (i.getPosition()[0]+15, i.getPosition()[1]+25))
 
             #add the "inventory" to the screen
             self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
