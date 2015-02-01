@@ -297,6 +297,13 @@ class Game:
                 if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
                     self.testPirate.setPosition(self.testLight.getGridPos())
 
+            if ENABLE_ROBOT2==True:
+                if self.testPirate2.getGridPos() in self.lightArea:
+                    if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
+                        self.testPirate2.setPosition(self.testLight.getGridPos())
+
+            #Movement for robot1
+            #-----------------------------------------------------------------------------------------------------------
             if self.testPirate.getHasReachedDestination() == True:
                 self.callMsgStatus = True
                 pygame.time.delay(1000)
@@ -340,6 +347,47 @@ class Game:
                             #self.screen.blit(tre, (10, 10))
                     currentTreasure.setSearched(True)
                     self.testPirate.setHasReachedDestination(True)
+            #-----------------------------------------------------------------------------------------------------------
+
+            #If robot 2 is enabled,movement loop is below
+            #-----------------------------------------------------------------------------------------------------------
+            if ENABLE_ROBOT2 == True:
+                if self.testPirate2.getHasReachedDestination() == True:
+                    self.callMsgStatus = True
+                    pygame.time.delay(1000)
+                    self.testPirate2.setHasReachedDestination(False)
+                    #apply next treasure to pathfind2 to
+                    try:
+                        currentTreasure = self.listOfLandmarks[self.landmarkCounter+1]
+                        tempcood1 = currentTreasure.getGridPos()
+                        treasureX = tempcood1[0] +2
+                        treasureY = tempcood1[1] +1
+                    except IndexError:
+                        print ''
+                        if self.trsr_amount == 0:
+                            print "Game Over!"
+                    tempcood1 = self.testPirate2.getGridPos()
+                    pirateX = tempcood1[0]
+                    pirateY = tempcood1[1]
+                    self.pathfind2.init_grid(treasureX,treasureY,pirateX,pirateY,self.walls) #start cood and end cood + walls
+                    self.pathfind2.algorithm()
+                    path1 = self.pathfind2.getPath()
+                    x=0
+                else:
+                    #traverse the path until destination is reached
+                    try:
+                        self.testPirate2.move(path1,x)
+                    except IndexError:
+                        #self.testPirate2.setPosition((treasureX,treasureY))
+                        #if currentTreasure.getGridPos() != (1, 13):
+                        #    self.visited.append(currentTreasure)
+                        #if currentTreasure.getSearched() == False:
+                        #    if currentTreasure.getGridPos() in self.treasures:
+                        #        currentTreasure.setSearched(True)
+                        #        self.trsr_amount -= 1
+                        #        self.inventory.addScore(random.randint(100, 1000))
+                        self.testPirate2.setHasReachedDestination(True)
+            #-----------------------------------------------------------------------------------------------------------
 
             #re/draw the map
             self.map.drawMap(self.screen)
