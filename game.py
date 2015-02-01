@@ -322,20 +322,7 @@ class Game:
             else:
                 #traverse the path until destination is reached
                 try:
-                    #print self.testPirate.getPosition()
-                    if self.testPirate.getPosition()[0] < path[x]*40:
-                        #increment x cor
-                        self.testPirate.setNPos((self.testPirate.getPosition()[0]+self.testPirate.getVelocity(),path[x+1]*40))
-                    if self.testPirate.getPosition()[0] > path[x]*40:
-                        #decrease x cor
-                        self.testPirate.setNPos((self.testPirate.getPosition()[0]-self.testPirate.getVelocity(),path[x+1]*40))
-                    if self.testPirate.getPosition()[1] < path[x+1]*40:
-                        #increment y cor
-                        self.testPirate.setNPos((path[x]*40,self.testPirate.getPosition()[1]+self.testPirate.getVelocity()))
-                    if self.testPirate.getPosition()[1] > path[x+1]*40:
-                        #decrease y cor
-                        self.testPirate.setNPos((path[x]*40,self.testPirate.getPosition()[1]-self.testPirate.getVelocity()))
-
+                    self.testPirate.move(path,x)
                     if self.testPirate.getPosition() == ((path[x]*40,path[x+1]*40)):
                         x+=2
 

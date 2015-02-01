@@ -24,9 +24,19 @@ class robot(Base):
     def setEndPosition(self,endPos):
         self.endPosition = endPos
 
-    def move(self,endPoint,):
-        print 'test'
-        #pygame.draw.rect(screen,(0,255,0),(40*cood[0],40*cood[1],40,40),10) #replace with pirate image at later date
+    def move(self,path,x):
+        if self.getPosition()[0] < path[x]*40:
+            #increment x cor
+            self.setNPos((self.getPosition()[0]+self.getVelocity(),path[x+1]*40))
+        if self.getPosition()[0] > path[x]*40:
+            #decrease x cor
+            self.setNPos((self.getPosition()[0]-self.getVelocity(),path[x+1]*40))
+        if self.getPosition()[1] < path[x+1]*40:
+            #increment y cor
+            self.setNPos((path[x]*40,self.getPosition()[1]+self.getVelocity()))
+        if self.getPosition()[1] > path[x+1]*40:
+            #decrease y cor
+            self.setNPos((path[x]*40,self.getPosition()[1]-self.getVelocity()))
 
 
 
