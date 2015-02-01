@@ -38,7 +38,7 @@ class Landmark(Base):
         return self.unsearchedLandmarkList
             
 
-    def treasurePresent(self, treasureList, landmarkList, robotVisited): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to.
+    def treasurePresent(self, treasureList, landmarkList, robotVisited): #Method to check if treasure is present, by cross refrencing unsearched Landmark positions with treasure position to return a list valid positions, for the robot to travel to. As this method searches through a list of values to find a match, it is an example of a search algorithm.
 
         self.validLandmarksList = []
 
