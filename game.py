@@ -253,7 +253,14 @@ class Game:
             infinite loop to keep the images updating and moving
         """
         st = time.time()
+        paused = False        
         while 1:
+            #loop for the pausing of the game
+            while paused == True:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYUP:
+                        paused = False
+                    
             #get pygame events and do something
             for event in pygame.event.get():
                 
@@ -261,11 +268,15 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
-                #stop running if esc key pressed
+                #key presses
                 if event.type == pygame.KEYDOWN:
+                    #escape button checker for exiting
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
+                    #P button checked for pausing
+                    if event.key == pygame.K_p:
+                            paused = True
                     
             #update the screen and images
             #self.screen.blit(self.background, (0,0))
