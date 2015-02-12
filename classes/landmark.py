@@ -8,7 +8,7 @@ class Landmark(Base):
     def __init__(self, name = None, size = None, pos = None, img = None, stat = None, desc = None):# Atributes of Landmark are Initialized.
         Base.__init__(self, name, size, pos, img, stat) #Initialize inherited attributes, from Base. This is an example of inheritance.
         self.searched = False
-        self.decription = desc
+        self.decription = 'desc'
         self.SearchedLandmarkList = []
         self.UnsearchedLandmarkList = []
         self.validLandmarksList = []

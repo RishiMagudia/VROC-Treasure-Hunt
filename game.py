@@ -5,7 +5,6 @@ import classes as c
 
 
 ENABLE_GRID = False
-ENABLE_ROBOT2 = False
 
 class Game:
     """
@@ -83,13 +82,6 @@ class Game:
         self.testPirate.setSize(1)
         self.testPirate.setPosition((2, 15))
         self.loadup.append((self.testPirate, 1))
-
-        if ENABLE_ROBOT2 == True:
-            self.testPirate2 = c.robot()
-            self.testPirate2.setImage("images/pirate.png")
-            self.testPirate2.setSize(1)
-            self.testPirate2.setPosition((4,15))
-            self.loadup.append((self.testPirate2,1))
 
         self.testLandmark = c.Landmark()
         self.testLandmark.setImage("images/Hut_treasure.png")
@@ -268,7 +260,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     break
-                #key presses
+                #key preses
                 if event.type == pygame.KEYDOWN:
                     #escape button checker for exiting
                     if event.key == pygame.K_ESCAPE:
@@ -277,6 +269,10 @@ class Game:
                     #P button checked for pausing
                     if event.key == pygame.K_p:
                             paused = True
+                    #get cursor click
+                if event.type == pygame.MOUSEBUTTONUP:
+                    pos = pygame.mouse.get_pos()
+                    print pos
                     
             #update the screen and images
             #self.screen.blit(self.background, (0,0))
@@ -307,11 +303,6 @@ class Game:
             if self.testPirate.getGridPos() in self.lightArea:
                 if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
                     self.testPirate.setPosition(self.testLight.getGridPos())
-
-            if ENABLE_ROBOT2==True:
-                if self.testPirate2.getGridPos() in self.lightArea:
-                    if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
-                        self.testPirate2.setPosition(self.testLight.getGridPos())
 
             #Movement for robot1
             #-----------------------------------------------------------------------------------------------------------
@@ -358,53 +349,14 @@ class Game:
                             #self.screen.blit(tre, (10, 10))
                     currentTreasure.setSearched(True)
                     self.testPirate.setHasReachedDestination(True)
-            #-----------------------------------------------------------------------------------------------------------
 
-            #If robot 2 is enabled,movement loop is below
-            #-----------------------------------------------------------------------------------------------------------
-            if ENABLE_ROBOT2 == True:
-                if self.testPirate2.getHasReachedDestination() == True:
-                    self.callMsgStatus = True
-                    pygame.time.delay(1000)
-                    self.testPirate2.setHasReachedDestination(False)
-                    #apply next treasure to pathfind2 to
-                    try:
-                        currentTreasure = self.listOfLandmarks[self.landmarkCounter+1]
-                        tempcood1 = currentTreasure.getGridPos()
-                        treasureX = tempcood1[0] +2
-                        treasureY = tempcood1[1] +1
-                    except IndexError:
-                        print ''
-                        if self.trsr_amount == 0:
-                            print "Game Over!"
-                    tempcood1 = self.testPirate2.getGridPos()
-                    pirateX = tempcood1[0]
-                    pirateY = tempcood1[1]
-                    self.pathfind2.init_grid(treasureX,treasureY,pirateX,pirateY,self.walls) #start cood and end cood + walls
-                    self.pathfind2.algorithm()
-                    path1 = self.pathfind2.getPath()
-                    x=0
-                else:
-                    #traverse the path until destination is reached
-                    try:
-                        self.testPirate2.move(path1,x)
-                    except IndexError:
-                        #self.testPirate2.setPosition((treasureX,treasureY))
-                        #if currentTreasure.getGridPos() != (1, 13):
-                        #    self.visited.append(currentTreasure)
-                        #if currentTreasure.getSearched() == False:
-                        #    if currentTreasure.getGridPos() in self.treasures:
-                        #        currentTreasure.setSearched(True)
-                        #        self.trsr_amount -= 1
-                        #        self.inventory.addScore(random.randint(100, 1000))
-                        self.testPirate2.setHasReachedDestination(True)
-            #-----------------------------------------------------------------------------------------------------------
+            #-----------------------------------------------------------------------------------------------------
 
             #re/draw the map
             self.map.drawMap(self.screen)
             #generate an image if the robot has visited the location
             for i in self.visited:
-                self.screen.blit(self.x.getImage(), (i.getPosition()[0]+15, i.getPosition()[1]+25))
+                self.screen.blit(self.x.getImage(), (i.getPosition()[0]+15, i.getPosition()[1]+25))                
 
             #add the "inventory" to the screen
             self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
@@ -414,18 +366,6 @@ class Game:
             
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
-
-            # for i in range(len(self.loadup)):
-            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-            #         self.testLandmark.setImage("images/Hut.png")
-            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-            #         self.testLandmark.setImage("images/Sunken ship.png")
-            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-            #         self.testLandmark.setImage("images/Big island.png")
-            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-            #         self.testLandmark.setImage("images/Lighthouse.png")
-            #     if self.landmark.Searched(SearchedLandmarkList[i]) == self.testLandmark:
-            #         self.testLandmark.setImage(none)
 
 if __name__ == "__main__":
     window = Game()
