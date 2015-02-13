@@ -249,9 +249,14 @@ class Game:
         while 1:
             #loop for the pausing of the game
             while paused == True:
+                self.pause = self.font.render("PAUSED", 1, self.colour)
+                self.screen.blit(self.pause, (self.width-100, 0))
+                pygame.display.flip()
                 for event in pygame.event.get():
-                    if event.type == pygame.KEYUP:
-                        paused = False
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_p:
+                            paused = False
+                        
                     
             #get pygame events and do something
             for event in pygame.event.get():
