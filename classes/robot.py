@@ -38,6 +38,12 @@ class robot(Base):
             #decrease y cor
             self.setNPos((path[x]*40,self.getPosition()[1]-self.getVelocity()))
 
+    def findNearestTreasure(self,listOfTreasures):
+        for x in len(listOfTreasures):
+            xd = self.pos[0] - listOfTreasures[x].getPos[0]
+            yd = self.pos[1] - listOfTreasures[x].getPos[1]
+            
+            
 
 
 
