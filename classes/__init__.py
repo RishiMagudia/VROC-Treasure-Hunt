@@ -1,6 +1,6 @@
 #imports classes from folder and creates a package to be used in the main class
 
-__all__ = ["Map", "landmark", "inventory", "treasure", "robot", "base", "AStar", "trafficLights"]
+__all__ = ["Map", "landmark", "inventory", "treasure", "robot", "base", "AStar", "trafficLights", "library"]
 
 from map import Map
 from landmark import Landmark
@@ -10,3 +10,4 @@ from robot import robot
 from base import Base
 from AStar import AStar
 from trafficLights import trafficLights
+from library import Library
