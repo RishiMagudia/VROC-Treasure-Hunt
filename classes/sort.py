@@ -26,7 +26,7 @@ class Sort:
 
     def insert(self):
         """
-
+        #Amraiz's Sort 
         :return:
         """
 
