@@ -63,9 +63,7 @@ class Sort:
         :return:
         """
 
-    def insert(self):
-        """
-     def insertionSort(alist):
+    def insert(self, alist):
         for index in range(1,len(alist)):
 
           currentvalue = alist[index]
@@ -77,12 +75,7 @@ class Sort:
 
           alist[position]=currentvalue
 
-alist = [54,26,93,17,77,31,44,55,20]
-insertionSort(alist)
-print(alist)
-        #Amraiz's Sort 
-        :return:
-        """
+        return alist
 
     def bubble(self):
         """
@@ -90,8 +83,31 @@ print(alist)
         :return:
         """
 
-    def heap(self):
-        """
+    def heap(self, lst):
+        animation = []
+        def siftdown(lst, s, e):
+            i = s
+            while True:
+                c = i * 2 + 1
+                if c > e:
+                    break
+                if c + 1 <= e and lst[c] < lst[c + 1]:
+                    c += 1
+                if lst[i] < lst[c]:
+                    lst[i], lst[c] = lst[c], lst[i]
+                    i = c
+                else:
+                    break
+            r = []
+            for i in lst:
+                r.append(i)
+            animation.append(r)
 
-        :return:
-        """
+        for s in range((len(lst) - 2) / 2, -1, -1):
+            siftdown(lst, s, len(lst) - 1)
+
+        for e in range(len(lst) - 1, 0, -1):
+            lst[e], lst[0] = lst[0], lst[e]
+            siftdown(lst, 0, e - 1)
+
+        return animation
