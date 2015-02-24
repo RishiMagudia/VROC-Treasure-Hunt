@@ -111,3 +111,19 @@ class Sort:
             siftdown(lst, 0, e - 1)
 
         return animation
+
+    def shuttle(self,lst): #ascending order
+        animation = []
+        if len(lst) == 0:
+            print 'The list is sorted'
+            return lst
+        for x in len(lst):
+            #compare
+            if lst[x] > lst[x+1]:
+                temp == lst[]
+            
+        
+        
+
+        
+        
