@@ -39,9 +39,17 @@ class robot(Base):
             self.setNPos((path[x]*40,self.getPosition()[1]-self.getVelocity()))
 
     def findNearestTreasure(self,listOfTreasures):
+        smallestCurrentDistance = -1
         for x in len(listOfTreasures):
             xd = self.pos[0] - listOfTreasures[x].getPos[0]
             yd = self.pos[1] - listOfTreasures[x].getPos[1]
+            distance = math.sqrt(xd*xd+yd*yd)
+            if smallestCurrentDistance = -1:
+                smallestCurrentDistance = distance
+            else:
+                if distance < smallestCurrentDistance:
+                    smallestCurrentDistance = distance
+            
             
             
 
