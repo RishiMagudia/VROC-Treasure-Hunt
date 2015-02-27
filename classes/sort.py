@@ -70,7 +70,7 @@ class Sort:
         """
 
     def insert(self, alist):
-       animation = []
+        animation = []
         for index in range(1,len(alist)):
 
           currentvalue = alist[index]
@@ -130,7 +130,9 @@ class Sort:
                 temp = lst[x]
                 lst[x] = lst[x+1]
                 lst[x+1] = temp
-                
+        print lst
+
+
             
             
         
