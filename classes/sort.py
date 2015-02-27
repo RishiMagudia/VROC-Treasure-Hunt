@@ -127,7 +127,11 @@ class Sort:
         for x in len(lst):
             #compare
             if lst[x] > lst[x+1]:
-                temp == lst[]
+                temp = lst[x]
+                lst[x] = lst[x+1]
+                lst[x+1] = temp
+                
+            
             
         
         
