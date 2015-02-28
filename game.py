@@ -72,134 +72,34 @@ class Game:
             generate map, place items, randomise variables
             draw ui
         """
-        self.pathfind = c.AStar()
-        self.pathfind2 = c.AStar()
-        self.testPirate = c.robot()
 
-        self.treasureText = c.Treasure()
+    def interface(self):
+        """
+        Temporary holder for the interface.
+        """
 
-        self.testPirate.setImage("images/pirate.png")
-        self.testPirate.setSize(1)
-        self.testPirate.setPosition((2, 15))
-        self.loadup.append((self.testPirate, 1))
+        sidePanelSize = 200
+        menuPanelSize = 75
 
-        self.testLandmark = c.Landmark()
-        self.testLandmark.setImage("images/Hut_treasure.png")
-        self.testLandmark.setSize(5)
-        self.testLandmark.setPosition((0,1))
-        self.listOfLandmarks.append(self.testLandmark)
-        self.loadup.append((self.testLandmark, 2))
+        spacing = 10
 
-        self.testLandmark2 = c.Landmark()
-        self.testLandmark2.setImage("images/Sunken ship_treasure.png")
-        self.testLandmark2.setSize(5)
-        self.testLandmark2.setPosition((13,1))
-        self.listOfLandmarks.append(self.testLandmark2)
-        self.loadup.append((self.testLandmark2,2))
+        # tl, tr
+        # bl, br
 
-        self.testLandmark3 = c.Landmark()
-        self.testLandmark3.setImage("images/Big island_treasure.png")
-        self.testLandmark3.setSize(13)
-        self.testLandmark3.setPosition((19,-2))
-        self.loadup.append((self.testLandmark3,2))
-
-        self.testLandmark5 = c.Landmark()
-        self.testLandmark5.setImage("images/Lighthouse_treasure.png")
-        self.testLandmark5.setSize(7)
-        self.testLandmark5.setPosition((16,11))
-        self.listOfLandmarks.append(self.testLandmark5)
-        self.loadup.append((self.testLandmark5,2))
-
-        self.testLandmark6 = c.Landmark()
-        self.testLandmark6.setImage("images/Treasure chest.png")
-        self.testLandmark6.setSize(3)
-        self.testLandmark6.setPosition((28,8))
-        self.listOfLandmarks.append(self.testLandmark6)
-        self.loadup.append((self.testLandmark6, 2))
-
-        self.testLight = c.trafficLights()
-        self.testLight.setImage("images/red.png")
-        self.testLight.setColour(self.testLight.red)
-        self.testLight.setSize(3)
-        self.testLight.setPosition((25, 8))
-        self.loadup.append((self.testLight, 2))
-
-        self.lightArea = []
-        self.lax, self.lay = self.testLight.getGridPos()
-        self.lightArea.append((self.lax, self.lay))
-        self.lightArea.append((self.lax+1, self.lay))
-        self.lightArea.append((self.lax, self.lay+1))
-        self.lightArea.append((self.lax+1, self.lay+1))
-
-        for i in self.listOfLandmarks:
-            print i.getGridPos(), " <-- landmark"
-
-        #pirate's start point
-        self.pier = c.Landmark()
-        self.pier.setImage("images/Pier.png")
-        self.pier.setSize(9)
-        self.pier.setPosition((-1, 11))
-        #self.listOfLandmarks.append(self.pier)
-        self.loadup.append((self.pier, 2))
-
-        #pirate end point
-        self.endPoint = c.Landmark()
-        self.endPoint.setPosition((1,13))
-        self.listOfLandmarks.append(self.endPoint)
-
-        self.obs = c.Landmark()
-        self.obs.setImage("images/Small island.png")
-        self.obs.setSize(2)
-
-        self.x = c.Base()
-        self.x.setImage("images/X.png")
-        self.x.setSize(3)
-
-        self.map.prioritize(self.loadup)
-
-        #set amount of treasures
-        self.trsr_amount = random.randint(1, len(self.listOfLandmarks)-1)
-
-        #choose a landmark(s) for the treasure
-        while len(self.treasures) != self.trsr_amount:
-            print "treasures", len(self.treasures)+1, self.trsr_amount
-            t = random.choice([i.getGridPos() for i in self.listOfLandmarks])
-            print "t", t
-            if t not in self.treasures and t != (1, 13):
-                print "accepted", t
-                self.treasures.append(t)
-            else:
-                print "rejected", t
-            print self.treasures, " <-- treasures"
-
-        #generating obstacles, aka the map structure
-        while len(self.land) < 15:
-            xRandom = random.randint(4,10)
-            yRandom = random.randint(4,6)
-            if (xRandom, yRandom) not in self.walls:
-                self.land.append((xRandom, yRandom))
-                self.walls.append((xRandom, yRandom))
-                self.walls.append((xRandom+1, yRandom))
-                self.walls.append((xRandom, yRandom+1))
-                self.walls.append((xRandom+1, yRandom+1))
-
-            xRandom = random.randint(10,20)
-            yRandom = random.randint(6,12)
-            if (xRandom, yRandom+3) or (xRandom, yRandom) not in self.walls:
-                self.land.append((xRandom, yRandom))
-                self.walls.append((xRandom, yRandom))
-                self.walls.append((xRandom, yRandom+1))
-                self.walls.append((xRandom+1, yRandom+1))
-
-            xRandom = random.randint(20,28)
-            yRandom = random.randint(12,12)
-            if (xRandom, yRandom) or (xRandom, yRandom) not in self.walls:
-                self.land.append((xRandom, yRandom))
-                self.walls.append((xRandom, yRandom))
-                self.walls.append((xRandom, yRandom+1))
-                self.walls.append((xRandom+1, yRandom+1))
-
-        print 'obs generated'
+        # menuPanel
+        pygame.draw.rect(self.screen, (0, 0, 0), \
+                         (0,self.height-menuPanelSize, self.width, self.height))
+        # sidePanel
+        pygame.draw.rect(self.screen, (255, 0, 0), \
+                         (self.width-sidePanelSize, 0, self.width, self.height-menuPanelSize))
+        # pirate
+        pygame.draw.rect(self.screen, (0, 255, 0), \
+                         (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize))
+        # landmarks
+        pygame.draw.rect(self.screen, (0, 0, 255), \
+                         (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
+        pygame.draw.rect(self.screen, (0, 255, 255), \
+                         (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
 
     def playIntro(self):
         """
@@ -225,9 +125,7 @@ class Game:
                     break
                 #stop running if esc key pressed
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        break
+                    return False
             if y == 100:
                 pygame.time.delay(3000)
                 break
@@ -236,9 +134,6 @@ class Game:
             self.screen.blit(img, (x,y))
             pygame.display.update()
             pygame.time.Clock().tick(FPS)
-
-    def callMsg(self):
-        self.treasureText.showMessage(self.screen, 'Treasure Found',(10,10))
 
     def loop(self):
         """
@@ -293,87 +188,13 @@ class Game:
                 ycood = 0
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
-            #draw the inaccessible lands
-            for xL, yL in self.land:
-                self.screen.blit(self.obs.getImage(), (40*xL,40*yL))
+            self.interface()
 
-            #working traffic light timer
-            if time.time() - st > 5.0:
-                st = time.time()
-                self.testLight.rotateColour()
-                self.testLight.setImage(self.testLight.getColour())
-                self.testLight.setSize(self.testLight.getSize()/40)
-
-            #need to incorporate boundary search 
-            if self.testPirate.getGridPos() in self.lightArea:
-                if self.testLight.getColour() == self.testLight.red or self.testLight.getColour() == self.testLight.amber:
-                    self.testPirate.setPosition(self.testLight.getGridPos())
-
-            #Movement for robot1
-            #-----------------------------------------------------------------------------------------------------------
-            if self.testPirate.getHasReachedDestination() == True:
-                self.callMsgStatus = True
-                pygame.time.delay(1000)
-                self.testPirate.setHasReachedDestination(False)
-                #apply next treasure to pathfind to
-                try:
-                    currentTreasure = self.listOfLandmarks[self.landmarkCounter]
-                    tempcood = currentTreasure.getGridPos()
-                    treasureX = tempcood[0] +2
-                    treasureY = tempcood[1] +1
-                    self.landmarkCounter+=1
-                except IndexError:
-                    print ''
-                    if self.trsr_amount == 0:
-                        print "Game Over!"
-                tempcood = self.testPirate.getGridPos()
-                pirateX = tempcood[0]
-                pirateY = tempcood[1]
-                self.pathfind.init_grid(treasureX,treasureY,pirateX,pirateY,self.walls) #start cood and end cood + walls
-                self.pathfind.algorithm()
-                path = self.pathfind.getPath()
-                x=0
-            else:
-                #traverse the path until destination is reached
-                try:
-                    self.testPirate.move(path,x)
-                    if self.testPirate.getPosition() == ((path[x]*40,path[x+1]*40)):
-                        x+=2
-
-                except IndexError:
-                    self.testPirate.setPosition((treasureX,treasureY))
-                    if currentTreasure.getGridPos() != (1, 13):
-                        self.visited.append(currentTreasure)
-                    if currentTreasure.getSearched() == False:
-                        if currentTreasure.getGridPos() in self.treasures:
-                            self.inventory.addScore(random.randint(100, 1000))
-                            self.trsr_amount -= 1
-                            self.callMsg()
-                            #currentTreasure shows message of the tresure
-                            #tre = self.font.render("TREASURE ACQUIRED", 1, self.colour)
-                            #self.screen.blit(tre, (10, 10))
-                    currentTreasure.setSearched(True)
-                    self.testPirate.setHasReachedDestination(True)
-
-            #-----------------------------------------------------------------------------------------------------
-
-            #re/draw the map
-            self.map.drawMap(self.screen)
-            #generate an image if the robot has visited the location
-            for i in self.visited:
-                self.screen.blit(self.x.getImage(), (i.getPosition()[0]+15, i.getPosition()[1]+25))                
-
-            #add the "inventory" to the screen
-            self.score = self.font.render("Score: "+str(self.inventory.dispScore()), 1, self.colour)
-            self.txtTA = self.font.render("Treasures Left: "+str(self.trsr_amount), 1, self.colour)
-            self.screen.blit(self.score, (10, self.height-220))
-            self.screen.blit(self.txtTA, (10, self.height-240))
-            
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
 if __name__ == "__main__":
     window = Game()
-   # window.playIntro()
+    window.playIntro()
     window.setup()
     window.loop()

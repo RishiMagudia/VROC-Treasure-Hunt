@@ -1,5 +1,5 @@
 from base import Base
-import pygame
+import pygame, math
 
 class robot(Base):
 
@@ -45,7 +45,7 @@ class robot(Base):
             xd = self.pos[0] - listOfTreasures[x].getPos[0]
             yd = self.pos[1] - listOfTreasures[x].getPos[1]
             distance = math.sqrt(xd*xd+yd*yd)
-            if smallestCurrentDistance = -1:
+            if smallestCurrentDistance == -1:
                 smallestCurrentDistance = distance
             else:
                 if distance < smallestCurrentDistance:
