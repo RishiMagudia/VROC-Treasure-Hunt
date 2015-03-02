@@ -30,6 +30,7 @@ class Game:
         self.visited = []
         self.loadup = []
         self.callMsgStatus = False
+        
         #set the resolution of the window
         self.width = width
         self.height = height
@@ -66,6 +67,9 @@ class Game:
         self.font = pygame.font.SysFont("monospace", 24)
         #set up the score board
 
+        #buttons
+        self.buttons = []
+
     def setup(self):
         """
             set up the game using team methods
@@ -73,11 +77,33 @@ class Game:
             draw ui
         """
 
+    
+        sidePanelSize = 200
+        menuPanelSize = 75
+
+        spacing = 10
+
+        #pirate
+        self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 0), \
+                         (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize)))
+        
+        #landmarks
+        self.buttons.append(pygame.draw.rect(self.screen, (0, 0, 255), \
+                    (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
+
+        #treasure
+        self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 255), \
+                         (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
+        
+
+        print self.buttons
+
     def interface(self):
         """
         Temporary holder for the interface.
         """
 
+    
         sidePanelSize = 200
         menuPanelSize = 75
 
@@ -97,7 +123,9 @@ class Game:
                          (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize))
         # landmarks
         pygame.draw.rect(self.screen, (0, 0, 255), \
-                         (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
+                    (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
+
+        #Treasure
         pygame.draw.rect(self.screen, (0, 255, 255), \
                          (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
 
@@ -172,7 +200,15 @@ class Game:
                     #get cursor click
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    print pos
+                    for x in range(0,len(self.buttons)):
+                        if self.buttons[x].collidepoint(pos):
+                            if x==0:
+                                print 'pirate'
+                            if x==1:
+                                print 'landmark'
+                            if x==2:
+                                print 'treasure'
+
                     
             #update the screen and images
             #self.screen.blit(self.background, (0,0))
@@ -195,6 +231,6 @@ class Game:
 
 if __name__ == "__main__":
     window = Game()
-    window.playIntro()
+    #window.playIntro()
     window.setup()
     window.loop()
