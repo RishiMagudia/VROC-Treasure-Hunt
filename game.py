@@ -200,6 +200,10 @@ class Game:
                     #get cursor click
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
+                    print pos
+                    #placing landmarks
+                    pygame.draw.rect(self.screen,(255,255,0),(pos[0], pos[1],100,100),1)
+                    #checking if buttons are pressed
                     for x in range(0,len(self.buttons)):
                         if self.buttons[x].collidepoint(pos):
                             if x==0:
@@ -211,8 +215,7 @@ class Game:
 
                     
             #update the screen and images
-            #self.screen.blit(self.background, (0,0))
-            self.screen.blit(self.wallpaper, (0,0))
+            #self.screen.blit(self.wallpaper, (0,0))
 
             if ENABLE_GRID == True:
                 for x in range(0,32):
