@@ -122,15 +122,22 @@ class Sort:
 
         return animation
 
-    def shuttle(self,lst): #ascending order
-        animation = []
-        if len(lst) == 0:
-            print 'The list is sorted'
-            return lst
-        for x in len(lst):
-            #compare
-            if lst[x] > lst[x+1]:
-                temp = lst[x]
-                lst[x] = lst[x+1]
-                lst[x+1] = temp
-        print lst
+    def shellSort(self,lst):
+        count = len(lst)//2
+        while count > 0:
+            for posStart in range(count):
+                insertGap(lst,posStart,count)
+            count = count //2
+
+
+    def insertGap(self,lst,start,gap):
+        for x in range(start+gap,len(lst),gap):
+            current = lst[x]
+            pos = x
+
+            while pos >=gap and lst[pos-gap] > current:
+                lst[pos] = lst[pos-gap]
+                pos = pos-gap
+            lst[pos] = current
+
+
