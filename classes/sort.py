@@ -72,17 +72,20 @@ class Sort:
     def insert(self, alist):
         animation = []
         for index in range(1,len(alist)):
+            currentvalue = alist[index]
+            position = index
+            while position>0 and alist[position-1]>currentvalue:
+                alist[position]=alist[position-1]
+                position = position-1
 
-          currentvalue = alist[index]
-          position = index
+            r = []
+            for i in alist:
+                r.append(i)
+            animation.append(r)
+                
+            alist[position]=currentvalue
 
-          while position>0 and alist[position-1]>currentvalue:
-              alist[position]=alist[position-1]
-              position = position-1
-              animation.append(alist)
-          alist[position]=currentvalue
-
-        return alist
+        return animation
 
     def bubble(self):
         """
@@ -131,12 +134,3 @@ class Sort:
                 lst[x] = lst[x+1]
                 lst[x+1] = temp
         print lst
-
-
-            
-            
-        
-        
-
-        
-        
