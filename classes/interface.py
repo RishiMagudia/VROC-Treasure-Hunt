@@ -42,12 +42,23 @@ class Interface:
     """
         Side panel and the treasure/wishlist display.
     """
-    def sidePanel(self):
+    def sidePanel(self, treasure_list):
+        self.treasure_list = treasure_list
+        self.trsr_padding = 0
         height = self.__height
         width = 150
 
         side_panel = (175,175,175), (self.__width-width, 0, width, height-75)
         self.drawables[1] = side_panel
+        counter = 50
+        for i in self.treasure_list:
+            if counter == 50:
+                found_trsr = (i), (self.__width-width, 0, width, height-600)
+            else:
+                found_trsr = (i), (self.__width-width, self.trsr_padding, width, height-600)
+            self.trsr_padding += 130
+            counter += 1
+            self.drawables[counter] = found_trsr
 
     """
         Bottom panel and buttons.
