@@ -8,7 +8,7 @@ class Interface:
         self.__width, self.__height = self.__screen.get_size()
 
         self.drawables = {}
-        self.clickables = []
+        self.clickables = {}
 
         self.btn_heights = 65
         self.btn_padding = 10
@@ -26,9 +26,21 @@ class Interface:
         self.robot()
         self.timer()
 
+        self.OPEN = False
+
+        # CONSTANTS
+        self.LANDMARKS = 6
+        self.TREASURES = 7
+        self.TRAPS = 8
+
         # self.open_landmarks()
         # self.open_treasures()
         # self.open_traps()
+
+        for i in self.drawables:
+            if i != 1 and i != 2 and i != 10:
+                c, s = self.drawables[i]
+                self.clickables[i] = pygame.draw.rect(self.__screen, c, s)
 
     def draw(self):
         """
@@ -43,20 +55,20 @@ class Interface:
         Side panel and the treasure/wishlist display.
     """
     def sidePanel(self, treasure_list):
-        self.treasure_list = treasure_list
-        self.trsr_padding = 0
+        treasure_list = treasure_list
+        trsr_padding = 0
         height = self.__height
         width = 150
 
         side_panel = (175,175,175), (self.__width-width, 0, width, height-75)
         self.drawables[1] = side_panel
         counter = 50
-        for i in self.treasure_list:
+        for i in treasure_list:
             if counter == 50:
                 found_trsr = (i), (self.__width-width, 0, width, height-600)
             else:
-                found_trsr = (i), (self.__width-width, self.trsr_padding, width, height-600)
-            self.trsr_padding += 130
+                found_trsr = (i), (self.__width-width, trsr_padding, width, height-600)
+            trsr_padding += 130
             counter += 1
             self.drawables[counter] = found_trsr
 
@@ -109,6 +121,7 @@ class Interface:
 
         landmarks = (100,130,130), (width*2.2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[6] = landmarks
+        self.OPEN = False
 
     def open_landmarks(self):
         """
@@ -119,7 +132,8 @@ class Interface:
         height = 250
 
         landmarks = (100,130,130), (width*2.2, self.__height-self.btn_heights-height, width, self.__height)
-        self.drawables[0] = landmarks
+        self.drawables[6] = landmarks
+        self.OPEN = True
 
 
     def treasures(self):
@@ -131,6 +145,7 @@ class Interface:
 
         treasures = (100,130,130), (width*3.2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[7] = treasures
+        self.OPEN = False
 
     def open_treasures(self):
         """
@@ -141,7 +156,8 @@ class Interface:
         height = 250
 
         treasures = (100,130,130), (width*3.2, self.__height-self.btn_heights-height, width, self.__height)
-        self.drawables[0] = treasures
+        self.drawables[7] = treasures
+        self.OPEN = True
 
     def traps(self):
         """
@@ -152,6 +168,7 @@ class Interface:
 
         traps = (100,130,130), (width*4.2+1, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[8] = traps
+        self.OPEN = False
 
     def open_traps(self):
         """
@@ -162,7 +179,8 @@ class Interface:
         height = 250
 
         traps = (100,130,130), (width*4.2+1, self.__height-self.btn_heights-height, width, self.__height)
-        self.drawables[0] = traps
+        self.drawables[8] = traps
+        self.OPEN = True
 
     def robot(self):
         """

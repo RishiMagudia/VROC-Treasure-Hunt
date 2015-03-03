@@ -68,8 +68,6 @@ class Game:
         self.font = pygame.font.SysFont("monospace", 24)
         #set up the score board
 
-        #buttons
-        self.buttons = []
 
     def setup(self):
         """
@@ -77,58 +75,6 @@ class Game:
             generate map, place items, randomise variables
             draw ui
         """
-
-    
-        # sidePanelSize = 200
-        # menuPanelSize = 75
-        #
-        # spacing = 10
-        #
-        # #pirate
-        # self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 0), \
-        #                  (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize)))
-        #
-        # #landmarks
-        # self.buttons.append(pygame.draw.rect(self.screen, (0, 0, 255), \
-        #             (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
-        #
-        # #treasure
-        # self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 255), \
-        #                  (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
-        
-
-        print self.buttons
-
-    # def interface(self):
-    #     """
-    #     Temporary holder for the interface.
-    #     """
-    #
-    #
-    #     sidePanelSize = 200
-    #     menuPanelSize = 75
-    #
-    #     spacing = 10
-    #
-    #     # tl, tr
-    #     # bl, br
-    #
-    #     # menuPanel
-    #     pygame.draw.rect(self.screen, (0, 0, 0), \
-    #                      (0,self.height-menuPanelSize, self.width, self.height))
-    #     # sidePanel
-    #     pygame.draw.rect(self.screen, (255, 0, 0), \
-    #                      (self.width-sidePanelSize, 0, self.width, self.height-menuPanelSize))
-    #     # pirate
-    #     pygame.draw.rect(self.screen, (0, 255, 0), \
-    #                      (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize))
-    #     # landmarks
-    #     pygame.draw.rect(self.screen, (0, 0, 255), \
-    #                 (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
-    #
-    #     #Treasure
-    #     pygame.draw.rect(self.screen, (0, 255, 255), \
-    #                      (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
 
     def playIntro(self):
         """
@@ -180,8 +126,9 @@ class Game:
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_p:
                             paused = False
-                        
-                    
+
+            self.screen.blit(self.wallpaper, (0,0))
+
             #get pygame events and do something
             for event in pygame.event.get():
                 
@@ -205,16 +152,30 @@ class Game:
                     #placing landmarks
                     pygame.draw.rect(self.screen,(255,255,0),(pos[0], pos[1],100,100),1)
                     #checking if buttons are pressed
-                    for x in range(0,len(self.buttons)):
-                        if self.buttons[x].collidepoint(pos):
-                            if x==0:
-                                print 'pirate'
-                            if x==1:
-                                print 'landmark'
-                            if x==2:
-                                print 'treasure'
 
-                    
+                    for i in self.interface.clickables:
+                        if self.interface.clickables[i].collidepoint(pos):
+                            if self.interface.OPEN:
+                                self.interface.landmarks()
+                                self.interface.traps()
+                                self.interface.treasures()
+                            if i is self.interface.TREASURES:
+                                self.interface.open_treasures()
+                            if i is self.interface.TRAPS:
+                                self.interface.open_traps()
+                            if i is self.interface.LANDMARKS:
+                                self.interface.open_landmarks()
+
+                    # for x in range(1,len(self.interface.clickables)):
+                    #     if self.interface.clickables[x].collidepoint(pos):
+                    #         print x
+                    #         if x == self.interface.TREASURES:
+                    #             print "treasures"
+                    #         if x == self.interface.LANDMARKS:
+                    #             print "landmarks"
+                    #         if x == self.interface.TRAPS:
+                    #             print "traps"
+
             #update the screen and images
             #self.screen.blit(self.wallpaper, (0,0))
 
