@@ -26,6 +26,10 @@ class Interface:
         self.robot()
         self.timer()
 
+        # self.open_landmarks()
+        # self.open_treasures()
+        # self.open_traps()
+
     def draw(self):
         """
         Draw the UI.
@@ -95,6 +99,18 @@ class Interface:
         landmarks = (100,130,130), (width*2.2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[6] = landmarks
 
+    def open_landmarks(self):
+        """
+        Landmarks holder.
+        :return:
+        """
+        width = 125*1.5
+        height = 250
+
+        landmarks = (100,130,130), (width*2.2, self.__height-self.btn_heights-height, width, self.__height)
+        self.drawables[0] = landmarks
+
+
     def treasures(self):
         """
         Treasure selector.
@@ -105,6 +121,17 @@ class Interface:
         treasures = (100,130,130), (width*3.2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[7] = treasures
 
+    def open_treasures(self):
+        """
+        Treasures holder.
+        :return:
+        """
+        width = 125*1.5
+        height = 250
+
+        treasures = (100,130,130), (width*3.2, self.__height-self.btn_heights-height, width, self.__height)
+        self.drawables[0] = treasures
+
     def traps(self):
         """
         Trap selector.
@@ -114,6 +141,17 @@ class Interface:
 
         traps = (100,130,130), (width*4.2+1, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[8] = traps
+
+    def open_traps(self):
+        """
+        Trap selector.
+        :return:
+        """
+        width = 125*1.5
+        height = 250
+
+        traps = (100,130,130), (width*4.2+1, self.__height-self.btn_heights-height, width, self.__height)
+        self.drawables[0] = traps
 
     def robot(self):
         """
