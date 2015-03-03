@@ -134,16 +134,18 @@ class Sort:
 
     def Bubble_sort(self,My_list):
     Empty_list = []
+    
+    for sort in range(len(My_list)):
 
-    for i in range(0,len(My_list)):
+        for i in range(0,len(My_list)-1):
         
-        print My_list[i]
-        print My_list[i+1]
+            print My_list[i]
+            print My_list[i+1]
         
-        if My_list[i] > My_list[i+1]:
-            Empty_list = My_list[i]
-            My_list[i] = My_list[i+1]
-            My_list[i+1] = Empty_list
+            if My_list[i] > My_list[i+1]:
+                Empty_list = My_list[i]
+                My_list[i] = My_list[i+1]
+                My_list[i+1] = Empty_list
 
     print My_list
     
