@@ -132,12 +132,21 @@ class Sort:
 
         return animation
 
-    def bubble(self):
-        """
+    def Bubble_sort(self,My_list):
+    Empty_list = []
 
-        :return:
-        """
+    for i in range(0,len(My_list)):
+        
+        print My_list[i]
+        print My_list[i+1]
+        
+        if My_list[i] > My_list[i+1]:
+            Empty_list = My_list[i]
+            My_list[i] = My_list[i+1]
+            My_list[i+1] = Empty_list
 
+    print My_list
+    
     def heap(self, lst):
         animation = []
         def siftdown(lst, s, e):
