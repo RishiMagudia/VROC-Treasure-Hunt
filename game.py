@@ -11,7 +11,7 @@ class Game:
         Main class to start the game.
     """
     #temp col, wall holder    
-    def __init__(self, width=1280, height=720, wallpaper="images/background.jpg", colour = (255, 255, 255)):
+    def __init__(self, width=1280, height=720, wallpaper="images/background.jpg", colour=(255, 255, 255)):
         """
             initialise the game
         """
@@ -58,6 +58,7 @@ class Game:
         self.landmark = c.Landmark()
         self.trafficLight = c.trafficLights()
         self.AStar = c.AStar()
+        self.interface = c.Interface(self.screen)
 
         #set up each of the classes with default attributes
         #?pass them on to the setup function
@@ -78,56 +79,56 @@ class Game:
         """
 
     
-        sidePanelSize = 200
-        menuPanelSize = 75
-
-        spacing = 10
-
-        #pirate
-        self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 0), \
-                         (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize)))
-        
-        #landmarks
-        self.buttons.append(pygame.draw.rect(self.screen, (0, 0, 255), \
-                    (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
-
-        #treasure
-        self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 255), \
-                         (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
+        # sidePanelSize = 200
+        # menuPanelSize = 75
+        #
+        # spacing = 10
+        #
+        # #pirate
+        # self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 0), \
+        #                  (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize)))
+        #
+        # #landmarks
+        # self.buttons.append(pygame.draw.rect(self.screen, (0, 0, 255), \
+        #             (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
+        #
+        # #treasure
+        # self.buttons.append(pygame.draw.rect(self.screen, (0, 255, 255), \
+        #                  (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize)))
         
 
         print self.buttons
 
-    def interface(self):
-        """
-        Temporary holder for the interface.
-        """
-
-
-        sidePanelSize = 200
-        menuPanelSize = 75
-
-        spacing = 10
-
-        # tl, tr
-        # bl, br
-
-        # menuPanel
-        pygame.draw.rect(self.screen, (0, 0, 0), \
-                         (0,self.height-menuPanelSize, self.width, self.height))
-        # sidePanel
-        pygame.draw.rect(self.screen, (255, 0, 0), \
-                         (self.width-sidePanelSize, 0, self.width, self.height-menuPanelSize))
-        # pirate
-        pygame.draw.rect(self.screen, (0, 255, 0), \
-                         (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize))
-        # landmarks
-        pygame.draw.rect(self.screen, (0, 0, 255), \
-                    (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
-
-        #Treasure
-        pygame.draw.rect(self.screen, (0, 255, 255), \
-                         (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
+    # def interface(self):
+    #     """
+    #     Temporary holder for the interface.
+    #     """
+    #
+    #
+    #     sidePanelSize = 200
+    #     menuPanelSize = 75
+    #
+    #     spacing = 10
+    #
+    #     # tl, tr
+    #     # bl, br
+    #
+    #     # menuPanel
+    #     pygame.draw.rect(self.screen, (0, 0, 0), \
+    #                      (0,self.height-menuPanelSize, self.width, self.height))
+    #     # sidePanel
+    #     pygame.draw.rect(self.screen, (255, 0, 0), \
+    #                      (self.width-sidePanelSize, 0, self.width, self.height-menuPanelSize))
+    #     # pirate
+    #     pygame.draw.rect(self.screen, (0, 255, 0), \
+    #                      (spacing, self.height-menuPanelSize, menuPanelSize, menuPanelSize))
+    #     # landmarks
+    #     pygame.draw.rect(self.screen, (0, 0, 255), \
+    #                 (menuPanelSize+spacing*2, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
+    #
+    #     #Treasure
+    #     pygame.draw.rect(self.screen, (0, 255, 255), \
+    #                      (menuPanelSize*6+spacing*3, self.height-menuPanelSize, menuPanelSize*5, menuPanelSize))
 
     def playIntro(self):
         """
@@ -227,13 +228,13 @@ class Game:
                 ycood = 0
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
-            self.interface()
+            self.interface.draw()
 
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
 if __name__ == "__main__":
     window = Game()
-    #window.playIntro()
+    # window.playIntro()
     window.setup()
     window.loop()
