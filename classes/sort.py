@@ -132,22 +132,40 @@ class Sort:
 
         return animation
 
-    def Bubble_sort(self,My_list):
+    def Bubble_sort(My_list):
         Empty_list = []
+        List_sorted = False
+        swapped = 0
+        swapped_list = []
     
-        for sort in range(len(My_list)):
+
+        while List_sorted == False:
+
+        
+        
 
             for i in range(0,len(My_list)-1):
         
                 print My_list[i]
                 print My_list[i+1]
+
         
                 if My_list[i] > My_list[i+1]:
+
+                    swapped_list.append(1) 
                     Empty_list = My_list[i]
                     My_list[i] = My_list[i+1]
                     My_list[i+1] = Empty_list
+        
 
-    print My_list
+            if swapped_list.count(1) <= 1:
+            List_sorted = True
+            print My_list
+
+
+            swapped_list = []
+
+        print My_list
     
     def heap(self, lst):
         animation = []
