@@ -11,6 +11,7 @@ class Sort:
         Change the order of the data.
         :return:
         """
+        return reversed(x)
 
     def merge(aList, bList, animation = []):
     
