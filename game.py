@@ -103,7 +103,7 @@ class Game:
         Temporary holder for the interface.
         """
 
-    
+
         sidePanelSize = 200
         menuPanelSize = 75
 
