@@ -13,7 +13,7 @@ class Interface:
         self.btn_heights = 65
         self.btn_padding = 10
 
-        self.sidePanel()
+        self.sidePanel([(125,125,125),(135,135,135)])
 
         # Bottom panel and buttons.
         self.botPanel()
@@ -180,6 +180,5 @@ class Interface:
         :return:
         """
         width = 130
-
         timer = (100,100,130), (self.__width-width-10, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[10] = timer

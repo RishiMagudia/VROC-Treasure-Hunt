@@ -230,6 +230,10 @@ class Game:
 
             self.interface.draw()
 
+            f = pygame.font.SysFont("monospace", 42)
+            t = f.render("00:00", 1, (255,255,255))
+            self.screen.blit(t, (self.width-140, self.height-60))
+
             pygame.display.flip()
             pygame.time.Clock().tick(FPS)
 
