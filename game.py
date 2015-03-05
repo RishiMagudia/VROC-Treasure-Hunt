@@ -185,16 +185,6 @@ class Game:
                             if i is self.interface.RESET:
                                 self.TIMER = 2
 
-                    # for x in range(1,len(self.interface.clickables)):
-                    #     if self.interface.clickables[x].collidepoint(pos):
-                    #         print x
-                    #         if x == self.interface.TREASURES:
-                    #             print "treasures"
-                    #         if x == self.interface.LANDMARKS:
-                    #             print "landmarks"
-                    #         if x == self.interface.TRAPS:
-                    #             print "traps"
-
             #update the screen and images
             #self.screen.blit(self.wallpaper, (0,0))
 
