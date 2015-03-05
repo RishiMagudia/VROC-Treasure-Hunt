@@ -153,7 +153,10 @@ class Game:
                     #get cursor click
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
-                    self.landmark.setNPos((pos[0]-70, pos[1]-70))
+                    if self.interface.drawable_area(pos) == True:
+                        self.landmark.setNPos((pos[0]-70, pos[1]-70))
+                    else:
+                        print "Illegal location."
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
                     # print pos
