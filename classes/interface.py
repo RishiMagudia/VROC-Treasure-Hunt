@@ -9,6 +9,7 @@ class Interface:
 
         self.drawables = {}
         self.clickables = {}
+        self.placeables = {}
         self.imager = []
         self.tab_img = {}
         self.open_imager = []
@@ -76,6 +77,7 @@ class Interface:
         for i in self.tab_img:
             c, s = self.tab_img[i]
             pygame.draw.rect(self.__screen, c, s)
+            self.placeables[i] = pygame.draw.rect(self.__screen, c, s)
 
     """
         Side panel and the treasure/wishlist display.

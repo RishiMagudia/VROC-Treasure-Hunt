@@ -120,12 +120,14 @@ class Game:
         word = ""
         curr_tab = None
         objects = []
+        selected_item = None
 
         self.landmark.setImage("images/Coin.png")
         self.landmark.setSize(3)
         self.landmark.setPosition((0,0))
 
         while 1:
+            pos = pygame.mouse.get_pos()
             #loop for the pausing of the game
             while paused == True:
                 self.pause = self.font.render("PAUSED", 1, self.colour)
@@ -202,10 +204,14 @@ class Game:
                     #get cursor click
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
-                        pos = pygame.mouse.get_pos()
                         print pos
                     #placing landmarks
                     #checking if buttons are pressed
+
+                    if self.interface.OPEN:
+                        for i in self.interface.placeables:
+                            if self.interface.placeables[i].collidepoint(pos):
+                                selected_item = self.interface.open_imager[i-20]
 
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
@@ -255,6 +261,9 @@ class Game:
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
             self.screen.blit(self.landmark.getImage(), self.landmark.getPosition())
+
+            if selected_item != None:
+                self.screen.blit(selected_item[0], pos)
 
             if self.interface.OPEN:
                 for i in self.interface.open_imager:
