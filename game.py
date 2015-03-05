@@ -148,7 +148,7 @@ class Game:
                     #get cursor click
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    print pos
+                    # print pos
                     #placing landmarks
                     pygame.draw.rect(self.screen,(255,255,0),(pos[0], pos[1],100,100),1)
                     #checking if buttons are pressed
@@ -165,6 +165,12 @@ class Game:
                                 self.interface.open_traps()
                             if i is self.interface.LANDMARKS:
                                 self.interface.open_landmarks()
+                            if i is self.interface.START:
+                                print "start"
+                            if i is self.interface.STOP:
+                                print "stop"
+                            if i is self.interface.RESET:
+                                print "reset"
 
                     # for x in range(1,len(self.interface.clickables)):
                     #     if self.interface.clickables[x].collidepoint(pos):

@@ -9,11 +9,18 @@ class Interface:
 
         self.drawables = {}
         self.clickables = {}
+        self.imager = []
 
         self.btn_heights = 65
         self.btn_padding = 10
 
-        self.sidePanel([(125,125,125),(135,135,135)])
+        self.btn_image = "images/phase_btn.png"
+        self.panel_image = "images/panel.png"
+        self.btn_font = pygame.font.SysFont("monospace", 32)
+        self.panel_font = pygame.font.SysFont("monospace", 28)
+        self.robot_font = pygame.font.SysFont("monospace", 24)
+
+        self.sidePanel()
 
         # Bottom panel and buttons.
         self.botPanel()
@@ -33,6 +40,10 @@ class Interface:
         self.TREASURES = 7
         self.TRAPS = 8
 
+        self.START = 3
+        self.RESET = 4
+        self.STOP = 5
+
         # self.open_landmarks()
         # self.open_treasures()
         # self.open_traps()
@@ -50,24 +61,31 @@ class Interface:
         for i in self.drawables:
             c, s = self.drawables[i]
             pygame.draw.rect(self.__screen, c, s)
+        for i in self.imager:
+            self.__screen.blit(i[0], i[1])
 
     """
         Side panel and the treasure/wishlist display.
     """
-    def sidePanel(self, treasure_list):
+    def sidePanel(self, treasure_list = []):
         treasure_list = treasure_list
         trsr_padding = 0
-        height = self.__height
         width = 150
 
-        side_panel = (175,175,175), (self.__width-width, 0, width, height-75)
+        side_panel = (175,175,175), (self.__width-width, 0, width, self.__height-75)
+
+        img = pygame.image.load(self.panel_image)
+        img = img = pygame.transform.scale(img, (width, self.__height-75))
+        img = img, (self.__width-width+20, -10)
+        self.imager.append(img)
+
         self.drawables[1] = side_panel
         counter = 50
         for i in treasure_list:
             if counter == 50:
-                found_trsr = (i), (self.__width-width, 0, width, height-600)
+                found_trsr = (i), (self.__width-width, 0, width, self.__height-600)
             else:
-                found_trsr = (i), (self.__width-width, trsr_padding, width, height-600)
+                found_trsr = (i), (self.__width-width, trsr_padding, width, self.__height-600)
             trsr_padding += 130
             counter += 1
             self.drawables[counter] = found_trsr
@@ -90,6 +108,16 @@ class Interface:
         width = 125
 
         start = (130,130,130), (0, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (0, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.btn_font.render("START", 1, (255,255,255))
+        t = t, (14, self.__height-self.btn_heights+10)
+        self.imager.append(t)
+
         self.drawables[3] = start
 
     def reset(self):
@@ -100,6 +128,16 @@ class Interface:
         width = 125
 
         reset = (100,100,100), (width, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (width, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.btn_font.render("RESET", 1, (255,255,255))
+        t = t, (width+14, self.__height-self.btn_heights+10)
+        self.imager.append(t)
+
         self.drawables[4] = reset
 
     def stop(self):
@@ -110,6 +148,16 @@ class Interface:
         width = 125
 
         stop = (130,130,130), (width*2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (width*2, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.btn_font.render("STOP", 1, (255,255,255))
+        t = t, ((width*2)+25, self.__height-self.btn_heights+10)
+        self.imager.append(t)
+
         self.drawables[5] = stop
 
     def landmarks(self):
@@ -117,9 +165,19 @@ class Interface:
         Landmarks selector.
         :return:
         """
-        width = 125*1.5
+        width = 185
 
-        landmarks = (100,130,130), (width*2.2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+        landmarks = (100,130,130), (width*2+35, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (width*2+35, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.panel_font.render("LANDMARKS", 1, (255,255,255))
+        t = t, ((width*2+35)+15, self.__height-self.btn_heights+13)
+        self.imager.append(t)
+
         self.drawables[6] = landmarks
         self.OPEN = False
 
@@ -128,10 +186,10 @@ class Interface:
         Landmarks holder.
         :return:
         """
-        width = 125*1.5
+        width = 185
         height = 250
 
-        landmarks = (100,130,130), (width*2.2, self.__height-self.btn_heights-height, width, self.__height)
+        landmarks = (100,130,130), (width*2+35, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[6] = landmarks
         self.OPEN = True
 
@@ -141,9 +199,19 @@ class Interface:
         Treasure selector.
         :return:
         """
-        width = 125*1.5
+        width = 185
 
-        treasures = (100,130,130), (width*3.2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+        treasures = (100,130,130), (width*3+45, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (width*3+45, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.panel_font.render("TREASURES", 1, (255,255,255))
+        t = t, ((width*3+45)+17, self.__height-self.btn_heights+13)
+        self.imager.append(t)
+
         self.drawables[7] = treasures
         self.OPEN = False
 
@@ -152,10 +220,10 @@ class Interface:
         Treasures holder.
         :return:
         """
-        width = 125*1.5
+        width = 185
         height = 250
 
-        treasures = (100,130,130), (width*3.2, self.__height-self.btn_heights-height, width, self.__height)
+        treasures = (100,130,130), (width*3+45, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[7] = treasures
         self.OPEN = True
 
@@ -164,9 +232,19 @@ class Interface:
         Trap selector.
         :return:
         """
-        width = 125*1.5
+        width = 185
 
-        traps = (100,130,130), (width*4.2+1, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+        traps = (100,130,130), (width*4+55, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (width*4+55, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.panel_font.render("TRAPS", 1, (255,255,255))
+        t = t, ((width*4+55)+52, self.__height-self.btn_heights+13)
+        self.imager.append(t)
+
         self.drawables[8] = traps
         self.OPEN = False
 
@@ -175,10 +253,10 @@ class Interface:
         Trap selector.
         :return:
         """
-        width = 125*1.5
+        width = 185
         height = 250
 
-        traps = (100,130,130), (width*4.2+1, self.__height-self.btn_heights-height, width, self.__height)
+        traps = (100,130,130), (width*4+55, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[8] = traps
         self.OPEN = True
 
@@ -190,6 +268,16 @@ class Interface:
         width = 100
 
         robot = (100,100,130), (1000, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
+
+        img = pygame.image.load(self.btn_image)
+        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = img, (1000, self.__height-self.btn_heights)
+        self.imager.append(img)
+
+        t = self.robot_font.render("ROBOTS", 1, (255,255,255))
+        t = t, (1010, self.__height-self.btn_heights+15)
+        self.imager.append(t)
+
         self.drawables[9] = robot
 
     def timer(self):
