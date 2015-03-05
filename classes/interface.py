@@ -191,7 +191,7 @@ class Interface:
         if self.OPEN == False:
             self.tab_img = {}
 
-    def open_landmarks(self):
+    def open_landmarks(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
         """
         Landmarks holder.
         :return:
@@ -248,7 +248,7 @@ class Interface:
         if self.OPEN == False:
             self.tab_img = {}
 
-    def open_treasures(self):
+    def open_treasures(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
         """
         Treasures holder.
         :return:
@@ -305,7 +305,7 @@ class Interface:
         if self.OPEN == False:
             self.tab_img = {}
 
-    def open_traps(self):
+    def open_traps(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
         """
         Trap selector.
         :return:
