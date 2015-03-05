@@ -10,6 +10,7 @@ class Interface:
         self.drawables = {}
         self.clickables = {}
         self.imager = []
+        self.tab_img = {}
 
         self.btn_heights = 65
         self.btn_padding = 10
@@ -66,6 +67,9 @@ class Interface:
             pygame.draw.rect(self.__screen, c, s)
         for i in self.imager:
             self.__screen.blit(i[0], i[1])
+        for i in self.tab_img:
+            c, s = self.tab_img[i]
+            pygame.draw.rect(self.__screen, c, s)
 
     """
         Side panel and the treasure/wishlist display.
@@ -183,6 +187,9 @@ class Interface:
 
         self.drawables[6] = landmarks
         self.OPEN = False
+        
+        if self.OPEN == False:
+            self.tab_img = {}
 
     def open_landmarks(self):
         """
@@ -191,10 +198,30 @@ class Interface:
         """
         width = 185
         height = 250
+        block_width = 50
+        block_height = 50
+        x = width*2+42
+        y = self.__height-self.btn_heights-height+100
+        double = 0
+        c = 20
 
         landmarks = (100,130,130), (width*2+35, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[6] = landmarks
         self.OPEN = True
+        if self.OPEN == True:
+            for i in treasure_list:
+                if double != 3:
+                    double += 1
+                    bot_panel_btn = (i), (x, y, block_width, block_height)
+                    x += 60
+                    self.tab_img[c] = bot_panel_btn
+                    c += 1
+                if double == 3 and treasure_list[-1] != i:
+                    y += 60
+                    x = width*2+42
+                    double = 0
+                    bot_panel_btn = (i), (x, y, block_width, block_height)
+                    self.tab_img[c] = bot_panel_btn
 
 
     def treasures(self):
@@ -217,6 +244,9 @@ class Interface:
 
         self.drawables[7] = treasures
         self.OPEN = False
+        
+        if self.OPEN == False:
+            self.tab_img = {}
 
     def open_treasures(self):
         """
@@ -225,10 +255,31 @@ class Interface:
         """
         width = 185
         height = 250
+        block_width = 50
+        block_height = 50
+        x = width*3+52
+        y = self.__height-self.btn_heights-height+100
+        double = 0
+        c = 30
 
         treasures = (100,130,130), (width*3+45, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[7] = treasures
         self.OPEN = True
+
+        if self.OPEN == True:
+            for i in treasure_list:
+                if double != 3:
+                    double += 1
+                    bot_panel_btn = (i), (x, y, block_width, block_height)
+                    x += 60
+                    self.tab_img[c] = bot_panel_btn
+                    c += 1
+                if double == 3 and treasure_list[-1] != i:
+                    y += 60
+                    x = width*3+52
+                    double = 0
+                    bot_panel_btn = (i), (x, y, block_width, block_height)
+                    self.tab_img[c] = bot_panel_btn
 
     def traps(self):
         """
@@ -250,18 +301,42 @@ class Interface:
 
         self.drawables[8] = traps
         self.OPEN = False
+        
+        if self.OPEN == False:
+            self.tab_img = {}
 
     def open_traps(self):
         """
         Trap selector.
         :return:
         """
-        width = 185
+         width = 185
         height = 250
+        block_width = 50
+        block_height = 50
+        x = width*4+62
+        y = self.__height-self.btn_heights-height+100
+        double = 0
+        c = 40
 
         traps = (100,130,130), (width*4+55, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[8] = traps
         self.OPEN = True
+
+        if self.OPEN == True:
+            for i in treasure_list:
+                if double != 3:
+                    double += 1
+                    bot_panel_btn = (i), (x, y, block_width, block_height)
+                    x += 60
+                    self.tab_img[c] = bot_panel_btn
+                    c += 1
+                if double == 3 and treasure_list[-1] != i:
+                    y += 60
+                    x = width*4+62
+                    double = 0
+                    bot_panel_btn = (i), (x, y, block_width, block_height)
+                    self.tab_img[c] = bot_panel_btn
 
     def robots(self):
         """
