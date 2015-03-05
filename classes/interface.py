@@ -11,6 +11,7 @@ class Interface:
         self.clickables = {}
         self.imager = []
         self.tab_img = {}
+        self.open_imager = []
 
         self.btn_heights = 65
         self.btn_padding = 10
@@ -53,7 +54,12 @@ class Interface:
         # self.open_treasures()
         # self.open_traps()
 
-        self.sprites = []
+        self.lm_images = ["Big island", "Hut", "Lighthouse", "Sunken ship", "Whale", "Small island"]
+        for i in range(len(self.lm_images)):
+            self.lm_images[i] = "images/"+self.lm_images[i]+".png"
+        self.tr_images = ["Compass", "Diamond egg", "Goblet", "Coin", "Stack of coins", "Treasure chest"]
+        for i in range(len(self.tr_images)):
+            self.tr_images[i] = "images/"+self.tr_images[i]+".png"
 
     def draw(self):
         """
@@ -63,9 +69,7 @@ class Interface:
         for i in self.drawables:
             c, s = self.drawables[i]
             pygame.draw.rect(self.__screen, c, s)
-        for i in self.drawables:
             if i != 1 and i != 2 and i != 10:
-                c, s = self.drawables[i]
                 self.clickables[i] = pygame.draw.rect(self.__screen, c, s)
         for i in self.imager:
             self.__screen.blit(i[0], i[1])
@@ -191,6 +195,7 @@ class Interface:
 
         try:
             del self.drawables[100]
+            self.open_imager = []
         except:
             pass
 
@@ -216,10 +221,15 @@ class Interface:
 
         self.text_box((240,240,240), (width*2+35, self.__height-self.btn_heights-height+10, width, 50))
 
+        index = 0
         for i in treasure_list:
             if double != 3:
                 double += 1
                 bot_panel_btn = (i), (x, y, block_width, block_height)
+                img = pygame.image.load(self.lm_images[index])
+                img = pygame.transform.scale(img, (block_width, block_height))
+                self.open_imager.append((img, (x, y)))
+                index += 1
                 x += 60
                 self.tab_img[c] = bot_panel_btn
                 c += 1
@@ -228,6 +238,9 @@ class Interface:
                 x = width*2+42
                 double = 0
                 bot_panel_btn = (i), (x, y, block_width, block_height)
+                img = pygame.image.load(self.lm_images[index])
+                img = pygame.transform.scale(img, (block_width, block_height))
+                self.open_imager.append((img, (x, y)))
                 self.tab_img[c] = bot_panel_btn
 
 
@@ -254,6 +267,7 @@ class Interface:
 
         try:
             del self.drawables[11]
+            self.open_imager = []
         except:
             pass
 
@@ -278,11 +292,15 @@ class Interface:
         self.OPEN = True
 
         self.text_box((240,240,240), (width*3+45, self.__height-self.btn_heights-height+10, width, 50))
-
+        index = 0
         for i in treasure_list:
             if double != 3:
                 double += 1
                 bot_panel_btn = (i), (x, y, block_width, block_height)
+                img = pygame.image.load(self.tr_images[index])
+                img = pygame.transform.scale(img, (block_width, block_height))
+                self.open_imager.append((img, (x, y)))
+                index += 1
                 x += 60
                 self.tab_img[c] = bot_panel_btn
                 c += 1
@@ -291,6 +309,9 @@ class Interface:
                 x = width*3+52
                 double = 0
                 bot_panel_btn = (i), (x, y, block_width, block_height)
+                img = pygame.image.load(self.tr_images[index])
+                img = pygame.transform.scale(img, (block_width, block_height))
+                self.open_imager.append((img, (x, y)))
                 self.tab_img[c] = bot_panel_btn
 
     def traps(self):
@@ -403,12 +424,6 @@ class Interface:
         width = 130
         timer = (100,100,130), (self.__width-width-10, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[10] = timer
-
-    def create(self, name = "Name", t = None, score = None):
-        """
-        Sprite holder.
-        """
-        self.sprites.append((name, t, score))
 
     def drawable_area(self, o, grid = False):
         """

@@ -118,6 +118,7 @@ class Game:
         paused = False
         typing = False
         word = ""
+        curr_tab = None
         objects = []
 
         self.landmark.setImage("images/Coin.png")
@@ -147,13 +148,32 @@ class Game:
                             break
                         else:
                             # combine letters into a word
-                            if len(word) < 10:
-                                word += chr(event.key)
+                            if event.key == pygame.K_BACKSPACE:
+
+                                pygame.display.flip()
+                                self.interface.draw()
+                                word = word[:-1]
+
+                                if curr_tab is self.interface.TREASURES:
+                                    self.interface.open_treasures()
+                                if curr_tab is self.interface.TRAPS:
+                                    self.interface.open_traps()
+                                if curr_tab is self.interface.LANDMARKS:
+                                    self.interface.open_landmarks()
+                                if curr_tab is self.interface.ROBOTS:
+                                    self.interface.open_robot()
+                                self.interface.draw()
 
                                 t = self.font.render(word, 1, (0,0,0))
                                 self.screen.blit(t, self.interface.TEXT_POS)
+                            if len(word) < 10 and event.key != pygame.K_BACKSPACE:
+                                word += chr(event.key)
                             else:
                                 break
+
+                            t = self.font.render(word, 1, (0,0,0))
+                            self.screen.blit(t, self.interface.TEXT_POS)
+
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
@@ -181,19 +201,24 @@ class Game:
                             paused = True
                     #get cursor click
                 if event.type == pygame.MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
-                    print pos
+                    if event.button == 1:
+                        pos = pygame.mouse.get_pos()
+                        print pos
                     #placing landmarks
                     #checking if buttons are pressed
 
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
                             print self.interface.clickables[i], i
+                            if i is not self.interface.TEXT:
+                                curr_tab = i
                             if self.interface.OPEN:
+                                self.interface.open_imager = []
                                 self.interface.landmarks()
                                 self.interface.traps()
                                 self.interface.treasures()
                                 self.interface.robots()
+                                pygame.display.flip()
                             if i is self.interface.TREASURES:
                                 self.interface.open_treasures()
                             if i is self.interface.TRAPS:
@@ -204,6 +229,7 @@ class Game:
                                 self.interface.open_robot()
 
                             if i is self.interface.TEXT:
+                                print self.interface.clickables[i], i, "text"
                                 # reset word and set to typing
                                 word = ""
                                 typing = True
@@ -229,6 +255,17 @@ class Game:
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
             self.screen.blit(self.landmark.getImage(), self.landmark.getPosition())
+
+            if self.interface.OPEN:
+                for i in self.interface.open_imager:
+                    if curr_tab is self.interface.TREASURES:
+                        self.screen.blit(i[0], i[1])
+                    if curr_tab is self.interface.TRAPS:
+                        self.screen.blit(i[0], i[1])
+                    if curr_tab is self.interface.LANDMARKS:
+                        self.screen.blit(i[0], i[1])
+                    if curr_tab is self.interface.ROBOTS:
+                        self.screen.blit(i[0], i[1])
 
             # example of allowed locations for objects checking.
             # print self.interface.drawable_area((2, 2))
