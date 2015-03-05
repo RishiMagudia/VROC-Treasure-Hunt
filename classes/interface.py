@@ -214,9 +214,7 @@ class Interface:
         self.drawables[6] = landmarks
         self.OPEN = True
 
-        text_box = (240,240,240), (width*2+35, self.__height-self.btn_heights-height+10, width, 50)
-        self.drawables[11] = text_box
-        self.TEXT_POS = width*2+35, self.__height-self.btn_heights-height+10
+        self.text_box((240,240,240), (width*2+35, self.__height-self.btn_heights-height+10, width, 50))
 
         for i in treasure_list:
             if double != 3:
@@ -279,9 +277,7 @@ class Interface:
         self.drawables[7] = treasures
         self.OPEN = True
 
-        text_box = (240,240,240), (width*3+45, self.__height-self.btn_heights-height+10, width, 50)
-        self.drawables[11] = text_box
-        self.TEXT_POS = width*3+45, self.__height-self.btn_heights-height+10
+        self.text_box((240,240,240), (width*3+45, self.__height-self.btn_heights-height+10, width, 50))
 
         for i in treasure_list:
             if double != 3:
@@ -343,9 +339,7 @@ class Interface:
         self.drawables[8] = traps
         self.OPEN = True
 
-        text_box = (240,240,240), (width*4+55, self.__height-self.btn_heights-height+10, width, 50)
-        self.drawables[11] = text_box
-        self.TEXT_POS = width*4+55, self.__height-self.btn_heights-height+10
+        self.text_box((240,240,240), (width*4+55, self.__height-self.btn_heights-height+10, width, 50))
 
         for i in treasure_list:
             if double != 3:
@@ -399,9 +393,7 @@ class Interface:
         self.drawables[9] = robots
         self.OPEN = True
 
-        text_box = (240,240,240), (1000, self.__height-self.btn_heights-height+10, width, 50)
-        self.drawables[11] = text_box
-        self.TEXT_POS = 1000, self.__height-self.btn_heights-height+10
+        self.text_box((240,240,240), (1000, self.__height-self.btn_heights-height+10, width, 50))
 
     def timer(self):
         """
@@ -442,7 +434,10 @@ class Interface:
 
         return allowed
 
-    def text_box(self, text, x):
+    def text_box(self, (r, g, b), (x, y, w, h)):
         """
         Text box.
         """
+        text_box = (r,g,b), (x, y, w, h)
+        self.drawables[11] = text_box
+        self.TEXT_POS = x, y

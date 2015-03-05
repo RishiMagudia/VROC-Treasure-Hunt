@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="724af5ba-0c6c-4c6c-8ce3-df3c0e9347df" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.py" afterPath="$PROJECT_DIR$/game.py" />
+    <list default="true" id="724af5ba-0c6c-4c6c-8ce3-df3c0e9347df" name="Default" comment="Enhanced text_box to a function">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/interface.py" afterPath="$PROJECT_DIR$/classes/interface.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -28,21 +27,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.2079208" vertical-offset="3408" max-vertical-offset="4554">
-              <caret line="230" column="83" selection-start-line="230" selection-start-column="83" selection-end-line="230" selection-end-column="83" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3786" max-vertical-offset="4554">
+              <caret line="216" column="0" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="interface.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="interface.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/interface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6786" max-vertical-offset="8172">
-              <caret line="403" column="70" selection-start-line="403" selection-start-column="70" selection-end-line="403" selection-end-column="70" />
+            <state vertical-scroll-proportion="0.8217822" vertical-offset="7476" max-vertical-offset="8082">
+              <caret line="443" column="0" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -67,8 +66,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/classes/sort.py" />
-        <option value="$PROJECT_DIR$/classes/interface.py" />
         <option value="$PROJECT_DIR$/game.py" />
+        <option value="$PROJECT_DIR$/classes/interface.py" />
       </list>
     </option>
   </component>
@@ -457,7 +456,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425583962315</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added typing capability">
+      <created>1425590269988</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1425590269988</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -505,7 +510,8 @@
     <MESSAGE value="Added temp placeable object to game.py" />
     <MESSAGE value="Added allowed area testing to game.py" />
     <MESSAGE value="Removed reduntant code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed reduntant code" />
+    <MESSAGE value="Added typing capability" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added typing capability" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -562,18 +568,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/interface.py">
+    <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6786" max-vertical-offset="8172">
-          <caret line="403" column="70" selection-start-line="403" selection-start-column="70" selection-end-line="403" selection-end-column="70" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3786" max-vertical-offset="4554">
+          <caret line="216" column="0" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
+    <entry file="file://$PROJECT_DIR$/classes/interface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2079208" vertical-offset="3408" max-vertical-offset="4554">
-          <caret line="230" column="83" selection-start-line="230" selection-start-column="83" selection-end-line="230" selection-end-column="83" />
+        <state vertical-scroll-proportion="0.8217822" vertical-offset="7476" max-vertical-offset="8082">
+          <caret line="443" column="0" selection-start-line="443" selection-start-column="0" selection-end-line="443" selection-end-column="0" />
           <folding />
         </state>
       </provider>
