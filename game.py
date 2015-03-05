@@ -67,7 +67,7 @@ class Game:
         #set up font for game
         self.font = pygame.font.SysFont("monospace", 24)
         #set up the score board
-
+        self.TIMER = False
 
     def setup(self):
         """
@@ -115,7 +115,12 @@ class Game:
             infinite loop to keep the images updating and moving
         """
         st = time.time()
-        paused = False        
+        paused = False
+        objects = []
+
+        self.landmark.setImage("images/Coin.png")
+        self.landmark.setSize(3)
+        self.landmark.setPosition((0,0))
         while 1:
             #loop for the pausing of the game
             while paused == True:
@@ -146,11 +151,13 @@ class Game:
                     if event.key == pygame.K_p:
                             paused = True
                     #get cursor click
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    pos = pygame.mouse.get_pos()
+                    self.landmark.setNPos((pos[0]-70, pos[1]-70))
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
                     # print pos
                     #placing landmarks
-                    pygame.draw.rect(self.screen,(255,255,0),(pos[0], pos[1],100,100),1)
                     #checking if buttons are pressed
 
                     for i in self.interface.clickables:
@@ -159,18 +166,21 @@ class Game:
                                 self.interface.landmarks()
                                 self.interface.traps()
                                 self.interface.treasures()
+                                self.interface.robots()
                             if i is self.interface.TREASURES:
                                 self.interface.open_treasures()
                             if i is self.interface.TRAPS:
                                 self.interface.open_traps()
                             if i is self.interface.LANDMARKS:
                                 self.interface.open_landmarks()
+                            if i is self.interface.ROBOTS:
+                                self.interface.open_robot()
                             if i is self.interface.START:
-                                print "start"
+                                self.TIMER = 1
                             if i is self.interface.STOP:
-                                print "stop"
+                                self.TIMER = 0
                             if i is self.interface.RESET:
-                                print "reset"
+                                self.TIMER = 2
 
                     # for x in range(1,len(self.interface.clickables)):
                     #     if self.interface.clickables[x].collidepoint(pos):
@@ -196,6 +206,9 @@ class Game:
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
             self.interface.draw()
+            self.screen.blit(self.landmark.getImage(), self.landmark.getPosition())
+            # example of allowed locations for objects checking.
+            # print self.interface.drawable_area((2, 2))
 
             f = pygame.font.SysFont("monospace", 42)
             t = f.render("00:00", 1, (255,255,255))
@@ -206,6 +219,6 @@ class Game:
 
 if __name__ == "__main__":
     window = Game()
-    # window.playIntro()
+    window.playIntro()
     window.setup()
     window.loop()

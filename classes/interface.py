@@ -30,7 +30,7 @@ class Interface:
         self.landmarks()
         self.treasures()
         self.traps()
-        self.robot()
+        self.robots()
         self.timer()
 
         self.OPEN = False
@@ -39,6 +39,7 @@ class Interface:
         self.LANDMARKS = 6
         self.TREASURES = 7
         self.TRAPS = 8
+        self.ROBOTS = 9
 
         self.START = 3
         self.RESET = 4
@@ -47,6 +48,8 @@ class Interface:
         # self.open_landmarks()
         # self.open_treasures()
         # self.open_traps()
+
+        self.sprites = []
 
         for i in self.drawables:
             if i != 1 and i != 2 and i != 10:
@@ -260,7 +263,7 @@ class Interface:
         self.drawables[8] = traps
         self.OPEN = True
 
-    def robot(self):
+    def robots(self):
         """
         Robot selector.
         :return:
@@ -279,6 +282,19 @@ class Interface:
         self.imager.append(t)
 
         self.drawables[9] = robot
+        self.OPEN = False
+
+    def open_robot(self):
+        """
+        Robot selector.
+        :return:
+        """
+        width = 100
+        height = 250
+
+        robots = (100,130,130), (1000, self.__height-self.btn_heights-height, width, self.__height)
+        self.drawables[9] = robots
+        self.OPEN = True
 
     def timer(self):
         """
@@ -288,3 +304,31 @@ class Interface:
         width = 130
         timer = (100,100,130), (self.__width-width-10, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
         self.drawables[10] = timer
+
+    def create(self, name = "Name", t = None, score = None):
+        """
+        Sprite holder.
+        """
+        self.sprites.append((name, t, score))
+
+    def drawable_area(self, o, grid = False):
+        """
+        o: tuple x,y coordinates.
+        Checks if the object is in the drawable area.
+        """
+        allowed = False
+        height = range(0, self.__height-75)
+        width = range(0, self.__width-150)
+        if grid:
+            if o[0]*40 in width and o[1]*40 in height:
+                allowed = True
+            else:
+                allowed = False
+        else:
+            if o[0] in width and o[1] in height:
+                allowed = True
+            else:
+                allowed = False
+
+        return allowed
+
