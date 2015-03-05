@@ -116,11 +116,14 @@ class Game:
         """
         st = time.time()
         paused = False
+        typing = False
+        word = ""
         objects = []
 
         self.landmark.setImage("images/Coin.png")
         self.landmark.setSize(3)
         self.landmark.setPosition((0,0))
+
         while 1:
             #loop for the pausing of the game
             while paused == True:
@@ -132,11 +135,36 @@ class Game:
                         if event.key == pygame.K_p:
                             paused = False
 
-            self.screen.blit(self.wallpaper, (0,0))
+            while typing == True:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_RETURN:
+                            self.interface.landmarks()
+                            self.interface.traps()
+                            self.interface.treasures()
+                            self.interface.robots()
+                            typing = False
+                            break
+                        else:
+                            # combine letters into a word
+                            if len(word) < 10:
+                                word += chr(event.key)
 
+                                t = self.font.render(word, 1, (0,0,0))
+                                self.screen.blit(t, self.interface.TEXT_POS)
+                            else:
+                                break
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        break
+
+                pygame.display.flip()
+
+            self.screen.blit(self.wallpaper, (0,0))
+            self.interface.draw()
             #get pygame events and do something
             for event in pygame.event.get():
-                
+
                 #stop running if the window is closed
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -147,24 +175,20 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
+                    print chr(event.key)
                     #P button checked for pausing
-                    if event.key == pygame.K_p:
+                    if event.key == pygame.K_p and typing is False:
                             paused = True
                     #get cursor click
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = pygame.mouse.get_pos()
-                    if self.interface.drawable_area(pos) == True:
-                        self.landmark.setNPos((pos[0]-70, pos[1]-70))
-                    else:
-                        print "Illegal location."
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    # print pos
+                    print pos
                     #placing landmarks
                     #checking if buttons are pressed
 
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
+                            print self.interface.clickables[i], i
                             if self.interface.OPEN:
                                 self.interface.landmarks()
                                 self.interface.traps()
@@ -178,6 +202,12 @@ class Game:
                                 self.interface.open_landmarks()
                             if i is self.interface.ROBOTS:
                                 self.interface.open_robot()
+
+                            if i is self.interface.TEXT:
+                                # reset word and set to typing
+                                word = ""
+                                typing = True
+
                             if i is self.interface.START:
                                 self.TIMER = 1
                             if i is self.interface.STOP:
@@ -198,8 +228,8 @@ class Game:
                 ycood = 0
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
-            self.interface.draw()
             self.screen.blit(self.landmark.getImage(), self.landmark.getPosition())
+
             # example of allowed locations for objects checking.
             # print self.interface.drawable_area((2, 2))
 

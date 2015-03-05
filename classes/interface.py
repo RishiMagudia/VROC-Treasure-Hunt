@@ -42,6 +42,9 @@ class Interface:
         self.TRAPS = 8
         self.ROBOTS = 9
 
+        self.TEXT = 11
+        self.TEXT_POS = None
+
         self.START = 3
         self.RESET = 4
         self.STOP = 5
@@ -52,11 +55,6 @@ class Interface:
 
         self.sprites = []
 
-        for i in self.drawables:
-            if i != 1 and i != 2 and i != 10:
-                c, s = self.drawables[i]
-                self.clickables[i] = pygame.draw.rect(self.__screen, c, s)
-
     def draw(self):
         """
         Draw the UI.
@@ -65,6 +63,10 @@ class Interface:
         for i in self.drawables:
             c, s = self.drawables[i]
             pygame.draw.rect(self.__screen, c, s)
+        for i in self.drawables:
+            if i != 1 and i != 2 and i != 10:
+                c, s = self.drawables[i]
+                self.clickables[i] = pygame.draw.rect(self.__screen, c, s)
         for i in self.imager:
             self.__screen.blit(i[0], i[1])
         for i in self.tab_img:
@@ -136,7 +138,7 @@ class Interface:
         reset = (100,100,100), (width, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
 
         img = pygame.image.load(self.btn_image)
-        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
         img = img, (width, self.__height-self.btn_heights)
         self.imager.append(img)
 
@@ -156,7 +158,7 @@ class Interface:
         stop = (130,130,130), (width*2, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
 
         img = pygame.image.load(self.btn_image)
-        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
         img = img, (width*2, self.__height-self.btn_heights)
         self.imager.append(img)
 
@@ -187,6 +189,11 @@ class Interface:
         self.drawables[6] = landmarks
         self.OPEN = False
 
+        try:
+            del self.drawables[100]
+        except:
+            pass
+
         self.tab_img = {}
 
     def open_landmarks(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
@@ -206,6 +213,10 @@ class Interface:
         landmarks = (100,130,130), (width*2+35, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[6] = landmarks
         self.OPEN = True
+
+        text_box = (240,240,240), (width*2+35, self.__height-self.btn_heights-height+10, width, 50)
+        self.drawables[11] = text_box
+        self.TEXT_POS = width*2+35, self.__height-self.btn_heights-height+10
 
         for i in treasure_list:
             if double != 3:
@@ -243,6 +254,11 @@ class Interface:
         self.drawables[7] = treasures
         self.OPEN = False
 
+        try:
+            del self.drawables[11]
+        except:
+            pass
+
         self.tab_img = {}
 
     def open_treasures(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
@@ -262,6 +278,10 @@ class Interface:
         treasures = (100,130,130), (width*3+45, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[7] = treasures
         self.OPEN = True
+
+        text_box = (240,240,240), (width*3+45, self.__height-self.btn_heights-height+10, width, 50)
+        self.drawables[11] = text_box
+        self.TEXT_POS = width*3+45, self.__height-self.btn_heights-height+10
 
         for i in treasure_list:
             if double != 3:
@@ -298,6 +318,11 @@ class Interface:
         self.drawables[8] = traps
         self.OPEN = False
 
+        try:
+            del self.drawables[11]
+        except:
+            pass
+
         self.tab_img = {}
 
     def open_traps(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
@@ -317,6 +342,10 @@ class Interface:
         traps = (100,130,130), (width*4+55, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[8] = traps
         self.OPEN = True
+
+        text_box = (240,240,240), (width*4+55, self.__height-self.btn_heights-height+10, width, 50)
+        self.drawables[11] = text_box
+        self.TEXT_POS = width*4+55, self.__height-self.btn_heights-height+10
 
         for i in treasure_list:
             if double != 3:
@@ -353,6 +382,11 @@ class Interface:
         self.drawables[9] = robot
         self.OPEN = False
 
+        try:
+            del self.drawables[11]
+        except:
+            pass
+
     def open_robot(self):
         """
         Robot selector.
@@ -364,6 +398,10 @@ class Interface:
         robots = (100,130,130), (1000, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[9] = robots
         self.OPEN = True
+
+        text_box = (240,240,240), (1000, self.__height-self.btn_heights-height+10, width, 50)
+        self.drawables[11] = text_box
+        self.TEXT_POS = 1000, self.__height-self.btn_heights-height+10
 
     def timer(self):
         """
@@ -404,3 +442,7 @@ class Interface:
 
         return allowed
 
+    def text_box(self, text, x):
+        """
+        Text box.
+        """
