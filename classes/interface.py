@@ -10,11 +10,13 @@ class Interface:
         self.drawables = {}
         self.clickables = {}
         self.placeables = {}
+        self.wishlist = {}
+        self.treasure_list = {}
         self.imager = []
         self.tab_img = {}
         self.open_imager = []
 
-        tres_info = {'Goblet':'a drinking glass with a foot and a stem.','Coin':'Valuable round item','Compass':'Help to find your way','Diamond egg':'The best type of egg shiny!!','Stack of coins':'More Coins Yayy!!'}
+        # tres_info = {'Goblet':'a drinking glass with a foot and a stem.','Coin':'Valuable round item','Compass':'Help to find your way','Diamond egg':'The best type of egg shiny!!','Stack of coins':'More Coins Yayy!!'}
 
         # SQL Library
         self.library = library.Library()
@@ -96,7 +98,7 @@ class Interface:
         side_panel = (175,175,175), (self.__width-width, 30, width, self.__height-85)
 
         img = pygame.image.load(self.panel_image)
-        img = img = pygame.transform.scale(img, (width, self.__height-85))
+        img = pygame.transform.scale(img, (width, self.__height-85))
         img = img, (self.__width-width+20, 23)
         self.imager.append(img)
 
@@ -115,7 +117,7 @@ class Interface:
         self.imager.append(wishlst_txt)
 
         wish_count = 61
-        for i in wishlist:
+        for i in self.wishlist:
             if wish_count == 61:
                 wish_trsr = (i), (self.__width-width, 40, width, self.__height-600)
             else:
@@ -125,7 +127,7 @@ class Interface:
             self.drawables[wish_count] = wish_trsr
         
         counter = 50
-        for i in treasure_list:
+        for i in self.treasure_list:
             if counter == 50:
                 found_trsr = (i), (self.__width-width, 40, width, self.__height-600)
             else:
@@ -154,7 +156,7 @@ class Interface:
         start = (130,130,130), (0, self.__height-self.btn_heights, width, self.btn_heights-self.btn_padding)
 
         img = pygame.image.load(self.btn_image)
-        img = img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
+        img = pygame.transform.scale(img, (width, self.btn_heights-self.btn_padding))
         img = img, (0, self.__height-self.btn_heights)
         self.imager.append(img)
 
@@ -485,7 +487,7 @@ class Interface:
         """
         Text box.
         """
-        text_box = (r,g,b), (x, y, w, h)
+        text_box = (r, g, b), (x, y, w, h)
         self.drawables[11] = text_box
         self.TEXT_POS = x, y
 

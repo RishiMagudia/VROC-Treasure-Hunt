@@ -216,17 +216,21 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         print pos
-                        if self.interface.drawable_area(pos) and (NAME and TYPE and IMAGE and POSITION) is not None:
+                        if self.interface.drawable_area(pos) and NAME is not None \
+                                and TYPE is not None and IMAGE is not None and POSITION is not None:
                             self.interface.library.insert(NAME, TYPE, IMAGE, POSITION)
-                            STORED = True
-                            selected_item = None
-                            curr_tab = None
                             self.interface.open_imager = []
                             self.interface.landmarks()
                             self.interface.traps()
                             self.interface.treasures()
                             self.interface.robots()
                             pygame.display.flip()
+                            NAME = None
+                            TYPE = None
+                            IMAGE = None
+                            POSITION = None
+                            selected_item = None
+                            curr_tab = None
                     #placing landmarks
                     #checking if buttons are pressed
 
@@ -282,6 +286,11 @@ class Game:
                             if i is self.interface.RESET:
                                 self.TIMER = 2
 
+                            if i is self.interface.TRSRLST:
+                                print "treasure list"
+                            if i is self.interface.WISHLIST:
+                                print "wish list"
+
             #update the screen and images
             #self.screen.blit(self.wallpaper, (0,0))
 
@@ -309,13 +318,19 @@ class Game:
                         self.screen.blit(i[0], i[1])
                     if curr_tab is self.interface.ROBOTS:
                         self.screen.blit(i[0], i[1])
-
-            if STORED == True:
+            try:
                 for n,t,i,p  in self.interface.library.display():
                     p = str(p).split(" ")
                     img = pygame.image.load(str(i))
-                    img = pygame.transform.scale(img, (200, 200))
-                    self.screen.blit(img, (int(p[0]), int(p[1])))
+                    print t
+                    if int(t) == self.interface.TREASURES:
+                        w, h = 50, 50
+                    else:
+                        w, h = 200, 200
+                    img = pygame.transform.scale(img, (w, h))
+                    self.screen.blit(img, (int(p[0])-100, int(p[1])-100))
+            except:
+                pass
 
             f = pygame.font.SysFont("monospace", 42)
             t = f.render("00:00", 1, (255,255,255))
