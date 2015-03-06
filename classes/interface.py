@@ -48,6 +48,8 @@ class Interface:
         self.TREASURES = 7
         self.TRAPS = 8
         self.ROBOTS = 9
+        self.TRSRLST = 60
+        self.WISHLIST = 70
 
         self.TEXT = 11
         self.TEXT_POS = None
@@ -91,21 +93,44 @@ class Interface:
         trsr_padding = 0
         width = 150
 
-        side_panel = (175,175,175), (self.__width-width, 0, width, self.__height-75)
+        side_panel = (175,175,175), (self.__width-width, 30, width, self.__height-85)
 
         img = pygame.image.load(self.panel_image)
-        img = img = pygame.transform.scale(img, (width, self.__height-75))
-        img = img, (self.__width-width+20, -10)
+        img = img = pygame.transform.scale(img, (width, self.__height-85))
+        img = img, (self.__width-width+20, 23)
         self.imager.append(img)
 
         self.drawables[1] = side_panel
+
+        trsr_btn = (175,175,200), (self.__width-width, 0, width/2, 28)
+        wishlst_btn = (175,175,200), (self.__width-width + 78, 0, width/2, 28)
+        self.drawables[60] = trsr_btn
+        self.drawables[70] = wishlst_btn
+        font = pygame.font.SysFont('Arial', 16)
+        trsr_txt = font.render("Treasure", 1, (0,0,0))
+        trsr_txt = trsr_txt, (self.__width-width+10, 3)
+        wishlst_txt = font.render("Wishlist", 1, (0,0,0))
+        wishlst_txt = wishlst_txt, (self.__width-width + 90, 3)
+        self.imager.append(trsr_txt)
+        self.imager.append(wishlst_txt)
+
+        wish_count = 61
+        for i in wishlist:
+            if wish_count == 61:
+                wish_trsr = (i), (self.__width-width, 40, width, self.__height-600)
+            else:
+                wish_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
+            trsr_padding += 120
+            wish_count += 1
+            self.drawables[wish_count] = wish_trsr
+        
         counter = 50
         for i in treasure_list:
             if counter == 50:
-                found_trsr = (i), (self.__width-width, 0, width, self.__height-600)
+                found_trsr = (i), (self.__width-width, 40, width, self.__height-600)
             else:
-                found_trsr = (i), (self.__width-width, trsr_padding, width, self.__height-600)
-            trsr_padding += 130
+                found_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
+            trsr_padding += 120
             counter += 1
             self.drawables[counter] = found_trsr
 
