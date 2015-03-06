@@ -39,6 +39,13 @@ class Game:
 
         #set up the screen
         self.screen = pygame.display.set_mode((self.width, self.height))
+       
+        self.icon=pygame.image.load("images/pirate1.png")
+        self.icon= pygame.transform.scale(self.icon,(32,32))
+        pygame.display.set_icon(self.icon)
+        
+       
+                            
         self.title = pygame.display.set_caption("Virtual Robot Obstacle Course")
         
         #set background colour/image
