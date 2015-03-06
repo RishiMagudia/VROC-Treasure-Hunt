@@ -287,9 +287,15 @@ class Game:
                                 self.TIMER = 2
 
                             if i is self.interface.TRSRLST:
-                                print "treasure list"
+                                self.interface.TR_LIST = 60
+                                self.interface.sidePanel()
+                                pygame.display.flip()
                             if i is self.interface.WISHLIST:
-                                print "wish list"
+                                self.interface.TR_LIST = 70
+                                self.interface.sidePanel()
+                                pygame.display.flip()
+
+                            print self.interface.TR_LIST
 
             #update the screen and images
             #self.screen.blit(self.wallpaper, (0,0))

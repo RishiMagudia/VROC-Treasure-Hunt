@@ -30,8 +30,31 @@ class Interface:
         self.panel_font = pygame.font.SysFont("monospace", 28)
         self.robot_font = pygame.font.SysFont("monospace", 24)
 
-        self.sidePanel()
+        # CONSTANTS
+        self.LANDMARKS = 6
+        self.TREASURES = 7
+        self.TRAPS = 8
+        self.ROBOTS = 9
+        
+        self.TRSRLST = 60
+        self.WISHLIST = 70
+        self.TR_LIST = 70
+        
+        self.TEXT = 11
+        self.TEXT_POS = None
 
+        self.START = 3
+        self.RESET = 4
+        self.STOP = 5
+        
+        self.lm_images = ["Big island", "Hut", "Lighthouse", "Sunken ship", "Whale", "Small island"]
+        for i in range(len(self.lm_images)):
+            self.lm_images[i] = "images/"+self.lm_images[i]+".png"
+        self.tr_images = ["Compass", "Diamond egg", "Goblet", "Coin", "Stack of coins", "Treasure chest"]
+        for i in range(len(self.tr_images)):
+            self.tr_images[i] = "images/"+self.tr_images[i]+".png"
+        self.sidePanel()
+        
         # Bottom panel and buttons.
         self.botPanel()
         self.start()
@@ -45,31 +68,12 @@ class Interface:
 
         self.OPEN = False
 
-        # CONSTANTS
-        self.LANDMARKS = 6
-        self.TREASURES = 7
-        self.TRAPS = 8
-        self.ROBOTS = 9
-        self.TRSRLST = 60
-        self.WISHLIST = 70
-
-        self.TEXT = 11
-        self.TEXT_POS = None
-
-        self.START = 3
-        self.RESET = 4
-        self.STOP = 5
-
+        
         # self.open_landmarks()
         # self.open_treasures()
         # self.open_traps()
 
-        self.lm_images = ["Big island", "Hut", "Lighthouse", "Sunken ship", "Whale", "Small island"]
-        for i in range(len(self.lm_images)):
-            self.lm_images[i] = "images/"+self.lm_images[i]+".png"
-        self.tr_images = ["Compass", "Diamond egg", "Goblet", "Coin", "Stack of coins", "Treasure chest"]
-        for i in range(len(self.tr_images)):
-            self.tr_images[i] = "images/"+self.tr_images[i]+".png"
+        
 
     def draw(self):
         """
@@ -91,7 +95,7 @@ class Interface:
     """
         Side panel and the treasure/wishlist display.
     """
-    def sidePanel(self, treasure_list = []):
+    def sidePanel(self, treasure_list = [(175,175,100), (175,175,100), (175,175,100), (175,175,100)]):
         trsr_padding = 0
         width = 150
 
@@ -115,26 +119,41 @@ class Interface:
         wishlst_txt = wishlst_txt, (self.__width-width + 90, 3)
         self.imager.append(trsr_txt)
         self.imager.append(wishlst_txt)
-
-        wish_count = 61
-        for i in self.wishlist:
-            if wish_count == 61:
-                wish_trsr = (i), (self.__width-width, 40, width, self.__height-600)
-            else:
-                wish_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
-            trsr_padding += 120
-            wish_count += 1
-            self.drawables[wish_count] = wish_trsr
         
         counter = 50
-        for i in self.treasure_list:
-            if counter == 50:
-                found_trsr = (i), (self.__width-width, 40, width, self.__height-600)
-            else:
-                found_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
-            trsr_padding += 120
-            counter += 1
-            self.drawables[counter] = found_trsr
+        index = 0
+        img_width = 90
+        img_height = 90
+
+##        wish_count = 61
+##        for i in self.wishlist:
+##            if wish_count == 61:
+##                wish_trsr = (i), (self.__width-width, 40, width, self.__height-600)
+##            else:
+##                wish_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
+##            trsr_padding += 120
+##            wish_count += 1
+##            self.drawables[wish_count] = wish_trsr
+##        
+        counter = 50
+        if self.TR_LIST == 70:
+            for i in treasure_list:
+                if counter == 50:
+                    found_trsr = (i), (self.__width-width, 40, width, self.__height-600)
+                    img = pygame.image.load(self.tr_images[index])
+                    img = pygame.transform.scale(img, (img_width, img_height))
+                    index += 1
+                    self.imager.append((img, (self.__width-width+40, 40)))
+                else:
+                    found_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
+                    img = pygame.image.load(self.tr_images[index])
+                    img = pygame.transform.scale(img, (img_width, img_height))
+                    index += 1
+                    self.imager.append((img, (self.__width-width+40, trsr_padding+50)))
+                trsr_padding += 120
+                counter += 1
+                self.drawables[counter] = found_trsr
+
 
     """
         Bottom panel and buttons.
