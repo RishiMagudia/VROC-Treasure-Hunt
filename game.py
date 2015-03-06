@@ -358,7 +358,7 @@ class Game:
             Timer()
 
             f = pygame.font.SysFont("monospace", 42)
-            t = f.render(str(round(count,2), 1, (255,255,255))
+            t = f.render(str(round(count,2)), 1, (255,255,255))
             self.screen.blit(t, (self.width-140, self.height-60))
 
             pygame.display.flip()
