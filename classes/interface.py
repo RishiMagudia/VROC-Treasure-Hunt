@@ -14,6 +14,8 @@ class Interface:
         self.tab_img = {}
         self.open_imager = []
 
+        tres_info = {'Goblet':'a drinking glass with a foot and a stem.','Coin':'Valuable round item','Compass':'Help to find your way','Diamond egg':'The best type of egg shiny!!','Stack of coins':'More Coins Yayy!!'}
+
         # SQL Library
         self.library = library.Library()
 
@@ -461,3 +463,4 @@ class Interface:
         text_box = (r,g,b), (x, y, w, h)
         self.drawables[11] = text_box
         self.TEXT_POS = x, y
+
