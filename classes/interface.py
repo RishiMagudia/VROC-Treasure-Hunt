@@ -438,8 +438,8 @@ class Interface:
         allowed = False
 
         # range in pixels where objects are allowed
-        height = range(0, self.__height-75)
-        width = range(0, self.__width-150)
+        height = range(0, self.__height-75-200)
+        width = range(0, self.__width-150-200)
 
         if grid:
             if o[0]*40 in width and o[1]*40 in height:

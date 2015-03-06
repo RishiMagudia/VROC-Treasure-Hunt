@@ -151,9 +151,6 @@ class Game:
                         else:
                             # combine letters into a word
                             if event.key == pygame.K_BACKSPACE:
-
-                                pygame.display.flip()
-                                self.interface.draw()
                                 word = word[:-1]
 
                                 if curr_tab is self.interface.TREASURES:
@@ -164,24 +161,22 @@ class Game:
                                     self.interface.open_landmarks()
                                 if curr_tab is self.interface.ROBOTS:
                                     self.interface.open_robot()
-                                self.interface.draw()
 
-                                t = self.font.render(word, 1, (0,0,0))
-                                self.screen.blit(t, self.interface.TEXT_POS)
                             if len(word) < 10 and event.key != pygame.K_BACKSPACE:
                                 word += chr(event.key)
+
                             else:
                                 break
 
-                            t = self.font.render(word, 1, (0,0,0))
-                            self.screen.blit(t, self.interface.TEXT_POS)
+                        t = self.font.render(word, 1, (0,0,0))
+                        self.screen.blit(t, self.interface.TEXT_POS)
 
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
 
                 pygame.display.flip()
-
+                self.interface.draw()
             self.screen.blit(self.wallpaper, (0,0))
             self.interface.draw()
             #get pygame events and do something
@@ -205,7 +200,7 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         print pos
-                        if self.interface.drawable_area(pos):
+                        if self.interface.drawable_area(pos) and (NAME and TYPE and IMAGE and POSITION) is not None:
                             self.interface.library.insert(NAME, TYPE, IMAGE, POSITION)
                             STORED = True
                     #placing landmarks
@@ -277,7 +272,7 @@ class Game:
 
             if selected_item != None and word != None:
                 self.screen.blit(selected_item[0], pos)
-                POSITION = "(%s, %s)" % (pos[0], pos[1])
+                POSITION = "%s %s" % (pos[0], pos[1])
 
             if self.interface.OPEN:
                 for i in self.interface.open_imager:
@@ -290,12 +285,12 @@ class Game:
                     if curr_tab is self.interface.ROBOTS:
                         self.screen.blit(i[0], i[1])
 
-            # if STORED == True:
-            #     for n,t,i,p  in self.interface.library.display():
-            #         print p
-            #         img = pygame.image.load(i)
-            #         img = pygame.transform.scale(img, (200, 200))
-            #         # self.screen.blit(img, p)
+            if STORED == True:
+                for n,t,i,p  in self.interface.library.display():
+                    p = str(p).split(" ")
+                    img = pygame.image.load(str(i))
+                    img = pygame.transform.scale(img, (200, 200))
+                    self.screen.blit(img, (int(p[0]), int(p[1])))
 
             f = pygame.font.SysFont("monospace", 42)
             t = f.render("00:00", 1, (255,255,255))
