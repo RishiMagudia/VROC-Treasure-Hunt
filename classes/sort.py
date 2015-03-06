@@ -196,10 +196,16 @@ class Sort:
 
     def shellSort(self,lst):
         count = len(lst)//2
+        animation = []
         while count > 0:
             for posStart in range(count):
-                insertGap(lst,posStart,count)
+                self.insertGap(lst,posStart,count)
+                r = []
+                for i in lst:
+                    r.append(i)
+                animation.append(r)
             count = count //2
+        return animation
 
 
     def insertGap(self,lst,start,gap):
