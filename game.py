@@ -1,4 +1,4 @@
-import pygame, random, time
+import pygame, time
 
 #import team's objects
 import classes as c
@@ -117,14 +117,17 @@ class Game:
         st = time.time()
         paused = False
         typing = False
-        word = ""
+        word = None
         curr_tab = None
         objects = []
         selected_item = None
 
-        self.landmark.setImage("images/Coin.png")
-        self.landmark.setSize(3)
-        self.landmark.setPosition((0,0))
+        NAME = None
+        TYPE = None
+        IMAGE = None
+        POSITION = None
+
+        STORED = False
 
         while 1:
             pos = pygame.mouse.get_pos()
@@ -142,10 +145,7 @@ class Game:
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_RETURN:
-                            self.interface.landmarks()
-                            self.interface.traps()
-                            self.interface.treasures()
-                            self.interface.robots()
+                            NAME = word
                             typing = False
                             break
                         else:
@@ -205,19 +205,34 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         print pos
+                        if self.interface.drawable_area(pos):
+                            self.interface.library.insert(NAME, TYPE, IMAGE, POSITION)
+                            STORED = True
                     #placing landmarks
                     #checking if buttons are pressed
 
                     if self.interface.OPEN:
                         for i in self.interface.placeables:
                             if self.interface.placeables[i].collidepoint(pos):
-                                selected_item = self.interface.open_imager[i-20]
+                                try:
+                                    selected_item = self.interface.open_imager[i-20]
+                                    if TYPE == self.interface.TREASURES:
+                                        IMAGE = self.interface.tr_images[i-20]
+                                    if TYPE == self.interface.LANDMARKS:
+                                        IMAGE = self.interface.lm_images[i-20]
+                                except:
+                                    selected_item = self.interface.open_imager[i-30]
+                                    if TYPE == self.interface.TREASURES:
+                                        IMAGE = self.interface.tr_images[i-30]
+                                    if TYPE == self.interface.LANDMARKS:
+                                        IMAGE = self.interface.lm_images[i-30]
 
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
                             print self.interface.clickables[i], i
-                            if i is not self.interface.TEXT:
+                            if i is not (self.interface.TEXT and self.interface.START and self.interface.STOP and self.interface.RESET):
                                 curr_tab = i
+                                TYPE = i
                             if self.interface.OPEN:
                                 self.interface.open_imager = []
                                 self.interface.landmarks()
@@ -260,10 +275,9 @@ class Game:
                 ycood = 0
                 pygame.draw.rect(self.screen,(0,255,0),(40*xcood,40*ycood,40,40),3)
 
-            self.screen.blit(self.landmark.getImage(), self.landmark.getPosition())
-
-            if selected_item != None:
+            if selected_item != None and word != None:
                 self.screen.blit(selected_item[0], pos)
+                POSITION = "(%s, %s)" % (pos[0], pos[1])
 
             if self.interface.OPEN:
                 for i in self.interface.open_imager:
@@ -276,8 +290,12 @@ class Game:
                     if curr_tab is self.interface.ROBOTS:
                         self.screen.blit(i[0], i[1])
 
-            # example of allowed locations for objects checking.
-            # print self.interface.drawable_area((2, 2))
+            # if STORED == True:
+            #     for n,t,i,p  in self.interface.library.display():
+            #         print p
+            #         img = pygame.image.load(i)
+            #         img = pygame.transform.scale(img, (200, 200))
+            #         # self.screen.blit(img, p)
 
             f = pygame.font.SysFont("monospace", 42)
             t = f.render("00:00", 1, (255,255,255))

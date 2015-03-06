@@ -1,4 +1,4 @@
-import pygame
+import pygame, library
 
 class Interface:
 
@@ -13,6 +13,9 @@ class Interface:
         self.imager = []
         self.tab_img = {}
         self.open_imager = []
+
+        # SQL Library
+        self.library = library.Library()
 
         self.btn_heights = 65
         self.btn_padding = 10

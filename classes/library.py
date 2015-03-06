@@ -1,8 +1,3 @@
-from landmark import Landmark
-from treasure import Treasure
-from trafficLights import trafficLights
-from robot import robot
-
 import sqlite3, sys
 
 class Library:
@@ -21,7 +16,6 @@ class Library:
             self.cursor.execute('''CREATE TABLE data
                                     (name TEXT,
                                      type TEXT,
-                                     size INT,
                                      image TEXT,
                                      position TEXT)
                                 ''')
@@ -45,9 +39,9 @@ class Library:
         if self.connection:
                 self.connection.close()
 
-    def insert(self, name, t, size, image, position):
+    def insert(self, name, t, image, position):
         self.open()
-        self.cursor.execute("INSERT INTO data VALUES (?, ?, ?, ?, ?)", (name, t, size, image, position))
+        self.cursor.execute("INSERT INTO data VALUES (?, ?, ?, ?)", (name, t, image, position))
         self.connection.commit()
         self.close()
 
@@ -66,5 +60,11 @@ class Library:
     def select(self, i, x):
         self.open()
         r = self.cursor.execute("SELECT * FROM data WHERE %s='%s'" % (i ,x))
+        return r.fetchall()
+        self.close()
+
+    def display(self):
+        self.open()
+        r = self.cursor.execute("SELECT * FROM data")
         return r.fetchall()
         self.close()
