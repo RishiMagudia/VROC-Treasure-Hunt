@@ -1,4 +1,4 @@
-import sqlite3, sys
+import sqlite3, sys, os
 
 class Library:
 
@@ -9,6 +9,8 @@ class Library:
         self.connection = None
         self.cursor = None
         self.db = "data.sqlite"
+        if os.path.exists(self.db):
+            os.remove(self.db)
         try:
             self.connection = sqlite3.connect(self.db)
             self.cursor = self.connection.cursor()

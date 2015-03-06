@@ -165,18 +165,27 @@ class Game:
                             if len(word) < 10 and event.key != pygame.K_BACKSPACE:
                                 word += chr(event.key)
 
+                                if curr_tab is self.interface.TREASURES:
+                                    self.interface.open_treasures()
+                                if curr_tab is self.interface.TRAPS:
+                                    self.interface.open_traps()
+                                if curr_tab is self.interface.LANDMARKS:
+                                    self.interface.open_landmarks()
+                                if curr_tab is self.interface.ROBOTS:
+                                    self.interface.open_robot()
                             else:
                                 break
-
-                        t = self.font.render(word, 1, (0,0,0))
-                        self.screen.blit(t, self.interface.TEXT_POS)
 
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         break
-
-                pygame.display.flip()
-                self.interface.draw()
+                if typing == True:
+                    t = self.font.render(word, 1, (0,0,0))
+                    self.screen.blit(t, self.interface.TEXT_POS)
+                    pygame.display.flip()
+                    self.interface.draw()
+                else:
+                    break
             self.screen.blit(self.wallpaper, (0,0))
             self.interface.draw()
             #get pygame events and do something
@@ -203,6 +212,14 @@ class Game:
                         if self.interface.drawable_area(pos) and (NAME and TYPE and IMAGE and POSITION) is not None:
                             self.interface.library.insert(NAME, TYPE, IMAGE, POSITION)
                             STORED = True
+                            selected_item = None
+                            curr_tab = None
+                            self.interface.open_imager = []
+                            self.interface.landmarks()
+                            self.interface.traps()
+                            self.interface.treasures()
+                            self.interface.robots()
+                            pygame.display.flip()
                     #placing landmarks
                     #checking if buttons are pressed
 
@@ -225,7 +242,8 @@ class Game:
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
                             print self.interface.clickables[i], i
-                            if i is not (self.interface.TEXT and self.interface.START and self.interface.STOP and self.interface.RESET):
+                            if i is not self.interface.TEXT and i is not self.interface.START \
+                                    and i is not self.interface.STOP and i is not self.interface.RESET:
                                 curr_tab = i
                                 TYPE = i
                             if self.interface.OPEN:
