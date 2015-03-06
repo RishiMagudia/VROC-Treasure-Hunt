@@ -331,9 +331,34 @@ class Game:
                     self.screen.blit(img, (int(p[0])-100, int(p[1])-100))
             except:
                 pass
+            
+             if STORED == True:
+                for n,t,i,p  in self.interface.library.display():
+                    p = str(p).split(" ")
+                    img = pygame.image.load(str(i))
+                    img = pygame.transform.scale(img, (200, 200))
+                    self.screen.blit(img, (int(p[0]), int(p[1])))
+
+        
+            def Timer():
+
+                global count
+                global start_time
+                    
+                if self.TIMER == 1:
+                    count = time.time() - start_time
+                    if round(count,2) > 30:
+                        return "run out"
+
+                if self.TIMER == 2:
+                    count = 0.0
+                    start_time = time.time()
+
+            
+            Timer()
 
             f = pygame.font.SysFont("monospace", 42)
-            t = f.render("00:00", 1, (255,255,255))
+            t = f.render(str(round(count,2), 1, (255,255,255))
             self.screen.blit(t, (self.width-140, self.height-60))
 
             pygame.display.flip()
