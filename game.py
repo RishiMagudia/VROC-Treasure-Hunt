@@ -121,6 +121,10 @@ class Game:
         curr_tab = None
         objects = []
         selected_item = None
+        ItemsSelected = []
+
+
+        
 
         self.landmark.setImage("images/Coin.png")
         self.landmark.setSize(3)
@@ -205,6 +209,12 @@ class Game:
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         print pos
+                    for item in ItemsSelected:
+                        if (pos[0]>=(item.pos[0]-item.size) and 
+                        pos[0]<=(item.pos[0]+item.size) and 
+                        pos[1]>=(item.pos[1]-item.size) and 
+                        pos[1]<=(item.pos[1]+item.size) ): # inside the bounding box
+                                selected_item=item # "pick up" item
                     #placing landmarks
                     #checking if buttons are pressed
 
@@ -212,6 +222,7 @@ class Game:
                         for i in self.interface.placeables:
                             if self.interface.placeables[i].collidepoint(pos):
                                 selected_item = self.interface.open_imager[i-20]
+                                ItemsSelected.append(selected_item)
 
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
