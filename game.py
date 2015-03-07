@@ -170,7 +170,10 @@ class Game:
                                     self.interface.open_robot()
 
                             if len(word) < 10 and event.key != pygame.K_BACKSPACE:
-                                word += chr(event.key)
+                                try:
+                                    word += chr(event.key)
+                                except:
+                                    pass
 
                                 if curr_tab is self.interface.TREASURES:
                                     self.interface.open_treasures()
