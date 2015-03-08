@@ -211,7 +211,6 @@ class Game:
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                         break
-                    print chr(event.key)
                     #P button checked for pausing
                     if event.key == pygame.K_p and typing is False:
                             paused = True
@@ -240,18 +239,22 @@ class Game:
                     if self.interface.OPEN:
                         for i in self.interface.placeables:
                             if self.interface.placeables[i].collidepoint(pos):
-                                try:
-                                    selected_item = self.interface.open_imager[i-20]
-                                    if TYPE == self.interface.TREASURES:
-                                        IMAGE = self.interface.tr_images[i-20]
-                                    if TYPE == self.interface.LANDMARKS:
-                                        IMAGE = self.interface.lm_images[i-20]
-                                except:
-                                    selected_item = self.interface.open_imager[i-30]
-                                    if TYPE == self.interface.TREASURES:
-                                        IMAGE = self.interface.tr_images[i-30]
-                                    if TYPE == self.interface.LANDMARKS:
-                                        IMAGE = self.interface.lm_images[i-30]
+                                if curr_tab == self.interface.ROBOTS:
+                                    selected_item = self.interface.open_imager[0]
+                                    IMAGE = self.interface.ro_images[0]
+                                else:
+                                    try:
+                                        selected_item = self.interface.open_imager[i-20]
+                                        if TYPE == self.interface.TREASURES:
+                                            IMAGE = self.interface.tr_images[i-20]
+                                        if TYPE == self.interface.LANDMARKS:
+                                            IMAGE = self.interface.lm_images[i-20]
+                                    except:
+                                        selected_item = self.interface.open_imager[i-30]
+                                        if TYPE == self.interface.TREASURES:
+                                            IMAGE = self.interface.tr_images[i-30]
+                                        if TYPE == self.interface.LANDMARKS:
+                                            IMAGE = self.interface.lm_images[i-30]
 
                     for i in self.interface.clickables:
                         if self.interface.clickables[i].collidepoint(pos):
@@ -328,13 +331,16 @@ class Game:
                     if curr_tab is self.interface.ROBOTS:
                         self.screen.blit(i[0], i[1])
             try:
-                for n,t,i,p  in self.interface.library.display():
+                for n,t,i,p,o  in self.interface.library.display():
+                    print o
                     p = str(p).split(" ")
                     img = pygame.image.load(str(i))
                     print t
+                    if int(t) == self.interface.ROBOTS:
+                        w, h = 75, 75
                     if int(t) == self.interface.TREASURES:
                         w, h = 50, 50
-                    else:
+                    if int(t) == self.interface.LANDMARKS:
                         w, h = 200, 200
                     img = pygame.transform.scale(img, (w, h))
                     self.screen.blit(img, (int(p[0])-100, int(p[1])-100))

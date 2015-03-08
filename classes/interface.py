@@ -46,13 +46,18 @@ class Interface:
         self.START = 3
         self.RESET = 4
         self.STOP = 5
-        
+
+        # list of images available by title
         self.lm_images = ["Big island", "Hut", "Lighthouse", "Sunken ship", "Whale", "Small island"]
-        for i in range(len(self.lm_images)):
-            self.lm_images[i] = "images/"+self.lm_images[i]+".png"
         self.tr_images = ["Compass", "Diamond egg", "Goblet", "Coin", "Stack of coins", "Treasure chest"]
-        for i in range(len(self.tr_images)):
-            self.tr_images[i] = "images/"+self.tr_images[i]+".png"
+        self.ro_images = ["pirate"]
+
+        # correct the names, to actual file names.
+        self.png = [self.lm_images, self.tr_images, self.ro_images]
+        for i in self.png:
+            for j in range(len(i)):
+                i[j] = "images/"+i[j]+".png"
+
         self.sidePanel()
         
         # Bottom panel and buttons.
@@ -247,55 +252,42 @@ class Interface:
         self.OPEN = False
 
         try:
-            del self.drawables[100]
+            del self.drawables[11]
             self.open_imager = []
         except:
             pass
 
         self.tab_img = {}
 
-    def open_landmarks(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
+    def open_landmarks(self, treasure_list = [(0,)*3,]*6):
         """
         Landmarks holder.
         :return:
         """
         width = 185
         height = 250
-        block_width = 50
-        block_height = 50
+        block = 50, 50
         x = width*2+42
         y = self.__height-self.btn_heights-height+100
-        double = 0
         c = 20
 
         landmarks = (100,130,130), (width*2+35, self.__height-self.btn_heights-height, width, self.__height)
         self.drawables[6] = landmarks
         self.OPEN = True
 
-        self.text_box((240,240,240), (width*2+35, self.__height-self.btn_heights-height+10, width, 50))
-
-        index = 0
-        for i in treasure_list:
-            if double != 3:
-                double += 1
-                bot_panel_btn = (i), (x, y, block_width, block_height)
-                img = pygame.image.load(self.lm_images[index])
-                img = pygame.transform.scale(img, (block_width, block_height))
-                self.open_imager.append((img, (x, y)))
-                index += 1
-                x += 60
-                self.tab_img[c] = bot_panel_btn
-                c += 1
-            if double == 3 and treasure_list[-1] != i:
-                y += 60
+        for i in range(len(treasure_list)):
+            bot_panel_btn = treasure_list[i], (x, y, block[0], block[1])
+            img = pygame.image.load(self.lm_images[i])
+            img = pygame.transform.scale(img, block)
+            self.open_imager.append((img, (x, y)))
+            c += 1
+            self.tab_img[c] = bot_panel_btn
+            x += 60
+            if i == 2:
                 x = width*2+42
-                double = 0
-                bot_panel_btn = (i), (x, y, block_width, block_height)
-                img = pygame.image.load(self.lm_images[index])
-                img = pygame.transform.scale(img, (block_width, block_height))
-                self.open_imager.append((img, (x, y)))
-                self.tab_img[c] = bot_panel_btn
+                y = self.__height-self.btn_heights-height+160
 
+        self.text_box((240,240,240), (width*2+35, self.__height-self.btn_heights-height+10, width, 50))
 
     def treasures(self):
         """
@@ -326,18 +318,16 @@ class Interface:
 
         self.tab_img = {}
 
-    def open_treasures(self, treasure_list = [(0,30,255), (0,0,0), (0,255,255), (0,30,155), (0,100,0), (255,100,255)]):
+    def open_treasures(self, treasure_list = [(0,)*3,]*6):
         """
         Treasures holder.
         :return:
         """
         width = 185
         height = 250
-        block_width = 50
-        block_height = 50
+        block = 50, 50
         x = width*3+52
         y = self.__height-self.btn_heights-height+100
-        double = 0
         c = 30
 
         treasures = (100,130,130), (width*3+45, self.__height-self.btn_heights-height, width, self.__height)
@@ -345,27 +335,17 @@ class Interface:
         self.OPEN = True
 
         self.text_box((240,240,240), (width*3+45, self.__height-self.btn_heights-height+10, width, 50))
-        index = 0
-        for i in treasure_list:
-            if double != 3:
-                double += 1
-                bot_panel_btn = (i), (x, y, block_width, block_height)
-                img = pygame.image.load(self.tr_images[index])
-                img = pygame.transform.scale(img, (block_width, block_height))
-                self.open_imager.append((img, (x, y)))
-                index += 1
-                x += 60
-                self.tab_img[c] = bot_panel_btn
-                c += 1
-            if double == 3 and treasure_list[-1] != i:
-                y += 60
+        for i in range(len(treasure_list)):
+            bot_panel_btn = treasure_list[i], (x, y, block[0], block[1])
+            img = pygame.image.load(self.tr_images[i])
+            img = pygame.transform.scale(img, block)
+            self.open_imager.append((img, (x, y)))
+            c += 1
+            self.tab_img[c] = bot_panel_btn
+            x += 60
+            if i == 2:
                 x = width*3+52
-                double = 0
-                bot_panel_btn = (i), (x, y, block_width, block_height)
-                img = pygame.image.load(self.tr_images[index])
-                img = pygame.transform.scale(img, (block_width, block_height))
-                self.open_imager.append((img, (x, y)))
-                self.tab_img[c] = bot_panel_btn
+                y = self.__height-self.btn_heights-height+160
 
     def traps(self):
         """
@@ -468,6 +448,13 @@ class Interface:
         self.OPEN = True
 
         self.text_box((240,240,240), (1000, self.__height-self.btn_heights-height+10, width, 50))
+
+
+        bot_panel_btn = (0,0,0), (1000, self.__height-self.btn_heights-height+100, 100, 100)
+        img = pygame.image.load(self.ro_images[0])
+        img = pygame.transform.scale(img, (100, 100))
+        self.open_imager.append((img, (1000, self.__height-self.btn_heights-height+100)))
+        self.tab_img[12] = bot_panel_btn
 
     def timer(self):
         """
