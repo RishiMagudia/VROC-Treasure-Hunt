@@ -21,8 +21,8 @@ class AStar(object):
         heapq.heapify(self.opened)
         self.closed = set()
         self.nodes = []
-        self.grid_height = 18 
-        self.grid_width = 32
+        self.grid_height = 17
+        self.grid_width = 29
         self.path = []
 
     def init_grid(self,startx,starty,endx,endy,land):

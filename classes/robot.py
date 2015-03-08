@@ -8,11 +8,23 @@ class robot(Base):
         self.velocity = 20
         self.hasReachedDestination = True
         self.endPosition = None
+        self.path = []
+        self.counter = 0
 
     def getVelocity(self):
         return self.velocity
     def setVelocity(self,velocity):
         self.velocity = velocity
+
+    def getCounter(self):
+        return self.counter
+    def setCounter(self,x):
+        self.counter = x
+
+    def getPath(self):
+        return self.path
+    def setPath(self,Path):
+        self.path = Path
 
     def getHasReachedDestination(self):
         return self.hasReachedDestination

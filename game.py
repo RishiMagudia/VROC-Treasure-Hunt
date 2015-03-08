@@ -308,8 +308,8 @@ class Game:
             #self.screen.blit(self.wallpaper, (0,0))
 
             if ENABLE_GRID == True:
-                for x in range(0,32):
-                    for y in range(0,18):
+                for x in range(0,28):
+                    for y in range(0,16):
                         pygame.draw.rect(self.screen,(0,0,0),(40*x,40*y,40,40),3)
 
                 #highlighting a specific square
@@ -333,11 +333,8 @@ class Game:
                         self.screen.blit(i[0], i[1])
             try:
                 for n,t,i,p,o  in self.interface.library.display():
-                    print o
                     p = str(p).split(" ")
                     img = pygame.image.load(str(i))
-                    print t
-                    w, h = None
                     if int(t) == self.interface.ROBOTS:
                         w, h = 75, 75
                     if int(t) == self.interface.TREASURES:
@@ -348,7 +345,28 @@ class Game:
                     self.screen.blit(img, (int(p[0])-100, int(p[1])-100))
 
                     if int(t) == self.interface.ROBOTS:
-                        print "ROBOT"
+                        if self.pirate.hasReachedDestination == True:
+                            self.pirate.setHasReachedDestination(False)
+                            nearestTreasure = ((320,560))
+                            self.AStar.init_grid(nearestTreasure[0]//40,nearestTreasure[1]//40,self.pirate.getGridPos()[0],self.pirate.getGridPos()[1],self.walls)
+                            self.AStar.algorithm()
+                            self.pirate.setPath(self.AStar.getPath())
+                            print self.pirate.getPath()
+                        else:
+                            try:
+                                self.pirate.setPosition((self.pirate.getPath()[self.pirate.getCounter()],self.pirate.getPath()[self.pirate.getCounter()+1]))
+                                #self.interface.library.update_position(n,str(self.pirate.getPosition()))
+                                self.pirate.setCounter((self.pirate.getCounter()+2))
+                                print self.pirate.getPosition()
+                            except IndexError:
+                                self.pirate.setPosition((nearestTreasure[0],nearestTreasure[1]))
+                                self.visited.append(nearestTreasure)
+                                self.interface.SIDE_LIST.append(i)
+                                self.pirate.setHasReachedDestination(True)
+
+
+
+
                         # implement robot movement here.
                         # use p for position
                         # use self.interface.library.
@@ -357,6 +375,7 @@ class Game:
                         # self.interface.SIDE_LIST
             except:
                 pass
+
 
             f = pygame.font.SysFont("monospace", 42)
             t = f.render("00:00", 1, (255,255,255))
@@ -367,6 +386,6 @@ class Game:
 
 if __name__ == "__main__":
     window = Game()
-    window.playIntro()
+    #window.playIntro()
     window.setup()
     window.loop()
