@@ -16,6 +16,9 @@ class Interface:
         self.tab_img = {}
         self.open_imager = []
 
+        # self.SIDE_LIST = ["images/pirate.png"]
+        self.SIDE_LIST = []
+
         # tres_info = {'Goblet':'a drinking glass with a foot and a stem.','Coin':'Valuable round item','Compass':'Help to find your way','Diamond egg':'The best type of egg shiny!!','Stack of coins':'More Coins Yayy!!'}
 
         # SQL Library
@@ -100,8 +103,7 @@ class Interface:
     """
         Side panel and the treasure/wishlist display.
     """
-    def sidePanel(self, treasure_list = [(175,175,100), (175,175,100), (175,175,100), (175,175,100)]):
-        trsr_padding = 0
+    def sidePanel(self):
         width = 150
 
         side_panel = (175,175,175), (self.__width-width, 30, width, self.__height-85)
@@ -124,40 +126,22 @@ class Interface:
         wishlst_txt = wishlst_txt, (self.__width-width + 90, 3)
         self.imager.append(trsr_txt)
         self.imager.append(wishlst_txt)
-        
-        counter = 50
-        index = 0
-        img_width = 90
-        img_height = 90
+        try:
+            x = self.__width-width
+            y = 30
+            index = 90
+            block = 100, 100
+            for i in range(5):
+                panel = (220, 0, 0), (x+33, y+17, block[0], block[1])
+                img = pygame.image.load(self.SIDE_LIST[i])
+                img = pygame.transform.scale(img, block)
+                self.imager.append((img, (x+33, y+17)))
+                index += 1
+                self.tab_img[index] = panel
+                y += 120
+        except:
+            pass
 
-##        wish_count = 61
-##        for i in self.wishlist:
-##            if wish_count == 61:
-##                wish_trsr = (i), (self.__width-width, 40, width, self.__height-600)
-##            else:
-##                wish_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
-##            trsr_padding += 120
-##            wish_count += 1
-##            self.drawables[wish_count] = wish_trsr
-##        
-        counter = 50
-        if self.TR_LIST == 70:
-            for i in treasure_list:
-                if counter == 50:
-                    found_trsr = (i), (self.__width-width, 40, width, self.__height-600)
-                    img = pygame.image.load(self.tr_images[index])
-                    img = pygame.transform.scale(img, (img_width, img_height))
-                    index += 1
-                    self.imager.append((img, (self.__width-width+40, 40)))
-                else:
-                    found_trsr = (i), (self.__width-width, trsr_padding+50, width, self.__height-610)
-                    img = pygame.image.load(self.tr_images[index])
-                    img = pygame.transform.scale(img, (img_width, img_height))
-                    index += 1
-                    self.imager.append((img, (self.__width-width+40, trsr_padding+50)))
-                trsr_padding += 120
-                counter += 1
-                self.drawables[counter] = found_trsr
 
 
     """

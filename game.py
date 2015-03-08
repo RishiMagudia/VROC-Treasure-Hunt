@@ -233,6 +233,7 @@ class Game:
                             POSITION = None
                             selected_item = None
                             curr_tab = None
+                            word = None
                     #placing landmarks
                     #checking if buttons are pressed
 
@@ -336,6 +337,7 @@ class Game:
                     p = str(p).split(" ")
                     img = pygame.image.load(str(i))
                     print t
+                    w, h = None
                     if int(t) == self.interface.ROBOTS:
                         w, h = 75, 75
                     if int(t) == self.interface.TREASURES:
@@ -344,6 +346,15 @@ class Game:
                         w, h = 200, 200
                     img = pygame.transform.scale(img, (w, h))
                     self.screen.blit(img, (int(p[0])-100, int(p[1])-100))
+
+                    if int(t) == self.interface.ROBOTS:
+                        print "ROBOT"
+                        # implement robot movement here.
+                        # use p for position
+                        # use self.interface.library.
+                        # self.interface.library.update_position(n, str(x,y))
+                        # when the robot is gets a treasure, append the image( which is "i") to
+                        # self.interface.SIDE_LIST
             except:
                 pass
 
