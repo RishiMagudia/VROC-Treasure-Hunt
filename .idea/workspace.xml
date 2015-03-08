@@ -26,7 +26,7 @@
       <file leaf-file-name="game.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="349" column="55" selection-start="14603" selection-end="14603" vertical-scroll-proportion="0.5363129" vertical-offset="5549" max-vertical-offset="6749">
+            <state line="376" column="23" selection-start="16452" selection-end="16452" vertical-scroll-proportion="1.0474861" vertical-offset="5642" max-vertical-offset="6953">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="robot.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="24" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1343">
+            <state line="34" column="29" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="1360">
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -57,11 +57,9 @@
       <file leaf-file-name="library.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/library.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="117" column="0" selection-start="3237" selection-end="3237" vertical-scroll-proportion="0.0" vertical-offset="763" max-vertical-offset="1479">
+            <state line="117" column="0" selection-start="3237" selection-end="3237" vertical-scroll-proportion="0.0" vertical-offset="253" max-vertical-offset="1479">
               <folding>
                 <element signature="e#158#1138#0" expanded="false" />
-                <marker date="1425846072146" expanded="true" signature="124:3236" placeholder="..." />
-                <marker date="1425846072146" expanded="true" signature="3010:3236" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -626,17 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/library.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="0" selection-start="3237" selection-end="3237" vertical-scroll-proportion="0.0" vertical-offset="763" max-vertical-offset="1479">
-          <folding>
-            <element signature="e#158#1138#0" expanded="false" />
-            <marker date="1425846072146" expanded="true" signature="124:3236" placeholder="..." />
-            <marker date="1425846072146" expanded="true" signature="3010:3236" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/interface.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="95" column="22" selection-start="2715" selection-end="2715" vertical-scroll-proportion="0.0" vertical-offset="1343" max-vertical-offset="7684">
@@ -646,9 +633,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/classes/library.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="0" selection-start="3237" selection-end="3237" vertical-scroll-proportion="0.0" vertical-offset="763" max-vertical-offset="1479">
+          <folding>
+            <element signature="e#158#1138#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classes/robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="24" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343">
+        <state line="34" column="29" selection-start="919" selection-end="919" vertical-scroll-proportion="0.0" vertical-offset="83" max-vertical-offset="1360">
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -657,7 +653,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="349" column="55" selection-start="14603" selection-end="14603" vertical-scroll-proportion="0.5363129" vertical-offset="5549" max-vertical-offset="6749">
+        <state line="376" column="23" selection-start="16452" selection-end="16452" vertical-scroll-proportion="1.0474861" vertical-offset="5642" max-vertical-offset="6953">
           <folding />
         </state>
       </provider>
