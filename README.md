@@ -5,6 +5,8 @@ The following project is set up for Project 2 - Virtual Robot Obstacle Course: T
 The robot(s) traverse a path to find the treasures hidden in various landmarks across the map.
 All while avoiding empty landmarks, stopping and waiting at traffic lights.
 
+The user is able to select and define various objects and place them on the arena.
+
 # REQUIREMENTS! #
 - PyGame library. Instructions on how to acquire PyGame per OS can be found on the link below.
 - http://www.pygame.org/download.shtml
