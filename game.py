@@ -121,6 +121,7 @@ class Game:
         """
             infinite loop to keep the images updating and moving
         """
+        init_pirate = False
         st = time.time()
         paused = False
         typing = False
@@ -129,6 +130,7 @@ class Game:
         objects = []
         selected_item = None
 
+        self.pirate.listOfTreasures = []
         NAME = None
         TYPE = None
         IMAGE = None
@@ -331,16 +333,19 @@ class Game:
                         self.screen.blit(i[0], i[1])
                     if curr_tab is self.interface.ROBOTS:
                         self.screen.blit(i[0], i[1])
-            '''
+
             try:
-                self.pirate.listOfTreasures = []
-                for n,t,i,p,o  in self.interface.library.display():
-                    p = str(p).split(" ")
+                for n,t,i,P,o  in self.interface.library.display():
+                    p = str(P).split(" ")
                     img = pygame.image.load(str(i))
                     if int(t) == self.interface.ROBOTS:
+                        print 'hello', n,t,i,p[0], p[1],o
                         w, h = 75, 75
-                        #self.pirate.setPosition(int(p))
-                        #print self.pirate.getPosition()
+                        if init_pirate == False:
+                            self.pirate.setPosition((int(p[0])/40,int(p[1])/40))
+                            init_pirate = True
+                        # self.pirate.setImage(img)
+                        # self.pirate.setSize(1)
                     if int(t) == self.interface.TREASURES:
                         w, h = 50, 50
                         self.pirate.listOfTreasures.append(p)
@@ -348,43 +353,42 @@ class Game:
                         w, h = 200, 200
                         self.pirate.listOfTreasures.append(p)
                     img = pygame.transform.scale(img, (w, h))
-                    self.screen.blit(img, (int(p[0])-100, int(p[1])-100))
+                    self.screen.blit(img, (int(p[0])-w, int(p[1])-h))
 
                     if int(t) == self.interface.ROBOTS:
-                        if self.pirate.hasReachedDestination == True:
-                            self.pirate.setHasReachedDestination(False)
-                            #self.pirate.setPosition((int(p[0]),int(p[1])))
-                            #self.pirate.listOfTreasures = self.pirate.listOfTreasures.difference(self.visited)
-                            nearestTreasure = ((320,560)) #Exclude those in visited
+                        if self.pirate.hasReachedDestination == False:
+                            self.pirate.setHasReachedDestination(True)
+                            self.pirate.setPosition((int(p[0]),int(p[1])))
+                            self.pirate.listOfTreasures = self.pirate.listOfTreasures.difference(self.visited)
+                            nearestTreasure = (320,560) #Exclude those in visited
                             print 'test'
-                            self.AStar.init_grid(nearestTreasure[0]//40,nearestTreasure[1]//40,1,1,self.walls) #self.pirate.getGridPos()[1]
+                            self.AStar.init_grid(nearestTreasure[0]/40,nearestTreasure[1]/40,1,1,self.walls) #self.pirate.getGridPos()[1]
                             self.AStar.algorithm()
                             self.pirate.setPath(self.AStar.getPath())
                             print self.pirate.getPath()
                         else:
                             try:
                                 self.pirate.setPosition((self.pirate.getPath()[self.pirate.getCounter()],self.pirate.getPath()[self.pirate.getCounter()+1]))
-                                self.interface.library.update_position(t,str(self.pirate.getPosition()))
+                                self.interface.library.update_position(n, "%s %s" % (self.pirate.getPosition()[0], self.pirate.getPosition()[1]))
                                 self.pirate.setCounter((self.pirate.getCounter()+2))
                                 print self.pirate.getPosition()
                             except IndexError:
                                 self.pirate.setPosition((nearestTreasure[0],nearestTreasure[1]))
                                 self.visited.append(nearestTreasure)
-                                self.visited.append(nearestTreasure)
                                 self.interface.SIDE_LIST.append(i)
                                 self.pirate.setHasReachedDestination(True)
                                 print 'completed'
-                    '''
 
 
 
 
-                        # implement robot movement here.
-                        # use p for position
-                        # use self.interface.library.
-                        # self.interface.library.update_position(n, str(x,y))
-                        # when the robot is gets a treasure, append the image( which is "i") to
-                        # self.interface.SIDE_LIST
+
+                    #     # implement robot movement here.
+                    #     # use p for position
+                    #     # use self.interface.library.
+                    #     # self.interface.library.update_position(n, str(x,y))
+                    #     # when the robot is gets a treasure, append the image( which is "i") to
+                    #     # self.interface.SIDE_LIST
             except:
                 pass
 

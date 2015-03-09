@@ -102,7 +102,7 @@ class Library:
         """
         self.open()
         # select the entity from the db
-        r = self.cursor.execute("SELECT * FROM data WHERE %s='%s'" % (i ,x))
+        r = self.cursor.execute("SELECT * FROM data WHERE %s='%s'" % (i, x))
         return r.fetchall()
         self.close()
 
